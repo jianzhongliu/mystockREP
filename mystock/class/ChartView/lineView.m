@@ -263,7 +263,7 @@
     getdata.kCount = self.kCount;
     getdata.req_type = self.req_type;
     
-    getdata = [getdata initWithUrl:[self changeUrl]];
+    getdata = [getdata initWithUrl:[self changeUrl] fresh:NO];
     getdata.todayStock = self.dicStock;
     self.data = getdata.data;
     self.category = getdata.category;
@@ -567,7 +567,6 @@
         
     }
     NSLog(@"处理完成");
-    
     return tempArray;
 }
 

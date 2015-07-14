@@ -63,7 +63,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
     
     [_sTableView registerClass:[SuggestTableViewCell class] forCellReuseIdentifier:SuggestCellReuseIdentifier];
     
-    [self request_suggest_list];
+    [self request_suggest_list:NO];
 }
 
 #pragma mark - Custom Method
@@ -76,7 +76,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
 }
 
 - (void)request_suggest_list:(BOOL) isRefresh{
-    if (isRefresh == YES) {
+    if (isRefresh == NO) {
         NSArray *lines = (NSArray*)[commond getUserDefaults:@"recommendList"];
         if (lines.count > 0) {
             [self.suggestArray removeAllObjects];
@@ -101,7 +101,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
         for (NSDictionary *dic in self.suggestArray) {
             getData *data = [[getData alloc] init];
             NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", [dic objectForKey:@"innercode"]];
-            data = [data initWithUrl:url];
+            data = [data initWithUrl:url fresh:YES];
         }
         
         [_sTableView reloadData];

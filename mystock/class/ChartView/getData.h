@@ -22,6 +22,7 @@
 @property (nonatomic,assign) NSInteger kCount;
 @property (nonatomic,retain) NSString *req_type;
 @property (nonatomic,retain) NSDictionary *todayStock;
--(id)initWithUrl:(NSString*)url;
+
+-(id)initWithUrl:(NSString*)url fresh:(BOOL) isRefresh;
 
 @end

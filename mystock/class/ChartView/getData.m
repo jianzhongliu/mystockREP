@@ -25,16 +25,17 @@
     return  self;
 }
 
--(id)initWithUrl:(NSString*)url{
+-(id)initWithUrl:(NSString*)url fresh:(BOOL) isRefresh{
     if (self){
         // 取缓存的每天数据
         NSArray *tempArray = (NSArray*)[commond getUserDefaults:@"daydatas"];
         if (tempArray.count>0) {
             self.dayDatas = tempArray;
         }
+
         NSArray *lines = (NSArray*)[commond getUserDefaults:[commond md5HexDigest:url]];
         
-        if (lines.count>0) {
+        if (isRefresh == NO && lines.count>0) {
             [self changeData:lines];
         }else{
             NSLog(@"url:%@",url);
