@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import "SuggestTableViewCell.h"
+#import "getData.h"
+#import "commond.h"
 
 NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
 
@@ -61,15 +63,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
     
     [_sTableView registerClass:[SuggestTableViewCell class] forCellReuseIdentifier:SuggestCellReuseIdentifier];
     
-    [self initDatePicker];
-    
     [self request_suggest_list];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Custom Method
@@ -78,64 +72,22 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
 }
 
 - (void)open_datePicker:(id)sender{
-    [UIView animateWithDuration:0.3 animations:^{
-        _dateView.frame = CGRectMake(0, SCREEN_HEIGHT-260, 320, 260);
-    }];
+    [self request_suggest_list:YES];
 }
 
-- (void)initDatePicker{
-    self.dateView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, 320, 260)];
-    _dateView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_dateView];
-    
-    UIBarButtonItem *confirmBtn = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStyleBordered target:self action:@selector(conform_click:)];
-    
-    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    
-    self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    _toolBar.translucent = YES;
-    _toolBar.barStyle = UIBarStyleDefault;
-    _toolBar.barTintColor = NAVI_COLOR;
-    _toolBar.tintColor = [UIColor whiteColor];
-    [_toolBar setItems:[NSArray arrayWithObjects:flexibleSpace,confirmBtn, nil]];
-    [_dateView addSubview:_toolBar];
-    
-    self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 44, 320, 216)];
-    _datePicker.backgroundColor = [UIColor whiteColor];
-    _datePicker.timeZone = [NSTimeZone systemTimeZone];
-    _datePicker.date = [NSDate date];
-    _datePicker.datePickerMode = UIDatePickerModeDate;
-    [_dateView addSubview:_datePicker];
-}
-
-- (void)conform_click:(id)sender{
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"yyyy-MM-dd"];
-    self.dateStr = [format stringFromDate:[_datePicker date]];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        _dateView.frame = CGRectMake(0, SCREEN_HEIGHT, 320, 260);
-    } completion:^(BOOL finished) {
-        [self request_suggest_list];
-    }];
-}
-
-- (void)request_suggest_list{
-    NSMutableDictionary *sendDataDict = [NSMutableDictionary dictionaryWithDictionary:@{@"ryhclientmacid":@"ad42614e026943949bfc92ce84913e337f3038b1",@"s":@"App Store",@"stockversion":@"1436803200",@"version":@"2.0.5",@"packtype":@"0"}];
-    //添加默认参数
-//    [sendDataDict setValue:@"get_suggest" forKey:@"m"];
-//    [sendDataDict setValue:_dateStr forKey:@"rtime"];
-    
-    
-    BOOL needHUD = [[PersistenceHelper dataForKey:@"hasInitDB"] boolValue];
-    if (needHUD) {
+- (void)request_suggest_list:(BOOL) isRefresh{
+    if (isRefresh == YES) {
+        NSArray *lines = (NSArray*)[commond getUserDefaults:@"recommendList"];
+        if (lines.count > 0) {
+            [self.suggestArray removeAllObjects];
+            [self.suggestArray addObjectsFromArray:lines];
+            return;
+        }
+    }
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"推荐ing....";
         [hud hide:YES afterDelay:30];
-    }
-//    http://hq.niuguwang.com/aquote/quotedata/stocksyn.ashx?ryhclientmacid=ad42614e026943949bfc92ce84913e337f3038b1&s=App%20Store&stockversion=1436803200&version=2.0.5&packtype=0
     NSString *url = @"http://hq.niuguwang.com/aquote/userdata/getuserstocks.ashx?version=2.0.5&packtype=0&usertoken=njayg_XK-3AJQ9gsPjN9RHzmVogatdxspIs7v0KUj88*&s=App%20Store";
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DMLog(@"JSON: %@", responseObject);
@@ -144,17 +96,19 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
         }
         
         self.suggestArray = [responseObject objForKey:@"list"];
-        [_sTableView reloadData];
-        
-        if (needHUD) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [commond setUserDefaults:self.suggestArray forKey:@"recommendList"];
+
+        for (NSDictionary *dic in self.suggestArray) {
+            getData *data = [[getData alloc] init];
+            NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", [dic objectForKey:@"innercode"]];
+            data = [data initWithUrl:url];
         }
         
+        [_sTableView reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DMLog(@"Error: %@", error);
-        if (needHUD) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 
 }
