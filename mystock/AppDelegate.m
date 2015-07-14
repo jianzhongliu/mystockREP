@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+//http://image.sinajs.cn/newchart/min/n/sh603979.gif //分时图
 
 
 @implementation AppDelegate

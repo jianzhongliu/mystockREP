@@ -1,16 +1,16 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "89C3FEA72F0CB62C51D115F357C7FDE2639CCD5E",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D182419B3FB3B68E3545669F3961A72897053F01",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F" : 0,
-    "89C3FEA72F0CB62C51D115F357C7FDE2639CCD5E" : 0
+    "D182419B3FB3B68E3545669F3961A72897053F01" : 0,
+    "F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F1277BAD-778C-473D-B9ED-837A6EB03556",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F" : "stockChart\/",
-    "89C3FEA72F0CB62C51D115F357C7FDE2639CCD5E" : "mystock\/"
+    "D182419B3FB3B68E3545669F3961A72897053F01" : "mystock\/",
+    "F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F" : "stockChart\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "mystock",
   "DVTSourceControlWorkspaceBlueprintVersion" : 203,
@@ -19,7 +19,7 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/polodede\/mystock.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "89C3FEA72F0CB62C51D115F357C7FDE2639CCD5E"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D182419B3FB3B68E3545669F3961A72897053F01"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/dangfm\/stockChart.git",

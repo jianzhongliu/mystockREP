@@ -31,6 +31,7 @@
     return self;
 }
 -(void)viewDidLoad{
+    [self setTitle:[NSString stringWithFormat:@"%@%@",self.dicStock[@"stockname"], self.dicStock[@"stockcode"]]];
     // 日k按钮
     btnDay = [[UIButton alloc] initWithFrame:CGRectMake(20, 70, 50, 30)];
     [btnDay setTitle:@"日K" forState:UIControlStateNormal];
