@@ -151,54 +151,7 @@
         [sendDataDict setValue:@"0" forKey:@"act"];
         
         __block AppDelegate *blockSelf = self;
-        
-//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//        [manager GET:apiHost parameters:sendDataDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            DMLog(@"JSON: %@", responseObject);
-//            if (responseObject == nil || [responseObject objForKey:@"result"] == 0) {
-//                return;
-//            }
-//            
-//            NSArray *dataArray = [responseObject objForKey:@"data"];
-//            
-//            FMDatabase *dbBase = [FMDatabase databaseWithPath:kDBFilePath];
-//            
-//            NSString *sql = @"insert into corp_codes (code,name,focus,order_num) values (%@,%@,%d,%d)";
-//            
-//            if ([dbBase open]) {
-//                for (NSDictionary *item in dataArray) {
-//                    if ([dbBase executeUpdateWithFormat:sql,[item objForKey:@"code"],[item objForKey:@"name"],[[item objForKey:@"focus"] intValue],[[item objForKey:@"order_num"] intValue]]) {
-//                        hasInitDB = YES;
-//                    }else{
-//                        hasInitDB = NO;
-//                        break;
-//                    }
-//                }
-//                
-//                
-//                sql = @"select * from corp_codes where focus = 1";
-//                
-//                FMResultSet *result = [dbBase executeQuery:sql];
-//                while ([result next]) {
-//                    NSDictionary *sDic = @{@"code":[result stringForColumn:@"code"],
-//                                           @"name":[result stringForColumn:@"name"],
-//                                           @"focus":[NSNumber numberWithInt:[result intForColumn:@"focus"]],
-//                                           @"order_num":[NSNumber numberWithInt:[result intForColumn:@"order_num"]]};
-//                    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:sDic];
-//                    [blockSelf->_sArray addObject:tempDic];
-//                }
-//                
-//            }
-//            
-//            [dbBase close];
-//            
-//            [PersistenceHelper setData:[NSNumber numberWithBool:hasInitDB] forKey:@"hasInitDB"];
-//            
-//            [MBProgressHUD hideHUDForView:self.window animated:YES];
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            DMLog(@"Error: %@", error);
-//            [MBProgressHUD hideHUDForView:self.window animated:YES];
-//        }];
+
     }else{
         FMDatabase *dbBase = [FMDatabase databaseWithPath:kDBFilePath];
         NSString *sql = @"select * from corp_codes where focus = 1";

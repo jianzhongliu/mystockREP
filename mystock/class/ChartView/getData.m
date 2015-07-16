@@ -32,10 +32,12 @@
         if (tempArray.count>0) {
             self.dayDatas = tempArray;
         }
-
-        NSMutableArray *lines = (NSMutableArray*)[commond getUserDefaults:[commond md5HexDigest:url]];
-        [lines insertObject:lines[0] atIndex:0];
+        NSMutableArray *lines   = [NSMutableArray array];
+        [lines addObjectsFromArray:(NSArray *)[commond getUserDefaults:[commond md5HexDigest:url]]];
+//        lines = (NSMutableArray*)[commond getUserDefaults:[commond md5HexDigest:url]];
         if (isRefresh == NO && lines.count>0) {
+            [lines insertObject:lines[0] atIndex:0];
+            
             [self changeData:lines];
         }else{
             NSLog(@"url:%@",url);
@@ -66,14 +68,6 @@
                 	self.status.text = @"Error!";
                     self.isFinish = YES;
             }];
-            
-            
-//            ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:nurl];
-//            [request setTimeOutSeconds:30];
-//            [request setCachePolicy:ASIUseDefaultCachePolicy];
-//            [request startSynchronous];
-//            // 加载完成执行此块
-//            [self Finished:request];
         }
 	}
     return self;
@@ -97,21 +91,6 @@
     dateForm.dateFormat = @"yyyy-MM-dd";
     return [dateForm stringFromDate:timeString];
 }
-//- (void)Finished:(ASIHTTPRequest *)request
-//{
-//	self.status.text = @"";
-//    NSString *content = [request responseString];
-//    NSArray *lines = [content componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-//    if ([self.req_type isEqualToString:@"d"]) {
-//        self.dayDatas = lines;
-//        [commond setUserDefaults:lines forKey:@"daydatas"];
-//    }
-//    [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",request.url]]];
-//    [self changeData:lines];
-//    request = nil;
-//    self.isFinish = YES;
-//    
-//}
 
 -(void)changeData:(NSArray*)lines{
     NSMutableArray *data =[[NSMutableArray alloc] init];
@@ -184,13 +163,5 @@
     }
     return value;
 }
-//- (void)Failed:(ASIHTTPRequest *)request{
-//	self.status.text = @"Error!";
-//    request = nil;
-//    self.isFinish = YES;
-//}
 
--(void)dealloc{
-
-}
 @end

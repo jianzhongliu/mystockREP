@@ -606,7 +606,7 @@
             movelinetwo.frame = CGRectMake(movelinetwo.frame.origin.x,itemPoint.y, movelinetwo.frame.size.width, movelinetwo.frame.size.height);
             NSInteger total = [[item objectAtIndex:13] integerValue];
             if (total > 10000) {
-                self.labelLastClose.text = [NSString stringWithFormat:@"量：%d 万", total / 10000];
+                self.labelLastClose.text = [NSString stringWithFormat:@"量：%.2f 万", total / 10000.0f];
                 
                 } else {
                     self.labelLastClose.text = [NSString stringWithFormat:@"量：%d", total];
