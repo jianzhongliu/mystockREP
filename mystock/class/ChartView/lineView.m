@@ -134,7 +134,7 @@
 -(void)drawBox{
     // 画个k线图的框框
     if (mainboxView==nil) {
-        mainboxView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width-self.xWidth, 20, self.xWidth, self.yHeight)];
+        mainboxView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width-self.xWidth, 100, self.xWidth, self.yHeight)];
         mainboxView.backgroundColor = [UIColor colorWithHexString:@"#222222" withAlpha:1];
         mainboxView.layer.borderColor = [UIColor colorWithHexString:@"#444444" withAlpha:1].CGColor;
         mainboxView.layer.borderWidth = 0.5;
@@ -150,7 +150,6 @@
         [mainboxView addGestureRecognizer:longPressGestureRecognizer];
     }
     
-    
     // 画个成交量的框框
     if (bottomBoxView==nil) {
         bottomBoxView = [[UIView alloc] initWithFrame:CGRectMake(0,mainboxView.frame.size.height+20, self.xWidth, self.bottomBoxHeight)];
@@ -160,8 +159,7 @@
         bottomBoxView.userInteractionEnabled = YES;
         [mainboxView addSubview:bottomBoxView];
     }
-    
-    
+
     // 把显示开始结束日期放在成交量的底部左右两侧
     // 显示开始日期控件
     if (startDateLab==nil) {
@@ -187,7 +185,27 @@
         endDateLab.textAlignment = UITextAlignmentRight;
         [mainboxView addSubview:endDateLab];
     }
+    CGFloat labelY = -100;
+    self.labelOpen.frame = CGRectMake(10, labelY, 80, 25);
+    self.labelOpen.text = @"今开:==";
     
+    self.labelClose.frame = CGRectMake(10, labelY + 40, 80, 25);
+    self.labelClose.text = @"今收:==";
+    
+    self.labelLastClose.frame = CGRectMake(10 , labelY + 70, 80, 25);
+    self.labelLastClose.text = @"昨收:==";
+    
+    self.labelTop.frame = CGRectMake(10 +100, labelY, 80, 25);
+    self.labelTop.text = @"最高:==";
+    
+    self.labelLow.frame = CGRectMake(10 +100, labelY+40, 80, 25);
+    self.labelLow.text = @"最低:==";
+    
+    [mainboxView addSubview:self.labelOpen];
+    [mainboxView addSubview:self.labelClose];
+    [mainboxView addSubview:self.labelLastClose];
+    [mainboxView addSubview:self.labelTop];
+    [mainboxView addSubview:self.labelLow];
     
     // 显示成交量最大值
     if (volMaxValueLab==nil) {
@@ -517,6 +535,11 @@
                                  [item objectAtIndex:5], // MA5
                                  [item objectAtIndex:6], // MA10
                                  [item objectAtIndex:7], // MA20
+                                 [item objectAtIndex:1],//最高
+                                 [item objectAtIndex:2],//最低
+                                 [item objectAtIndex:0],//今开
+                                 [item objectAtIndex:3],//今收
+                                 [item objectAtIndex:4],//量
                                  nil];
         [tempArray addObject:currentArray]; // 把坐标添加进新数组
         //[pointArray addObject:[NSNumber numberWithFloat:PointStartX]];
@@ -581,8 +604,21 @@
         if (itemX==pointX || point.x-itemX<=self.kLineWidth/2) {
             movelineone.frame = CGRectMake(itemPointX,movelineone.frame.origin.y, movelineone.frame.size.width, movelineone.frame.size.height);
             movelinetwo.frame = CGRectMake(movelinetwo.frame.origin.x,itemPoint.y, movelinetwo.frame.size.width, movelinetwo.frame.size.height);
+            NSInteger total = [[item objectAtIndex:13] integerValue];
+            if (total > 10000) {
+                self.labelLastClose.text = [NSString stringWithFormat:@"量：%d 万", total / 10000];
+                
+                } else {
+                    self.labelLastClose.text = [NSString stringWithFormat:@"量：%d", total];
+            }
             // 垂直提示日期控件
-            movelineoneLable.text = [item objectAtIndex:4]; // 日期
+            movelineoneLable.text = [item objectAtIndex:4]; // 日期  高低开售  9
+            self.labelOpen.text = [NSString stringWithFormat:@"今开：%.2f", [[item objectAtIndex:11] floatValue]];
+            self.labelTop.text = [NSString stringWithFormat:@"最高：%.2f", [[item objectAtIndex:9] floatValue]];
+            self.labelLow.text = [NSString stringWithFormat:@"最低：%.2f", [[item objectAtIndex:10] floatValue]];
+            self.labelClose.text = [NSString stringWithFormat:@"今收：%.2f", [[item objectAtIndex:12] floatValue]];
+
+            NSLog(@"%@",item);
             CGFloat oneLableY = bottomBoxView.frame.size.height+bottomBoxView.frame.origin.y;
             CGFloat oneLableX = 0;
             if (itemPointX<movelineoneLable.frame.size.width/2) {
@@ -624,8 +660,61 @@
     thread = nil;
 }
 
--(void)didReceiveMemoryWarning{
+#pragma Getter && setter
 
+- (UILabel *)labelOpen {
+    if (_labelOpen == nil) {
+        _labelOpen = [[UILabel alloc] init];
+        _labelOpen.numberOfLines = 0;
+        _labelOpen.lineBreakMode = NSLineBreakByCharWrapping;
+        _labelOpen.textColor = [UIColor whiteColor];
+        _labelOpen.font = [UIFont systemFontOfSize:13];
+    }
+    return _labelOpen;
+}
+
+- (UILabel *)labelClose {
+    if (_labelClose == nil) {
+        _labelClose = [[UILabel alloc] init];
+        _labelClose.numberOfLines = 0;
+        _labelClose.lineBreakMode = NSLineBreakByCharWrapping;
+        _labelClose.textColor = [UIColor whiteColor];
+        _labelClose.font = [UIFont systemFontOfSize:13];
+    }
+    return _labelClose;
+}
+
+- (UILabel *)labelLastClose {
+    if (_labelLastClose == nil) {
+        _labelLastClose = [[UILabel alloc] init];
+        _labelLastClose.numberOfLines = 0;
+        _labelLastClose.lineBreakMode = NSLineBreakByCharWrapping;
+        _labelLastClose.textColor = [UIColor whiteColor];
+        _labelLastClose.font = [UIFont systemFontOfSize:13];
+    }
+    return _labelLastClose;
+}
+
+- (UILabel *)labelLow {
+    if (_labelLow == nil) {
+        _labelLow = [[UILabel alloc] init];
+        _labelLow.numberOfLines = 0;
+        _labelLow.lineBreakMode = NSLineBreakByCharWrapping;
+        _labelLow.textColor = [UIColor whiteColor];
+        _labelLow.font = [UIFont systemFontOfSize:13];
+    }
+    return _labelLow;
+}
+
+- (UILabel *)labelTop {
+    if (_labelTop == nil) {
+        _labelTop = [[UILabel alloc] init];
+        _labelTop.numberOfLines = 0;
+        _labelTop.lineBreakMode = NSLineBreakByCharWrapping;
+        _labelTop.textColor = [UIColor whiteColor];
+        _labelTop.font = [UIFont systemFontOfSize:13];
+    }
+    return _labelTop;
 }
 
 @end

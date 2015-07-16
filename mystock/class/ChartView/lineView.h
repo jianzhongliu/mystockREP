@@ -29,6 +29,13 @@ typedef void(^updateBlock)(id);
 @property (nonatomic,copy) updateBlock finishUpdateBlock; // 定义一个block回调 更新界面
 
 @property (nonatomic, strong) NSDictionary *dicStock;
+
+@property (nonatomic, strong) UILabel *labelOpen;
+@property (nonatomic, strong) UILabel *labelClose;
+@property (nonatomic, strong) UILabel *labelLastClose;
+@property (nonatomic, strong) UILabel *labelTop;
+@property (nonatomic, strong) UILabel *labelLow;
+
 -(void)start;
 -(void)update;
 @end

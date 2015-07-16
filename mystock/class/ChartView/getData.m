@@ -33,8 +33,8 @@
             self.dayDatas = tempArray;
         }
 
-        NSArray *lines = (NSArray*)[commond getUserDefaults:[commond md5HexDigest:url]];
-        
+        NSMutableArray *lines = (NSMutableArray*)[commond getUserDefaults:[commond md5HexDigest:url]];
+        [lines insertObject:lines[0] atIndex:0];
         if (isRefresh == NO && lines.count>0) {
             [self changeData:lines];
         }else{

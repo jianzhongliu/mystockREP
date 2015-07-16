@@ -117,11 +117,11 @@
     CGFloat halfWidth = 0;//width/2;
     // 纠正实体的中心点为当前坐标
     
-//    if (openPoint.y > closePoint.y && openPoint.y - closePoint.y < 10) {//红
-//        closePoint.y = closePoint.y - 10;
-//    } else if(closePoint.y > openPoint.y && closePoint.y - openPoint.y < 10){//绿
-//        closePoint.y = closePoint.y + 10;
-//    }
+    if (openPoint.y > closePoint.y && openPoint.y - closePoint.y < 10) {//红
+        closePoint.y = closePoint.y - 5;
+    } else if(closePoint.y - openPoint.y){
+        openPoint.y = openPoint.y + 5;
+    }
     openPoint = CGPointMake(openPoint.x-halfWidth, openPoint.y);
     
     closePoint = CGPointMake(closePoint.x-halfWidth, closePoint.y);
@@ -130,14 +130,10 @@
         openPoint = CGPointMake(heightPoint.x-halfWidth, heightPoint.y);
         closePoint = CGPointMake(lowPoint.x-halfWidth, lowPoint.y);
     }
-    //修复bug，当open价==close价时，就不能显示了，所以得给他一个红线
-    if (openPoint.y == closePoint.y) {
-        closePoint = CGPointMake(closePoint.x-halfWidth, closePoint.y + 1);
-    }
     // 开始画实体
     const CGPoint point[] = {openPoint,closePoint};
     CGContextStrokeLineSegments(context, point, 2);  // 绘制线段（默认不绘制端点）
-//    CGContextSetLineCap(context, kCGLineCapSquare) ;// 设置线段的端点形状，方形
+    //CGContextSetLineCap(context, kCGLineCapSquare) ;// 设置线段的端点形状，方形
 }
 
 
