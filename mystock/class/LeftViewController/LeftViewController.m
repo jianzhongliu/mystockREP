@@ -10,6 +10,7 @@
 #import "MainViewController.h"
 #import "SelectionViewController.h"
 #import "SettingViewController.h"
+#import "SuggestStockViewController.h"
 
 @interface LeftViewController ()
 
@@ -100,7 +101,7 @@
         }
             break;
         case 1:{
-            centerVC = [[SelectionViewController alloc] init];
+            centerVC = [[SuggestStockViewController alloc] init];
         }
             break;
         case 2:{

@@ -10,31 +10,43 @@
 	<string>mystock</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>127A525D-AAC7-4DF3-BEF0-2C3E58E8A0F4</key>
+		<key>D182419B3FB3B68E3545669F3961A72897053F01</key>
 		<string>https://github.com/polodede/mystock.git</string>
+		<key>F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F</key>
+		<string>https://github.com/dangfm/stockChart.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>mystock.xcodeproj/project.xcworkspace</string>
+	<string>mystock.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>127A525D-AAC7-4DF3-BEF0-2C3E58E8A0F4</key>
+		<key>D182419B3FB3B68E3545669F3961A72897053F01</key>
 		<string>../..</string>
+		<key>F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F</key>
+		<string>../../../stockChart</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/polodede/mystock.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>127A525D-AAC7-4DF3-BEF0-2C3E58E8A0F4</string>
+	<string>D182419B3FB3B68E3545669F3961A72897053F01</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>127A525D-AAC7-4DF3-BEF0-2C3E58E8A0F4</string>
+			<string>D182419B3FB3B68E3545669F3961A72897053F01</string>
 			<key>IDESourceControlWCCName</key>
 			<string>mystock</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>stockChart</string>
 		</dict>
 	</array>
 </dict>

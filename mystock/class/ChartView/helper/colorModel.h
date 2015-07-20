@@ -14,4 +14,11 @@
 @property (nonatomic,assign) int B;
 @property (nonatomic,assign) CGFloat alpha;
 
++ (NSMutableArray *)getSA;
++ (NSMutableArray *)getHA;
++ (NSArray *)getStockCodeInfo;
+
+/**仅仅沪A*/
++ (NSArray *)getStockCodeInfo600;
+
 @end

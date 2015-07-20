@@ -64,6 +64,7 @@
                 [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",url]]];
                 [self changeData:lines];
                 self.isFinish = YES;
+                [self recomentDoubleStock:responseObject];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 	self.status.text = @"Error!";
                     self.isFinish = YES;
@@ -71,6 +72,23 @@
         }
 	}
     return self;
+}
+
+- (void)recomentDoubleStock:(NSDictionary *) respose {
+    NSArray *array = [NSArray arrayWithArray:respose[@"timedata"]];
+    if (array.count < 3) {
+        return;
+    }
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:array[0]];
+    NSDictionary *dicYesteday = [NSDictionary dictionaryWithDictionary:array[1]];
+   NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:(NSArray *)[commond getUserDefaults:@"Double"]];
+    if ([dic[@"curvol"] floatValue] > 2* [dicYesteday[@"curvol"] floatValue] && [dic[@"curvol"] floatValue] < 10* [dicYesteday[@"curvol"] floatValue]) {
+        NSDictionary *dic = @{@"innercode":respose[@"innercode"], @"stockcode":respose[@"stockcode"],@"stockname":respose[@"stockname"]};
+        if ([respose[@"stockcode"] rangeOfString:@"600"].length > 0) {
+            [arrayLocalStock addObject:dic];
+            [commond setUserDefaults:arrayLocalStock forKey:@"Double"];        }
+
+    }
 }
 
 - (NSString *)dicStockToString:(NSDictionary *) dic{
