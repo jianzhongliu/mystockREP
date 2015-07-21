@@ -11,6 +11,7 @@
 		2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522C1B5AA55100B09FBA /* SuggestStockViewController.m */; };
 		242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */; };
 		244059861B5B55DB0094BC1E /* local600.plist in Resources */ = {isa = PBXBuildFile; fileRef = 244059851B5B55DB0094BC1E /* local600.plist */; };
+		24432D3F1B5DE37500213291 /* FunctionMethodsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */; };
 		249092F91B54D1A8004B4584 /* FMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249092F81B54D1A8004B4584 /* FMViewController.m */; };
 		24D54E081B54D1EC00AAE334 /* lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E031B54D1EC00AAE334 /* lines.m */; };
 		24D54E091B54D1EC00AAE334 /* lineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E051B54D1EC00AAE334 /* lineView.m */; };
@@ -93,6 +94,8 @@
 		2422522E1B5AA7C700B09FBA /* DoubleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleListViewController.h; sourceTree = "<group>"; };
 		2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleListViewController.m; sourceTree = "<group>"; };
 		244059851B5B55DB0094BC1E /* local600.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = local600.plist; sourceTree = "<group>"; };
+		24432D3D1B5DE37500213291 /* FunctionMethodsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionMethodsUtil.h; sourceTree = "<group>"; };
+		24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionMethodsUtil.m; sourceTree = "<group>"; };
 		249092F71B54D1A8004B4584 /* FMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMViewController.h; sourceTree = "<group>"; };
 		249092F81B54D1A8004B4584 /* FMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMViewController.m; sourceTree = "<group>"; };
 		24D54E021B54D1EC00AAE334 /* lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lines.h; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 		24D54E261B5525DE00AAE334 /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				24432D3D1B5DE37500213291 /* FunctionMethodsUtil.h */,
+				24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */,
 				24D54E271B5525DE00AAE334 /* colorModel.h */,
 				24D54E281B5525DE00AAE334 /* colorModel.m */,
 				24D54E291B5525DE00AAE334 /* commond.h */,
@@ -709,6 +714,7 @@
 				9424749F19480FE700DA27CB /* SuggestDetailViewController.m in Sources */,
 				94AFA465193A21510046F002 /* FMDatabasePool.m in Sources */,
 				94FA3678192A0DEB005C37A1 /* UIImageView+AFNetworking.m in Sources */,
+				24432D3F1B5DE37500213291 /* FunctionMethodsUtil.m in Sources */,
 				94FA366C192A0DEB005C37A1 /* AFHTTPRequestOperationManager.m in Sources */,
 				94AFA466193A21510046F002 /* FMDatabaseQueue.m in Sources */,
 				942C0CA91953EC4700108A75 /* SettingViewController.m in Sources */,
