@@ -28,6 +28,7 @@
 		24BC31C51B6B61470078FCE2 /* local002.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24BC31C41B6B61470078FCE2 /* local002.plist */; };
 		24BC31C81B6B6B6B0078FCE2 /* SortByDownRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */; };
 		24BC31CB1B6B6B6B0078FCE2 /* SortStockValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31CA1B6B6B6B0078FCE2 /* SortStockValueViewController.m */; };
+		24BC31CE1B6B6B6B0078FCE2 /* JingzhunLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */; };
 		24D54E081B54D1EC00AAE334 /* lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E031B54D1EC00AAE334 /* lines.m */; };
 		24D54E091B54D1EC00AAE334 /* lineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E051B54D1EC00AAE334 /* lineView.m */; };
 		24D54E0A1B54D1EC00AAE334 /* getData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E071B54D1EC00AAE334 /* getData.m */; };
@@ -143,6 +144,8 @@
 		24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByDownRateViewController.m; sourceTree = "<group>"; };
 		24BC31C91B6B6B6B0078FCE2 /* SortStockValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortStockValueViewController.h; sourceTree = "<group>"; };
 		24BC31CA1B6B6B6B0078FCE2 /* SortStockValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortStockValueViewController.m; sourceTree = "<group>"; };
+		24BC31CC1B6B6B6B0078FCE2 /* JingzhunLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JingzhunLineViewController.h; sourceTree = "<group>"; };
+		24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JingzhunLineViewController.m; sourceTree = "<group>"; };
 		24D54E021B54D1EC00AAE334 /* lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lines.h; sourceTree = "<group>"; };
 		24D54E031B54D1EC00AAE334 /* lines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lines.m; sourceTree = "<group>"; };
 		24D54E041B54D1EC00AAE334 /* lineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lineView.h; sourceTree = "<group>"; };
@@ -479,6 +482,8 @@
 		9406954B1929B68700BA2694 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
+				24BC31CC1B6B6B6B0078FCE2 /* JingzhunLineViewController.h */,
+				24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */,
 				24BC31C91B6B6B6B0078FCE2 /* SortStockValueViewController.h */,
 				24BC31CA1B6B6B6B0078FCE2 /* SortStockValueViewController.m */,
 				24BC31C61B6B6B6B0078FCE2 /* SortByDownRateViewController.h */,
@@ -771,6 +776,7 @@
 				2467CA7C1B6A00EE0045904E /* NSArray+TYAFNetworking.m in Sources */,
 				242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */,
 				94FA3679192A0DEB005C37A1 /* UIProgressView+AFNetworking.m in Sources */,
+				24BC31CE1B6B6B6B0078FCE2 /* JingzhunLineViewController.m in Sources */,
 				94AFA456193A10E60046F002 /* PersistenceHelper.m in Sources */,
 				9406954F1929B6FD00BA2694 /* LeftViewController.m in Sources */,
 				24BC31CB1B6B6B6B0078FCE2 /* SortStockValueViewController.m in Sources */,

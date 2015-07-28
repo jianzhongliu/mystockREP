@@ -25,5 +25,7 @@
 - (NSArray *)getDownMore;
 /**找精准点*/
 - (NSArray *)averageValue:(NSString *)code;
+/**精准线*/
+- (NSArray *)jingzhunxian;
 
 @end

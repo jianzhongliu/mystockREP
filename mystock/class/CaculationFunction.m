@@ -369,4 +369,48 @@
     return arrayTemp;
 }
 
+
+/**精准线*/
+- (NSArray *)jingzhunxian {
+    NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSMutableDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleStock = dic[@"timedata"];
+        NSArray *arrayValue = [self averageValue:[NSString stringWithFormat:@"%@", dic[@"stockcode"]]];
+        if (arraySingleStock.count > 0) {
+            
+            int open = [[arraySingleStock[0] objectForKey:@"openp"] integerValue];
+            int highp = [[arraySingleStock[0] objectForKey:@"highp"] integerValue];
+            int lowp = [[arraySingleStock[0] objectForKey:@"lowp"] integerValue];
+            int nowv = [[arraySingleStock[0] objectForKey:@"nowv"] integerValue];
+            
+            int o = 0;
+            int h = 0;
+            int l = 0;
+            int n = 0;
+            
+            for (int s = 0 ; s<arrayValue.count ; s++) {
+                if (open == [arrayValue[s] integerValue]) {
+                    o ++;
+                }
+                if (highp == [arrayValue[s] integerValue]) {
+                    h ++;
+                }
+                if (lowp == [arrayValue[s] integerValue]) {
+                    l ++;
+                }
+                if (nowv == [arrayValue[s] integerValue]) {
+                    n ++;
+                }
+            }
+            if (o >= 3 || h >= 3 || l>=3 || n >= 3) {
+                NSString *valueDetail = [NSString stringWithFormat:@"最低价：%d个 最高价：%d个 开盘价：%d个 收盘价：%d个",l,h,o,n];
+                [dic setObject:valueDetail forKey:@"detail"];
+                [arrayValueEveryDay addObject:dic];
+            }
+        }
+    }
+    return arrayValueEveryDay;
+}
+
 @end
