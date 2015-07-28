@@ -11,6 +11,7 @@
 #import "StopRaseStockListViewController.h"
 #import "LowestListViewController.h"
 #import "SortByDownRateViewController.h"
+#import "SortStockValueViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -61,7 +62,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,6 +101,10 @@
             cell.textLabel.text = @"超跌排序";
         }
             break;
+        case 4:{
+            cell.textLabel.text = @"差多值";
+        }
+            break;
         default:
             break;
     }
@@ -128,6 +133,11 @@
             break;
         case 3:{
             SortByDownRateViewController *controller = [[SortByDownRateViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 4:{
+            SortStockValueViewController *controller = [[SortStockValueViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

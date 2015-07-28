@@ -12,7 +12,7 @@
 
 @implementation CaculationFunction
 + (void)load {
-//    [[CaculationFunction share] lowColumnRate];
+    [[CaculationFunction share] lowColumnRate];
 //    [[CaculationFunction share] hightColumnRate];
 //    NSLog(@"%@", [[CaculationFunction share] todayDouble]) ;
 //    NSLog(@"%@", [[CaculationFunction share] lowStockes]) ;
@@ -142,7 +142,11 @@
                     up ++ ;
                     NSLog(@"time:%@======lowValue:%@ ===== ID%@ ======%.3f", arraySingleDay[index][@"times"], arraySingleDay[index][@"lowp"], dic[@"stockcode"], data / ([dicLow[@"nowv"] integerValue] + 0.000000000000001f));
                 } else {
-                    downRate += ([dicLow[@"nowv"] integerValue] - [arraySingleDay[index - days][@"nowv"] integerValue]) /  [dicLow[@"nowv"] floatValue];
+                    
+                    int data = [dicLow[@"nowv"] integerValue] - [arraySingleDay[index - days][@"nowv"] integerValue];
+                    downRate += data /  [dicLow[@"nowv"] floatValue];
+//                    NSLog(@"time:%@======lowValue:%@ ===== ID%@ ======%.3f", arraySingleDay[index][@"times"], arraySingleDay[index][@"lowp"], dic[@"stockcode"], data / ([dicLow[@"nowv"] integerValue] + 0.000000000000001f));
+
                     low ++ ;
                 }
             }
@@ -265,10 +269,12 @@
 /**今日倍量柱*/
 - (NSArray *)todayDouble {
     NSMutableArray *arrayDouble = [NSMutableArray array];
-    for (int i = 0; i < self.arraySourceData.count; i ++) {
-        if ([[self.arraySourceData[0] objectForKey:@"curvol"] floatValue] > 2.0f * [[self.arraySourceData[1] objectForKey:@"curvol"] floatValue] ) {
-            [arrayDouble addObject:self.arraySourceData[i]];
-        }
+    for (NSDictionary *dicTemp in self.arraySourceData){
+        NSArray *arrayDataList = dicTemp[@"timedata"];
+        
+            if (arrayDataList.count > 0 && [[arrayDataList[0] objectForKey:@"curvol"] floatValue] > 2.0f * [[arrayDataList[1] objectForKey:@"curvol"] floatValue] ) {
+                [arrayDouble addObject:dicTemp];
+            }
     }
     return arrayDouble;
 }
@@ -342,26 +348,25 @@
     NSLog(@"假阳真阴柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
 }
 
-- (void)averageValue {
-    
+/**找精准点*/
+- (NSArray *)averageValue:(NSString *)code {
     NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
-
     for (int i = 0; i < self.arraySourceData.count; i++) {
         NSDictionary *dic = self.arraySourceData[i];
-        NSArray *arraySingleStock = dic[@"timedata"];
-        if (arraySingleStock.count > 0) {
-            NSMutableArray *arraySingleStockNumber = [NSMutableArray array];
-            for (int s = 0 ; s<arraySingleStock.count ; s++) {
-                [arraySingleStockNumber addObject:@([[arraySingleStock[s] objectForKey:@"openp"] integerValue])];
-                [arraySingleStockNumber addObject:@([[arraySingleStock[s] objectForKey:@"highp"] integerValue])];
-                [arraySingleStockNumber addObject:@([[arraySingleStock[s] objectForKey:@"lowp"] integerValue])];
-                [arraySingleStockNumber addObject:@([[arraySingleStock[s] objectForKey:@"nowv"] integerValue])];
+        if ([dic[@"stockcode"] rangeOfString:code].length > 0) {
+            NSArray *arraySingleStock = dic[@"timedata"];
+            if (arraySingleStock.count > 0) {
+                for (int s = 0 ; s<arraySingleStock.count ; s++) {
+                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"openp"] integerValue])];
+                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"highp"] integerValue])];
+                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"lowp"] integerValue])];
+                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"nowv"] integerValue])];
+                }
             }
-            
-            [arrayValueEveryDay addObject:arraySingleStockNumber];
         }
     }
-    NSLog(@"=========%@", arrayValueEveryDay);
+    NSArray *arrayTemp = [arrayValueEveryDay sortedArrayUsingSelector:@selector(compare:)];
+    return arrayTemp;
 }
 
 @end

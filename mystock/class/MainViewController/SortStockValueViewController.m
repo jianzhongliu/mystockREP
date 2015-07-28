@@ -6,25 +6,26 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "DoubleListViewController.h"
+#import "SortStockValueViewController.h"
 #import "RquestTotalStock.h"
 #import "CaculationFunction.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
 
-@interface DoubleListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SortStockValueViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
 @property (nonatomic, strong) NSMutableArray *arrayShen;//深市A股
 @property (nonatomic, strong) NSMutableArray *arrayDouble;//倍量柱
+@property (nonatomic, strong) UISearchBar *searchBar;
 
 @property (nonatomic, assign) NSInteger index;
 
 @end
 
-@implementation DoubleListViewController
+@implementation SortStockValueViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -38,6 +39,13 @@
     return _tableView;
 }
 
+- (UISearchBar *)searchBar {
+    if (_searchBar == nil) {
+        _searchBar = [[UISearchBar alloc] init];
+        _searchBar.delegate = self;
+    }
+    return _searchBar;
+}
 
 #pragma mark - lifeCycleMethods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -56,12 +64,7 @@
     self.index = 0;
     self.arrayShang = [NSMutableArray array];
     self.arrayShen = [NSMutableArray array];
-//    [colorModel getStockCodeInfo];
-//    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
-//    [self.arrayShen addObjectsFromArray:[colorModel getSA]];
-    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] todayDouble]];
-    self.arrayDouble = [NSMutableArray arrayWithArray:arrayLocalStock];
-    
+    self.arrayDouble = [NSMutableArray array];
 }
 
 - (void)initUI {
@@ -83,7 +86,8 @@
     [super viewWillAppear:animated];
     self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
-    
+    self.searchBar.frame = CGRectMake(0, 0, 320, 45);
+    self.tableView.tableHeaderView = self.searchBar;
 }
 
 - (void)showDoubleStock {
@@ -141,7 +145,7 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@", [self.arrayDouble[indexPath.row] objectForKey:@"stockname"], [self.arrayDouble[indexPath.row] objectForKey:@"stockcode"]];
+    NSString *stringTitle = self.arrayDouble[indexPath.row];
     
     cell.textLabel.text = stringTitle;
     return cell;
@@ -150,10 +154,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    FMViewController *sDetailVC = [[FMViewController alloc] init];
-    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
-    [self.navigationController pushViewController:sDetailVC animated:YES];
+//    FMViewController *sDetailVC = [[FMViewController alloc] init];
+//    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
+//    [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] averageValue:searchBar.text]];
+    [self.arrayDouble removeAllObjects];
+    [self.arrayDouble addObjectsFromArray:arrayLocalStock];
+    [self.tableView reloadData];
+}
 @end

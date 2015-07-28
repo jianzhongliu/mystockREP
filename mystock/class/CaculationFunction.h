@@ -23,5 +23,7 @@
 - (NSArray *)todayDouble;
 /**超跌排序*/
 - (NSArray *)getDownMore;
+/**找精准点*/
+- (NSArray *)averageValue:(NSString *)code;
 
 @end
