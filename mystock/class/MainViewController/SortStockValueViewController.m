@@ -145,7 +145,7 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = self.arrayDouble[indexPath.row];
+    NSString *stringTitle = [NSString stringWithFormat:@"%@",self.arrayDouble[indexPath.row]];
     
     cell.textLabel.text = stringTitle;
     return cell;
@@ -158,6 +158,10 @@
 //    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
 //    [self.navigationController pushViewController:sDetailVC animated:YES];
     
+}
+
+- (void)scrollViewDidScroll:(nonnull UIScrollView *)scrollView {
+    [self.view endEditing:YES];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {

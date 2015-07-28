@@ -353,7 +353,7 @@
     NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
     for (int i = 0; i < self.arraySourceData.count; i++) {
         NSDictionary *dic = self.arraySourceData[i];
-        if ([dic[@"stockcode"] rangeOfString:code].length > 0) {
+        if ([dic[@"stockcode"] integerValue]== [code integerValue]) {
             NSArray *arraySingleStock = dic[@"timedata"];
             if (arraySingleStock.count > 0) {
                 for (int s = 0 ; s<arraySingleStock.count ; s++) {

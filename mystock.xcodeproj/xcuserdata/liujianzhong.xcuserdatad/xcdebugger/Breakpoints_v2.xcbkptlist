@@ -74,7 +74,7 @@
                   moduleName = "mystock"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/liujianzhong/Documents/mystock/mystock/class/MainViewController/DoubleListViewController.m"
-                  timestampString = "459789901.973922"
+                  timestampString = "459790242.884602"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "106"
@@ -89,7 +89,7 @@
                   moduleName = "mystock"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/liujianzhong/Documents/mystock/mystock/class/MainViewController/DoubleListViewController.m"
-                  timestampString = "459789901.974147"
+                  timestampString = "459790242.884783"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "106"
@@ -107,22 +107,6 @@
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "mystock/class/MainViewController/SortStockValueViewController.m"
-            timestampString = "459789772.2544"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "-searchBarSearchButtonClicked:"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
