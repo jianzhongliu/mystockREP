@@ -30,12 +30,13 @@
 }
 
 - (void)startLoadingData {
-    for (int i = 0; i < 50; i ++) {
+//    for (int i = 0; i < 20; i ++) {
         [self requestStockWithIndex:self.index ++ ];
-    }
+//    }
 }
 
 - (void)initData {
+    self.index = 0;
     self.arrayResult = [NSMutableArray array];
     self.arrayShang = [NSMutableArray array];
     self.arrayShen = [NSMutableArray array];
@@ -44,6 +45,9 @@
 }
 
 - (void)requestStockWithIndex:(NSInteger) index {
+    if (index > 200) {
+        return;
+    }
     if (index >= self.arrayShang.count) {
         NSString *message = [NSString stringWithFormat:@"当前数量:%d", index];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请求结束" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -58,7 +62,7 @@
     NSMutableArray *arrayDoubleStock = [NSMutableArray array];
     [arrayDoubleStock addObjectsFromArray:self.arrayShang];
     [arrayDoubleStock addObjectsFromArray:self.arrayShen];
-
+    
     NSDictionary *code = [self.arrayShang objectAtIndex:index];
     NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=30&packtype=0&version=2.0.5", code[@"innercode"]];
     
@@ -75,10 +79,12 @@
         [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",url]]];
         [self.arrayResult addObject:response.content];
         //存储源数据
-        [commond setUserDefaults:self.arrayResult forKey:[commond md5HexDigest:@"sourceData"]];
-        [self recomentDoubleStock:response.content];
-    } faildCallBack:^(TYURLResponse *response) {
+        [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
         
+        [self recomentDoubleStock:response.content];
+        [self requestStockWithIndex:self.index ++];
+    } faildCallBack:^(TYURLResponse *response) {
+        [self requestStockWithIndex:self.index ++];
     }];
     return;
     
