@@ -44,7 +44,7 @@
     return ((abs(i1-i2))<absDelta) ? true : false;
 }
 
-+(NSObject *) getUserDefaults:(NSString *) name{
++(id) getUserDefaults:(NSString *) name{
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults objectForKey:name];
 }

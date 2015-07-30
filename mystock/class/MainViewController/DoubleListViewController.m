@@ -7,6 +7,7 @@
 //
 
 #import "DoubleListViewController.h"
+#import "RquestTotalStock.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
@@ -17,6 +18,8 @@
 @property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
 @property (nonatomic, strong) NSMutableArray *arrayShen;//深市A股
 @property (nonatomic, strong) NSMutableArray *arrayDouble;//倍量柱
+
+@property (nonatomic, assign) NSInteger index;
 
 @end
 
@@ -49,7 +52,7 @@
 }
 
 - (void)initData {
-    
+    self.index = 0;
     self.arrayShang = [NSMutableArray array];
     self.arrayShen = [NSMutableArray array];
 //    [colorModel getStockCodeInfo];
@@ -85,18 +88,29 @@
 - (void)showDoubleStock {
     [commond setUserDefaults:@[] forKey:@"Double"];
     NSLog(@"%@", self.arrayDouble);
-    [self requestData];
+//    [self requestDataWithIndex:self.index ++];
+    [[RquestTotalStock share] startLoadingData];
 }
 
-- (void)requestData {
+- (void)requestDataWithIndex:(NSInteger) index {
+    if (index > self.arrayDouble.count) {
+        return;
+    }
     NSMutableArray *arrayDoubleStock = [NSMutableArray array];
     [arrayDoubleStock addObjectsFromArray:self.arrayShang];
     [arrayDoubleStock addObjectsFromArray:self.arrayShen];
-    for (NSDictionary *code in self.arrayShang) {//随时切换
-        getData *data = [[getData alloc] init];
-        NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", code[@"innercode"]];
-        data = [data initWithUrl:url fresh:NO];
-    }
+    NSDictionary *code = [self.arrayShang objectAtIndex:index];
+    getData *data = [[getData alloc] init];
+    __weak typeof(self) blockSelf = self;
+    data.blockCallBack = ^{
+        [blockSelf requestDataWithIndex:blockSelf.index ++];
+        [MBProgressHUD hideHUDForView:blockSelf.view animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:blockSelf.view animated:YES];
+        hud.labelText = [NSString stringWithFormat:@"当前：%d",self.index ];
+        [hud hide:YES afterDelay:0.2];
+    };
+    NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", code[@"innercode"]];
+    data = [data initWithUrl:url fresh:YES];
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate

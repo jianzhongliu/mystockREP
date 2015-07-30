@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^ReturnBlock)(void);
+
 @interface getData : NSObject
 @property (nonatomic,retain) NSMutableArray *data;
 @property (nonatomic,retain) NSArray *dayDatas;
@@ -23,6 +25,7 @@
 @property (nonatomic,retain) NSString *req_type;
 @property (nonatomic,retain) NSDictionary *todayStock;
 
+@property (nonatomic, strong) ReturnBlock blockCallBack;
 -(id)initWithUrl:(NSString*)url fresh:(BOOL) isRefresh;
 
 @end

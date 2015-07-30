@@ -9,12 +9,15 @@
 #import "StopRaseStockListViewController.h"
 #import "StopRaseStockViewCell.h"
 #import "MBProgressHUD.h"
+#import "colorModel.h"
 
 @interface StopRaseStockListViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayStock;
 @property (nonatomic, assign) NSInteger pageIndex;
+
+@property (nonatomic, strong) NSMutableArray *arrayShang;
 
 @end
 
@@ -52,6 +55,10 @@
 }
 
 - (void)initData {
+    self.arrayShang = [NSMutableArray array];
+    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
+    [self.arrayShang addObjectsFromArray:[colorModel getSA]];
+    
     self.arrayStock = [NSMutableArray array];
     self.pageIndex = 0;
 }
@@ -74,8 +81,10 @@
                 NSString *signalData = obj;
                 signalData = [signalData stringByReplacingOccurrencesOfString:@"</td>" withString:@""];
                 NSArray *array = [signalData componentsSeparatedByString:@"<td>"];
+                NSString *numbers = [[array[2] componentsSeparatedByString:@"<td class=\"bzt\">"] objectAtIndex:1];
+
                 if ([signalData rangeOfString:@"getprice"].length > 0 && array.count >= 8) {
-                    if ([[array[3] stringByReplacingOccurrencesOfString:@"%" withString:@""] floatValue] > 70) {
+                    if ([[array[3] stringByReplacingOccurrencesOfString:@"%" withString:@""] floatValue] > 70 && [numbers integerValue] > 100) {
                         [self.arrayStock addObject:array];
                     }
                 }
@@ -119,6 +128,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    NSArray *stock = [self.arrayStock objectAtIndex:indexPath.row];
+    [self.arrayShang enumerateObjectsUsingBlock:^(id  __nonnull obj, NSUInteger idx, BOOL * __nonnull stop) {
+        if ([obj isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dicEnum = [NSDictionary dictionaryWithDictionary:obj];
+            NSLog(@"%@", [dicEnum objectForKey:@"stockname"]);
+            if ([[dicEnum objectForKey:@"stockname"] rangeOfString:stock[4]].length > 0) {
+                FMViewController *sDetailVC = [[FMViewController alloc] init];
+                //            NSDictionary *dic = @{@"innercode":arrayEnum[0], @"stockcode":arrayEnum[1],@"stockname":arrayEnum[2]};
+                sDetailVC.dicStock = dicEnum;
+                [self.navigationController pushViewController:sDetailVC animated:YES];
+            }
+        }
+    }];
 }
 
 @end

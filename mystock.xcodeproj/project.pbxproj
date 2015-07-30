@@ -14,6 +14,15 @@
 		242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */; };
 		244059861B5B55DB0094BC1E /* local600.plist in Resources */ = {isa = PBXBuildFile; fileRef = 244059851B5B55DB0094BC1E /* local600.plist */; };
 		24432D3F1B5DE37500213291 /* FunctionMethodsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */; };
+		2467CA7C1B6A00EE0045904E /* NSArray+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA6E1B6A00EE0045904E /* NSArray+TYAFNetworking.m */; };
+		2467CA7D1B6A00EE0045904E /* NSDictionary+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA701B6A00EE0045904E /* NSDictionary+TYAFNetworking.m */; };
+		2467CA7E1B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA721B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m */; };
+		2467CA7F1B6A00EE0045904E /* TYAPIProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA751B6A00EE0045904E /* TYAPIProxy.m */; };
+		2467CA801B6A00EE0045904E /* TYRequestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA771B6A00EE0045904E /* TYRequestGenerator.m */; };
+		2467CA811B6A00EE0045904E /* TYSignatureGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA791B6A00EE0045904E /* TYSignatureGenerator.m */; };
+		2467CA821B6A00EE0045904E /* TYURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA7B1B6A00EE0045904E /* TYURLResponse.m */; };
+		2467CA851B6A084C0045904E /* CaculationFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA841B6A084C0045904E /* CaculationFunction.m */; };
+		24781F071B707EF2008DCBB1 /* RquestTotalStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 24781F061B707EF2008DCBB1 /* RquestTotalStock.m */; };
 		249092F91B54D1A8004B4584 /* FMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249092F81B54D1A8004B4584 /* FMViewController.m */; };
 		24D54E081B54D1EC00AAE334 /* lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E031B54D1EC00AAE334 /* lines.m */; };
 		24D54E091B54D1EC00AAE334 /* lineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E051B54D1EC00AAE334 /* lineView.m */; };
@@ -102,6 +111,25 @@
 		244059851B5B55DB0094BC1E /* local600.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = local600.plist; sourceTree = "<group>"; };
 		24432D3D1B5DE37500213291 /* FunctionMethodsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionMethodsUtil.h; sourceTree = "<group>"; };
 		24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionMethodsUtil.m; sourceTree = "<group>"; };
+		2467CA6D1B6A00EE0045904E /* NSArray+TYAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TYAFNetworking.h"; sourceTree = "<group>"; };
+		2467CA6E1B6A00EE0045904E /* NSArray+TYAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TYAFNetworking.m"; sourceTree = "<group>"; };
+		2467CA6F1B6A00EE0045904E /* NSDictionary+TYAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+TYAFNetworking.h"; sourceTree = "<group>"; };
+		2467CA701B6A00EE0045904E /* NSDictionary+TYAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+TYAFNetworking.m"; sourceTree = "<group>"; };
+		2467CA711B6A00EE0045904E /* NSURLRequest+TYAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+TYAFNetworking.h"; sourceTree = "<group>"; };
+		2467CA721B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+TYAFNetworking.m"; sourceTree = "<group>"; };
+		2467CA731B6A00EE0045904E /* TYAFNetworkingConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAFNetworkingConfig.h; sourceTree = "<group>"; };
+		2467CA741B6A00EE0045904E /* TYAPIProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAPIProxy.h; sourceTree = "<group>"; };
+		2467CA751B6A00EE0045904E /* TYAPIProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAPIProxy.m; sourceTree = "<group>"; };
+		2467CA761B6A00EE0045904E /* TYRequestGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYRequestGenerator.h; sourceTree = "<group>"; };
+		2467CA771B6A00EE0045904E /* TYRequestGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYRequestGenerator.m; sourceTree = "<group>"; };
+		2467CA781B6A00EE0045904E /* TYSignatureGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYSignatureGenerator.h; sourceTree = "<group>"; };
+		2467CA791B6A00EE0045904E /* TYSignatureGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYSignatureGenerator.m; sourceTree = "<group>"; };
+		2467CA7A1B6A00EE0045904E /* TYURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYURLResponse.h; sourceTree = "<group>"; };
+		2467CA7B1B6A00EE0045904E /* TYURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYURLResponse.m; sourceTree = "<group>"; };
+		2467CA831B6A084C0045904E /* CaculationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaculationFunction.h; sourceTree = "<group>"; };
+		2467CA841B6A084C0045904E /* CaculationFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaculationFunction.m; sourceTree = "<group>"; };
+		24781F051B707EF2008DCBB1 /* RquestTotalStock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RquestTotalStock.h; sourceTree = "<group>"; };
+		24781F061B707EF2008DCBB1 /* RquestTotalStock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RquestTotalStock.m; sourceTree = "<group>"; };
 		249092F71B54D1A8004B4584 /* FMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMViewController.h; sourceTree = "<group>"; };
 		249092F81B54D1A8004B4584 /* FMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMViewController.m; sourceTree = "<group>"; };
 		24D54E021B54D1EC00AAE334 /* lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lines.h; sourceTree = "<group>"; };
@@ -246,6 +274,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2467CA6C1B6A00EE0045904E /* TYNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				2467CA6D1B6A00EE0045904E /* NSArray+TYAFNetworking.h */,
+				2467CA6E1B6A00EE0045904E /* NSArray+TYAFNetworking.m */,
+				2467CA6F1B6A00EE0045904E /* NSDictionary+TYAFNetworking.h */,
+				2467CA701B6A00EE0045904E /* NSDictionary+TYAFNetworking.m */,
+				2467CA711B6A00EE0045904E /* NSURLRequest+TYAFNetworking.h */,
+				2467CA721B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m */,
+				2467CA731B6A00EE0045904E /* TYAFNetworkingConfig.h */,
+				2467CA741B6A00EE0045904E /* TYAPIProxy.h */,
+				2467CA751B6A00EE0045904E /* TYAPIProxy.m */,
+				2467CA761B6A00EE0045904E /* TYRequestGenerator.h */,
+				2467CA771B6A00EE0045904E /* TYRequestGenerator.m */,
+				2467CA781B6A00EE0045904E /* TYSignatureGenerator.h */,
+				2467CA791B6A00EE0045904E /* TYSignatureGenerator.m */,
+				2467CA7A1B6A00EE0045904E /* TYURLResponse.h */,
+				2467CA7B1B6A00EE0045904E /* TYURLResponse.m */,
+			);
+			path = TYNetworking;
+			sourceTree = "<group>";
+		};
+		24781F041B707ECE008DCBB1 /* CommentRequest */ = {
+			isa = PBXGroup;
+			children = (
+				24781F051B707EF2008DCBB1 /* RquestTotalStock.h */,
+				24781F061B707EF2008DCBB1 /* RquestTotalStock.m */,
+				2467CA831B6A084C0045904E /* CaculationFunction.h */,
+				2467CA841B6A084C0045904E /* CaculationFunction.m */,
+			);
+			name = CommentRequest;
+			sourceTree = "<group>";
+		};
 		249092F61B54D19A004B4584 /* ChartView */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +390,7 @@
 		9406951C19299DFA00BA2694 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2467CA6C1B6A00EE0045904E /* TYNetworking */,
 				244059851B5B55DB0094BC1E /* local600.plist */,
 				242252291B5AA3FA00B09FBA /* localstocktjz2.plist */,
 				94AFA4511939F80B0046F002 /* stock.db */,
@@ -361,6 +423,7 @@
 		940695441929A26800BA2694 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				24781F041B707ECE008DCBB1 /* CommentRequest */,
 				249092F61B54D19A004B4584 /* ChartView */,
 				94DD72CB193AB9A100CFFF1B /* Utility */,
 				94AFA453193A10E60046F002 /* Helper */,
@@ -678,34 +741,42 @@
 				94FA367A192A0DEB005C37A1 /* UIRefreshControl+AFNetworking.m in Sources */,
 				94FA3670192A0DEB005C37A1 /* AFURLConnectionOperation.m in Sources */,
 				942C0CAC19541D1D00108A75 /* SuggestTableViewCell.m in Sources */,
+				24781F071B707EF2008DCBB1 /* RquestTotalStock.m in Sources */,
 				24D54E2F1B5525DE00AAE334 /* UIColor+helper.m in Sources */,
 				24D54E2D1B5525DE00AAE334 /* colorModel.m in Sources */,
 				24D54E2E1B5525DE00AAE334 /* commond.m in Sources */,
 				940695551929B71600BA2694 /* SelectionViewController.m in Sources */,
+				2467CA851B6A084C0045904E /* CaculationFunction.m in Sources */,
 				24202D121B6B8F910048E4F1 /* StopRaseStockViewCell.m in Sources */,
+				2467CA7C1B6A00EE0045904E /* NSArray+TYAFNetworking.m in Sources */,
 				242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */,
 				94FA3679192A0DEB005C37A1 /* UIProgressView+AFNetworking.m in Sources */,
 				94AFA456193A10E60046F002 /* PersistenceHelper.m in Sources */,
 				9406954F1929B6FD00BA2694 /* LeftViewController.m in Sources */,
 				94FA3676192A0DEB005C37A1 /* UIAlertView+AFNetworking.m in Sources */,
 				9406952619299DFA00BA2694 /* AppDelegate.m in Sources */,
+				2467CA811B6A00EE0045904E /* TYSignatureGenerator.m in Sources */,
 				942474A21948101E00DA27CB /* StockBriefViewController.m in Sources */,
 				94D94CAD193B453900597D59 /* MSDynamicsDrawerStyler.m in Sources */,
 				94FA3672192A0DEB005C37A1 /* AFURLResponseSerialization.m in Sources */,
 				94FA3677192A0DEB005C37A1 /* UIButton+AFNetworking.m in Sources */,
 				94FA3675192A0DEB005C37A1 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				94FA3671192A0DEB005C37A1 /* AFURLRequestSerialization.m in Sources */,
+				2467CA801B6A00EE0045904E /* TYRequestGenerator.m in Sources */,
 				94FA3674192A0DEB005C37A1 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				94FA366F192A0DEB005C37A1 /* AFSecurityPolicy.m in Sources */,
+				2467CA7E1B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m in Sources */,
 				94DD72D2193AE29C00CFFF1B /* MBProgressHUD.m in Sources */,
 				94AFA463193A21510046F002 /* FMDatabase.m in Sources */,
 				94FA366B192A0DEB005C37A1 /* AFHTTPRequestOperation.m in Sources */,
 				94FA3673192A0DEB005C37A1 /* AFURLSessionManager.m in Sources */,
 				94DFD45E193C904F00DBD6EC /* SearchTableViewCell.m in Sources */,
 				9406952219299DFA00BA2694 /* main.m in Sources */,
+				2467CA821B6A00EE0045904E /* TYURLResponse.m in Sources */,
 				249092F91B54D1A8004B4584 /* FMViewController.m in Sources */,
 				94DFD45B193C826F00DBD6EC /* SelectTableViewCell.m in Sources */,
 				94FA366D192A0DEB005C37A1 /* AFHTTPSessionManager.m in Sources */,
+				2467CA7D1B6A00EE0045904E /* NSDictionary+TYAFNetworking.m in Sources */,
 				940695521929B70800BA2694 /* MainViewController.m in Sources */,
 				24D54E081B54D1EC00AAE334 /* lines.m in Sources */,
 				9430A0BE19405B8600569444 /* NSString+stringValue.m in Sources */,
@@ -716,6 +787,7 @@
 				94FE50E619498F6000CCE18A /* StockLineView.m in Sources */,
 				2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */,
 				9430A0BB193F164E00569444 /* SearchViewController.m in Sources */,
+				2467CA7F1B6A00EE0045904E /* TYAPIProxy.m in Sources */,
 				94AFA464193A21510046F002 /* FMDatabaseAdditions.m in Sources */,
 				94AFA467193A21510046F002 /* FMResultSet.m in Sources */,
 				94FA366E192A0DEB005C37A1 /* AFNetworkReachabilityManager.m in Sources */,

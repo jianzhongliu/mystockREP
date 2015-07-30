@@ -46,15 +46,6 @@ static NSMutableArray *array;
             
             [self changeData:lines];
         }else{
-            NSLog(@"url:%@",url);
-            NSURL *nurl = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-//            NSString *url = @"http://hq.niuguwang.com/aquote/userdata/getuserstocks.ashx?version=2.0.5&packtype=0&usertoken=njayg_XK-3AJQ9gsPjN9RHzmVogatdxspIs7v0KUj88*&s=App%20Store";
-            
-            
-//            UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
-//            [MBProgressHUD hideHUDForView:controller.view animated:YES];
-//            [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
-            
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 DMLog(@"JSON: %@", responseObject);
@@ -76,30 +67,15 @@ static NSMutableArray *array;
                 [self changeData:lines];
                 self.isFinish = YES;
                 [self recomentDoubleStock:responseObject];
-//                if (array.count == 0) {
-//                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
-//                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
-//                } else {
-//                    [array removeObjectAtIndex:0];
-//                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
-//                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
-////                    [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
-//                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
-//                    hud.labelText = [NSString stringWithFormat:@"剩下：%d",array.count];
-//                    [hud hide:YES afterDelay:0.5];
-//                }
+                if (self.blockCallBack) {
+                    self.blockCallBack();
+                }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                if (self.blockCallBack) {
+                    self.blockCallBack();
+                }
                 	self.status.text = @"Error!";
                     self.isFinish = YES;
-//                if (array.count == 0) {
-//                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
-//                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
-//                } else {
-//                    [array removeObjectAtIndex:0];
-//                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
-//                    hud.labelText = [NSString stringWithFormat:@"剩下：%d",array.count];
-//                    [hud hide:YES afterDelay:0.5];
-//                }
             }];
         }
 	}
