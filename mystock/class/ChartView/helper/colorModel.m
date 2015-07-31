@@ -107,27 +107,18 @@
     return arrayStockHuA;
 }
 
+//所有票子都在这里了
 + (NSArray *)getStockCodeInfo {
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"localstocktjz2" withExtension:@"plist"]];
     NSMutableArray *arrayStock = [NSMutableArray array];
     for (NSString *stringStockKey in [dic allKeys]) {
         NSArray *array = [NSArray arrayWithObject:[dic objectForKey:stringStockKey]];
-        NSLog(@"%d", [[array objectAtIndex:0] count]);
         if ([[array objectAtIndex:0] count] == 4) {
             NSDictionary *dic = @{@"innercode":array[0][0],@"stockcode":array[0][1],@"stockname":array[0][2]};
             [arrayStock addObject:dic];
         }
 
     }
-    
-//    innercode = 473;
-//    market = 2;
-//    nowprice = "12.97";
-//    stockcode = 000960;
-//    stockname = "\U9521\U4e1a\U80a1\U4efd";
-//    totalvalue = "149.31\U4ebf";
-//    updown = "0.00";
-//    updownrate = "0.00";
     return arrayStock;
 }
 

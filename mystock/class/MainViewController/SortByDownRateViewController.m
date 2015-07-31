@@ -6,21 +6,24 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "SuggestStockViewController.h"
-#import "DoubleListViewController.h"
-#import "StopRaseStockListViewController.h"
-#import "LowestListViewController.h"
 #import "SortByDownRateViewController.h"
+#import "CaculationFunction.h"
+#import "RquestTotalStock.h"
+#import "colorModel.h"
+#import "getData.h"
+#import "commond.h"
 
-@interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SortByDownRateViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic, strong) NSMutableArray *arrayLow;//地量柱
+
+@property (nonatomic, assign) NSInteger index;
 
 @end
 
-@implementation SuggestStockViewController
-
+@implementation SortByDownRateViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -28,15 +31,34 @@
         _tableView.dataSource = self;
         _tableView.backgroundColor = BACKGROUND_COLOR;
         _tableView.separatorColor = [UIColor clearColor];
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
     }
     return _tableView;
 }
 
 
+#pragma mark - lifeCycleMethods
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self initData];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initUI];
+}
+
+- (void)initData {
+    self.index = 0;
+//    [colorModel getStockCodeInfo];
+    self.arrayLow = [NSMutableArray arrayWithArray:[[CaculationFunction share] getDownMore]];
+    
+}
+
+- (void)initUI {
     self.view.backgroundColor = BACKGROUND_COLOR;
     self.navigationController.navigationBar.barTintColor = NAVI_COLOR;
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 44)];
@@ -44,15 +66,18 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"选股工具";
+    titleLabel.text = @"下降率";
     self.navigationItem.titleView = titleLabel;
     
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
+    
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
@@ -61,7 +86,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return self.arrayLow.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -82,58 +107,19 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
+    NSString *stringTitle = [NSString stringWithFormat:@"%@%@ // %@ ///%@",[self.arrayLow[indexPath.row] objectForKey:@"innercode"], [[self.arrayLow[indexPath.row] objectForKey:@"sorceData"] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"storck"], [self.arrayLow[indexPath.row] objectForKey:@"rate"]];
     
-    switch (indexPath.row) {
-        case 0:{
-            cell.textLabel.text = @"发现倍量柱";
-        }
-            break;
-        case 1:{
-            cell.textLabel.text = @"guhaimingdeng";
-        }
-            break;
-        case 2:{
-            cell.textLabel.text = @"发现百日低量柱";
-        }
-            break;
-        case 3:{
-            cell.textLabel.text = @"超跌排序";
-        }
-            break;
-        default:
-            break;
-    }
-    
+    cell.textLabel.text = stringTitle;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    switch (indexPath.row) {
-        case 0:{
-            DoubleListViewController *controller = [[DoubleListViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 1:{
-            StopRaseStockListViewController *controller = [[StopRaseStockListViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 2:{
-            LowestListViewController *controller = [[LowestListViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        case 3:{
-            SortByDownRateViewController *controller = [[SortByDownRateViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-        default:
-            break;
-    }
+    FMViewController *sDetailVC = [[FMViewController alloc] init];
+    sDetailVC.dicStock = [self.arrayLow[indexPath.row] objectForKey:@"sorceData"];
+    [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }
+
 @end

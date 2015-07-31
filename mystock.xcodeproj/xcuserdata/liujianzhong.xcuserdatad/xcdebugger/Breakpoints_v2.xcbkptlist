@@ -65,6 +65,48 @@
             endingLineNumber = "106"
             landmarkName = "-requestDataWithIndex:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[DoubleListViewController requestDataWithIndex:]"
+                  moduleName = "mystock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liujianzhong/Documents/mystock/mystock/class/MainViewController/DoubleListViewController.m"
+                  timestampString = "460025430.884103"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "490">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__49-[DoubleListViewController requestDataWithIndex:]_block_invoke"
+                  moduleName = "mystock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liujianzhong/Documents/mystock/mystock/class/MainViewController/DoubleListViewController.m"
+                  timestampString = "460025430.884371"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "21">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

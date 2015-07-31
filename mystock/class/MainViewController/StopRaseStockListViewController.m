@@ -56,9 +56,7 @@
 
 - (void)initData {
     self.arrayShang = [NSMutableArray array];
-    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
-    [self.arrayShang addObjectsFromArray:[colorModel getSA]];
-    
+    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo]];
     self.arrayStock = [NSMutableArray array];
     self.pageIndex = 0;
 }
@@ -127,17 +125,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSArray *stock = [self.arrayStock objectAtIndex:indexPath.row];
+    __weak NSArray *stock = [self.arrayStock objectAtIndex:indexPath.row];
     [self.arrayShang enumerateObjectsUsingBlock:^(id  __nonnull obj, NSUInteger idx, BOOL * __nonnull stop) {
         if ([obj isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dicEnum = [NSDictionary dictionaryWithDictionary:obj];
             NSLog(@"%@", [dicEnum objectForKey:@"stockname"]);
-            if ([[dicEnum objectForKey:@"stockname"] rangeOfString:stock[4]].length > 0) {
+            if ([stock[4] rangeOfString:[dicEnum objectForKey:@"stockname"]].length > 0) {
                 FMViewController *sDetailVC = [[FMViewController alloc] init];
                 //            NSDictionary *dic = @{@"innercode":arrayEnum[0], @"stockcode":arrayEnum[1],@"stockname":arrayEnum[2]};
                 sDetailVC.dicStock = dicEnum;
                 [self.navigationController pushViewController:sDetailVC animated:YES];
+                *stop = YES;
             }
         }
     }];

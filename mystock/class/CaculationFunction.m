@@ -63,19 +63,15 @@
                 if (currentHightPrice > hightPrice) {
                     hightPrice = currentHightPrice;
                 }
-                
-//                if(currentLowPrice < lowPrice){
-//                    lowPrice = currentLowPrice;
-//                }
             }
-            NSDictionary *dicTemp = @{@"innercode":dic[@"innercode"], @"storck":dic[@"stockcode"],@"hight":@(hightPrice), @"todayLow":@(lowPrice), @"rate":@((hightPrice-lowPrice)/(hightPrice + 0.000001f))};
+            NSDictionary *dicTemp = @{@"sorceData":dic,@"innercode":dic[@"innercode"], @"storck":dic[@"stockcode"],@"hight":@(hightPrice), @"todayLow":@(lowPrice), @"rate":@((hightPrice-lowPrice)/(hightPrice + 0.000001f))};
             [arrayValueEveryDay addObject:dicTemp];
         }
     }
     NSArray *array2 = [arrayValueEveryDay sortedArrayUsingComparator:
                        ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
                            // 先按照姓排序
-                   NSComparisonResult result = [obj1[@"rate"] compare:obj2[@"rate"]];
+                   NSComparisonResult result = [obj2[@"rate"] compare:obj1[@"rate"]];
 
                    return result;
                        }];
@@ -244,7 +240,7 @@
     return arrayGolden;
 }
 
-/**今天低量柱
+/**三日内今天低量柱
  */
 - (NSArray *)lowStockes {
     NSMutableArray *arrayLow = [NSMutableArray array];

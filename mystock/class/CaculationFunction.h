@@ -18,6 +18,10 @@
 
 + (instancetype)share;
 /**地量绿*/
-- (void)lowColumnRate;
+- (NSArray *)lowStockes;
+/**今日倍量柱*/
+- (NSArray *)todayDouble;
+/**超跌排序*/
+- (NSArray *)getDownMore;
 
 @end

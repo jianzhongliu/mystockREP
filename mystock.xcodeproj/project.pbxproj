@@ -24,6 +24,9 @@
 		2467CA851B6A084C0045904E /* CaculationFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA841B6A084C0045904E /* CaculationFunction.m */; };
 		24781F071B707EF2008DCBB1 /* RquestTotalStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 24781F061B707EF2008DCBB1 /* RquestTotalStock.m */; };
 		249092F91B54D1A8004B4584 /* FMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249092F81B54D1A8004B4584 /* FMViewController.m */; };
+		24BC31C31B6B56F80078FCE2 /* LowestListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */; };
+		24BC31C51B6B61470078FCE2 /* local002.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24BC31C41B6B61470078FCE2 /* local002.plist */; };
+		24BC31C81B6B6B6B0078FCE2 /* SortByDownRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */; };
 		24D54E081B54D1EC00AAE334 /* lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E031B54D1EC00AAE334 /* lines.m */; };
 		24D54E091B54D1EC00AAE334 /* lineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E051B54D1EC00AAE334 /* lineView.m */; };
 		24D54E0A1B54D1EC00AAE334 /* getData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E071B54D1EC00AAE334 /* getData.m */; };
@@ -132,6 +135,11 @@
 		24781F061B707EF2008DCBB1 /* RquestTotalStock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RquestTotalStock.m; sourceTree = "<group>"; };
 		249092F71B54D1A8004B4584 /* FMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMViewController.h; sourceTree = "<group>"; };
 		249092F81B54D1A8004B4584 /* FMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMViewController.m; sourceTree = "<group>"; };
+		24BC31C11B6B56F80078FCE2 /* LowestListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LowestListViewController.h; sourceTree = "<group>"; };
+		24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LowestListViewController.m; sourceTree = "<group>"; };
+		24BC31C41B6B61470078FCE2 /* local002.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = local002.plist; sourceTree = "<group>"; };
+		24BC31C61B6B6B6B0078FCE2 /* SortByDownRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByDownRateViewController.h; sourceTree = "<group>"; };
+		24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByDownRateViewController.m; sourceTree = "<group>"; };
 		24D54E021B54D1EC00AAE334 /* lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lines.h; sourceTree = "<group>"; };
 		24D54E031B54D1EC00AAE334 /* lines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lines.m; sourceTree = "<group>"; };
 		24D54E041B54D1EC00AAE334 /* lineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lineView.h; sourceTree = "<group>"; };
@@ -392,6 +400,7 @@
 			children = (
 				2467CA6C1B6A00EE0045904E /* TYNetworking */,
 				244059851B5B55DB0094BC1E /* local600.plist */,
+				24BC31C41B6B61470078FCE2 /* local002.plist */,
 				242252291B5AA3FA00B09FBA /* localstocktjz2.plist */,
 				94AFA4511939F80B0046F002 /* stock.db */,
 				9406951D19299DFA00BA2694 /* mystock-Info.plist */,
@@ -467,6 +476,8 @@
 		9406954B1929B68700BA2694 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
+				24BC31C61B6B6B6B0078FCE2 /* SortByDownRateViewController.h */,
+				24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */,
 				2422522B1B5AA55100B09FBA /* SuggestStockViewController.h */,
 				2422522C1B5AA55100B09FBA /* SuggestStockViewController.m */,
 				940695501929B70800BA2694 /* MainViewController.h */,
@@ -475,6 +486,8 @@
 				942C0CAB19541D1D00108A75 /* SuggestTableViewCell.m */,
 				2422522E1B5AA7C700B09FBA /* DoubleListViewController.h */,
 				2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */,
+				24BC31C11B6B56F80078FCE2 /* LowestListViewController.h */,
+				24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */,
 				24202D0D1B6B8EF90048E4F1 /* StopRaseStockListViewController.h */,
 				24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */,
 				24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */,
@@ -717,6 +730,7 @@
 				9406952019299DFA00BA2694 /* InfoPlist.strings in Resources */,
 				2422522A1B5AA3FA00B09FBA /* localstocktjz2.plist in Resources */,
 				24D54E331B55261000AAE334 /* Default-568h@2x.png in Resources */,
+				24BC31C51B6B61470078FCE2 /* local002.plist in Resources */,
 				94AFA4521939F80B0046F002 /* stock.db in Resources */,
 				9406952819299DFA00BA2694 /* Images.xcassets in Resources */,
 				24D54E341B55261000AAE334 /* Default.png in Resources */,
@@ -740,6 +754,7 @@
 			files = (
 				94FA367A192A0DEB005C37A1 /* UIRefreshControl+AFNetworking.m in Sources */,
 				94FA3670192A0DEB005C37A1 /* AFURLConnectionOperation.m in Sources */,
+				24BC31C31B6B56F80078FCE2 /* LowestListViewController.m in Sources */,
 				942C0CAC19541D1D00108A75 /* SuggestTableViewCell.m in Sources */,
 				24781F071B707EF2008DCBB1 /* RquestTotalStock.m in Sources */,
 				24D54E2F1B5525DE00AAE334 /* UIColor+helper.m in Sources */,
@@ -780,6 +795,7 @@
 				940695521929B70800BA2694 /* MainViewController.m in Sources */,
 				24D54E081B54D1EC00AAE334 /* lines.m in Sources */,
 				9430A0BE19405B8600569444 /* NSString+stringValue.m in Sources */,
+				24BC31C81B6B6B6B0078FCE2 /* SortByDownRateViewController.m in Sources */,
 				94D94CAE193B453900597D59 /* MSDynamicsDrawerViewController.m in Sources */,
 				94FA367B192A0DEB005C37A1 /* UIWebView+AFNetworking.m in Sources */,
 				94DD72CE193AB9A100CFFF1B /* ValueForKey.m in Sources */,

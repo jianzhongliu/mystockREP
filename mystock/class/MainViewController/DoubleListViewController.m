@@ -8,6 +8,7 @@
 
 #import "DoubleListViewController.h"
 #import "RquestTotalStock.h"
+#import "CaculationFunction.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
@@ -58,7 +59,7 @@
 //    [colorModel getStockCodeInfo];
     [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
     [self.arrayShen addObjectsFromArray:[colorModel getSA]];
-    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:(NSArray *)[commond getUserDefaults:@"Double"]];
+    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] lowStockes]];
     self.arrayDouble = [NSMutableArray arrayWithArray:arrayLocalStock];
     
 }
