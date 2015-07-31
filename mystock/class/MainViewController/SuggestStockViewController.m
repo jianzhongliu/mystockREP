@@ -8,6 +8,7 @@
 
 #import "SuggestStockViewController.h"
 #import "DoubleListViewController.h"
+#import "StopRaseStockListViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -86,7 +87,7 @@
         }
             break;
         case 1:{
-            cell.textLabel.text = @"发现缩倍柱";
+            cell.textLabel.text = @"guhaimingdeng";
         }
             break;
         case 2:{
@@ -110,7 +111,8 @@
         }
             break;
         case 1:{
-            
+            StopRaseStockListViewController *controller = [[StopRaseStockListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 2:{

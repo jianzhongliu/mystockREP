@@ -31,7 +31,7 @@ static NSMutableArray *array;
 -(id)initWithUrl:(NSString*)url fresh:(BOOL) isRefresh{
     if (self){
         if (array == nil) {
-            array = [colorModel getStockCodeInfo600];
+            array = [NSMutableArray arrayWithArray:[colorModel getStockCodeInfo600]];
         }
         // 取缓存的每天数据
         NSArray *tempArray = (NSArray*)[commond getUserDefaults:@"daydatas"];
@@ -51,9 +51,9 @@ static NSMutableArray *array;
 //            NSString *url = @"http://hq.niuguwang.com/aquote/userdata/getuserstocks.ashx?version=2.0.5&packtype=0&usertoken=njayg_XK-3AJQ9gsPjN9RHzmVogatdxspIs7v0KUj88*&s=App%20Store";
             
             
-            UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
-            [MBProgressHUD hideHUDForView:controller.view animated:YES];
-            [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+//            UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
+//            [MBProgressHUD hideHUDForView:controller.view animated:YES];
+//            [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -76,26 +76,30 @@ static NSMutableArray *array;
                 [self changeData:lines];
                 self.isFinish = YES;
                 [self recomentDoubleStock:responseObject];
-                if (array.count == 0) {
-                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
-                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
-                } else {
-                    [array removeObjectAtIndex:0];
-                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
-                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
-//                    [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
-                    hud.labelText = [NSString stringWithFormat:@"剩下：%d",array.count];
-                }
+//                if (array.count == 0) {
+//                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
+//                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
+//                } else {
+//                    [array removeObjectAtIndex:0];
+//                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
+//                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
+////                    [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+//                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+//                    hud.labelText = [NSString stringWithFormat:@"剩下：%d",array.count];
+//                    [hud hide:YES afterDelay:0.5];
+//                }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 	self.status.text = @"Error!";
                     self.isFinish = YES;
-                if (array.count == 0) {
-                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
-                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
-                } else {
-                    [array removeObjectAtIndex:0];
-                }
+//                if (array.count == 0) {
+//                    UIViewController *controller = [FunctionMethodsUtil getCurrentRootViewController];
+//                    [MBProgressHUD hideHUDForView:controller.view animated:YES];
+//                } else {
+//                    [array removeObjectAtIndex:0];
+//                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+//                    hud.labelText = [NSString stringWithFormat:@"剩下：%d",array.count];
+//                    [hud hide:YES afterDelay:0.5];
+//                }
             }];
         }
 	}

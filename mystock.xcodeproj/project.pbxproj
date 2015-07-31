@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24202D0F1B6B8EF90048E4F1 /* StopRaseStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */; };
+		24202D121B6B8F910048E4F1 /* StopRaseStockViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */; };
 		2422522A1B5AA3FA00B09FBA /* localstocktjz2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 242252291B5AA3FA00B09FBA /* localstocktjz2.plist */; };
 		2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522C1B5AA55100B09FBA /* SuggestStockViewController.m */; };
 		242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */; };
@@ -88,6 +90,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		24202D0D1B6B8EF90048E4F1 /* StopRaseStockListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockListViewController.h; sourceTree = "<group>"; };
+		24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRaseStockListViewController.m; sourceTree = "<group>"; };
+		24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockViewCell.h; sourceTree = "<group>"; };
+		24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRaseStockViewCell.m; sourceTree = "<group>"; };
 		242252291B5AA3FA00B09FBA /* localstocktjz2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = localstocktjz2.plist; sourceTree = "<group>"; };
 		2422522B1B5AA55100B09FBA /* SuggestStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestStockViewController.h; sourceTree = "<group>"; };
 		2422522C1B5AA55100B09FBA /* SuggestStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestStockViewController.m; sourceTree = "<group>"; };
@@ -406,6 +412,10 @@
 				942C0CAB19541D1D00108A75 /* SuggestTableViewCell.m */,
 				2422522E1B5AA7C700B09FBA /* DoubleListViewController.h */,
 				2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */,
+				24202D0D1B6B8EF90048E4F1 /* StopRaseStockListViewController.h */,
+				24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */,
+				24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */,
+				24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";
@@ -610,9 +620,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Ryan;
 				TargetAttributes = {
-					9406951119299DFA00BA2694 = {
-						DevelopmentTeam = 4DW89V8URU;
-					};
 					9406952C19299DFA00BA2694 = {
 						TestTargetID = 9406951119299DFA00BA2694;
 					};
@@ -675,6 +682,7 @@
 				24D54E2D1B5525DE00AAE334 /* colorModel.m in Sources */,
 				24D54E2E1B5525DE00AAE334 /* commond.m in Sources */,
 				940695551929B71600BA2694 /* SelectionViewController.m in Sources */,
+				24202D121B6B8F910048E4F1 /* StopRaseStockViewCell.m in Sources */,
 				242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */,
 				94FA3679192A0DEB005C37A1 /* UIProgressView+AFNetworking.m in Sources */,
 				94AFA456193A10E60046F002 /* PersistenceHelper.m in Sources */,
@@ -712,6 +720,7 @@
 				94AFA467193A21510046F002 /* FMResultSet.m in Sources */,
 				94FA366E192A0DEB005C37A1 /* AFNetworkReachabilityManager.m in Sources */,
 				9424749F19480FE700DA27CB /* SuggestDetailViewController.m in Sources */,
+				24202D0F1B6B8EF90048E4F1 /* StopRaseStockListViewController.m in Sources */,
 				94AFA465193A21510046F002 /* FMDatabasePool.m in Sources */,
 				94FA3678192A0DEB005C37A1 /* UIImageView+AFNetworking.m in Sources */,
 				24432D3F1B5DE37500213291 /* FunctionMethodsUtil.m in Sources */,
