@@ -45,7 +45,7 @@
 }
 
 - (void)requestStockWithIndex:(NSInteger) index {
-    if (index > 200) {
+    if (index > 2000) {
         return;
     }
     if (index >= self.arrayShang.count) {
@@ -64,7 +64,7 @@
     [arrayDoubleStock addObjectsFromArray:self.arrayShen];
     
     NSDictionary *code = [self.arrayShang objectAtIndex:index];
-    NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=30&packtype=0&version=2.0.5", code[@"innercode"]];
+    NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", code[@"innercode"]];
     
     
     [[TYAPIProxy shareProxy] callGETWithParams:code identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {

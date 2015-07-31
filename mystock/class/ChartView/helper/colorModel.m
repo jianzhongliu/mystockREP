@@ -63,8 +63,6 @@
             [arrayStockSHA addObject:stringStockCode];
         }
     }
-    NSLog(@"arrayStockSHA===%@", arrayStockSHA);
-        
 }
 
 + (NSMutableArray *)getSA {
@@ -85,7 +83,6 @@
             [arrayStockSHA addObject:stringStockCode];
         }
     }
-    NSLog(@"arrayStockSHA===%@", arrayStockSHA);
     return arrayStockSHA;
 }
 
@@ -107,7 +104,6 @@
             [arrayStockSHA addObject:stringStockCode];
         }
     }
-    NSLog(@"arrayStockSHA===%@", arrayStockSHA);
     return arrayStockHuA;
 }
 

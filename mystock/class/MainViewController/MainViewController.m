@@ -59,7 +59,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
     _sTableView.dataSource = self;
     _sTableView.backgroundColor = [UIColor clearColor];
     _sTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_sTableView];
+//    [self.view addSubview:_sTableView];
     
     [_sTableView registerClass:[SuggestTableViewCell class] forCellReuseIdentifier:SuggestCellReuseIdentifier];
     
