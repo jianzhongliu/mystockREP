@@ -136,18 +136,20 @@
             }
             int index = [arraySingleDay indexOfObject:dicLow];
             if (arraySingleDay.count > index - days) {
-                if ([arraySingleDay[index - days][@"nowv"] integerValue] > [dicLow[@"nowv"] integerValue]) {
+                if ([arraySingleDay[index - days][@"nowv"] integerValue] >= [dicLow[@"nowv"] integerValue]) {
                   int data = [arraySingleDay[index - days][@"nowv"] integerValue] - [dicLow[@"nowv"] integerValue];
-                    uprate += data / ([dicLow[@"nowv"] integerValue] + 0.000000000000001f);
-                    up ++ ;
-                    NSLog(@"time:%@======lowValue:%@ ===== ID%@ ======%.3f", arraySingleDay[index][@"times"], arraySingleDay[index][@"lowp"], dic[@"stockcode"], data / ([dicLow[@"nowv"] integerValue] + 0.000000000000001f));
+                    if ([dicLow[@"openp"] integerValue] != [dicLow[@"nowv"] integerValue] ) {
+                        uprate += data / ([dicLow[@"nowv"] integerValue] + 0.000000000000001f);
+                        up ++ ;
+                        NSLog(@"time:%@======lowValue:%@ ===== ID%@ ======%.3f", arraySingleDay[index][@"times"], arraySingleDay[index][@"lowp"], dic[@"stockcode"], data / ([dicLow[@"nowv"] integerValue] + 0.000000000000001f));
+                    }
                 } else {
-                    
                     int data = [dicLow[@"nowv"] integerValue] - [arraySingleDay[index - days][@"nowv"] integerValue];
-                    downRate += data /  [dicLow[@"nowv"] floatValue];
-//                    NSLog(@"time:%@======lowValue:%@ ===== ID%@ ======%.3f", arraySingleDay[index][@"times"], arraySingleDay[index][@"lowp"], dic[@"stockcode"], data / ([dicLow[@"nowv"] integerValue] + 0.000000000000001f));
-
-                    low ++ ;
+                    if ([dicLow[@"openp"] integerValue] != [dicLow[@"nowv"] integerValue] ) {
+                        downRate += data / [dicLow[@"nowv"] floatValue];
+                        low ++ ;
+                        NSLog(@"time:%@======lowValue:%@ ===== ID%@ ======下降%.3f", arraySingleDay[index][@"times"], arraySingleDay[index][@"lowp"], dic[@"stockcode"], data / ([dicLow[@"nowv"] integerValue] + 0.000000000000001f));
+                    }
                 }
             }
         }
@@ -404,7 +406,7 @@
                 }
             }
             if (o >= 3 || h >= 3 || l>=3 || n >= 3) {
-                NSString *valueDetail = [NSString stringWithFormat:@"最低价：%d个 最高价：%d个 开盘价：%d个 收盘价：%d个",l,h,o,n];
+                NSString *valueDetail = [NSString stringWithFormat:@"最低：%d个 最高：%d个 开盘：%d个 收盘：%d个",l,h,o,n];
                 [dic setObject:valueDetail forKey:@"detail"];
                 [arrayValueEveryDay addObject:dic];
             }

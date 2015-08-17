@@ -111,8 +111,9 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = [NSString stringWithFormat:@"%@",[self.arrayDouble[indexPath.row] objectForKey:@"detail"]];
-    cell.textLabel.font = [UIFont systemFontOfSize:11];
+    NSString *stringTitle = [NSString stringWithFormat:@"%@   %@", [self.arrayDouble[indexPath.row] objectForKey:@"stockname"],[self.arrayDouble[indexPath.row] objectForKey:@"detail"]];
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
+    cell.textLabel.textColor = [UIColor lightGrayColor];
     cell.textLabel.text = stringTitle;
     return cell;
 }
