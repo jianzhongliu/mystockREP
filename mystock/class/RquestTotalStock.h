@@ -19,5 +19,5 @@
 @property (nonatomic, strong) NSMutableArray *arrayResult;
 
 + (instancetype)share;
-- (void)startLoadingData;
+- (void)startLoadingDataWith:(NSInteger )number ;
 @end

@@ -12,7 +12,7 @@
 
 @implementation CaculationFunction
 + (void)load {
-    [[CaculationFunction share] lowColumnRate];
+//    [[CaculationFunction share] lowColumnRate];
 //    [[CaculationFunction share] hightColumnRate];
 //    NSLog(@"%@", [[CaculationFunction share] todayDouble]) ;
 //    NSLog(@"%@", [[CaculationFunction share] lowStockes]) ;

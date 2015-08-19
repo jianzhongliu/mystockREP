@@ -17,7 +17,7 @@
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, assign) NSInteger requestCount;
 
 @end
 
@@ -39,6 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.requestCount = 0;
     self.view.backgroundColor = BACKGROUND_COLOR;
     self.navigationController.navigationBar.barTintColor = NAVI_COLOR;
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 44)];
@@ -48,7 +49,16 @@
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.text = @"选股工具";
     self.navigationItem.titleView = titleLabel;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataFromRequest:) name:@"currentRequestData" object:nil];
+}
+
+- (void)getDataFromRequest:(NSDictionary *) info {
+    self.requestCount ++;
+    if (self.requestCount / 30 == self.requestCount/30.0f) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = [NSString stringWithFormat:@"已完成%d",self.requestCount];
+        [hud hide:YES afterDelay:3];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

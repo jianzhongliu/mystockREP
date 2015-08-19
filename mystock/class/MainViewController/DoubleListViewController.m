@@ -13,7 +13,7 @@
 #import "getData.h"
 #import "commond.h"
 
-@interface DoubleListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface DoubleListViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
@@ -87,10 +87,10 @@
 }
 
 - (void)showDoubleStock {
-    [commond setUserDefaults:@[] forKey:@"Double"];
-    NSLog(@"%@", self.arrayDouble);
-//    [self requestDataWithIndex:self.index ++];
-    [[RquestTotalStock share] startLoadingData];
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"选择数据量" delegate:self
+cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"1000",@"300",@"100",@"50",@"30",@"20",@"15", nil];
+    [action showInView:self.view];
+
 }
 
 - (void)requestDataWithIndex:(NSInteger) index {
@@ -156,4 +156,53 @@
     
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSInteger number = 0;
+    switch (buttonIndex) {
+        case 0:
+        {
+            number = 1000;
+        }
+            break;
+        case 1:
+        {
+            number = 300;
+        }
+            break;
+        case 2:
+        {
+            number = 100;
+        }
+            break;
+        case 3:
+        {
+            number = 50;
+        }
+            break;
+        case 4:
+        {
+            number = 30;
+        }
+            break;
+        case 5:
+        {
+            number = 20;
+        }
+            break;
+        case 6:
+        {
+            number = 15;
+        }
+            break;
+        default:
+            break;
+    }
+    if (number > 0) {
+        [commond setUserDefaults:@[] forKey:@"Double"];
+        NSLog(@"%@", self.arrayDouble);
+        //    [self requestDataWithIndex:self.index ++];
+        [[RquestTotalStock share] startLoadingDataWith:number];
+    }
+
+}
 @end

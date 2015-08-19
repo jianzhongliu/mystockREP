@@ -90,13 +90,6 @@
     self.tableView.tableHeaderView = self.searchBar;
 }
 
-- (void)showDoubleStock {
-    [commond setUserDefaults:@[] forKey:@"Double"];
-    NSLog(@"%@", self.arrayDouble);
-//    [self requestDataWithIndex:self.index ++];
-    [[RquestTotalStock share] startLoadingData];
-}
-
 - (void)requestDataWithIndex:(NSInteger) index {
     if (index > self.arrayDouble.count) {
         return;

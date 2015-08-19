@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2404F3911B82F1FE00EAB5C3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2404F3901B82F1FE00EAB5C3 /* DBManager.m */; };
 		24202D0F1B6B8EF90048E4F1 /* StopRaseStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */; };
 		24202D121B6B8F910048E4F1 /* StopRaseStockViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */; };
 		2422522A1B5AA3FA00B09FBA /* localstocktjz2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 242252291B5AA3FA00B09FBA /* localstocktjz2.plist */; };
@@ -104,6 +105,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2404F38F1B82F1FE00EAB5C3 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		2404F3901B82F1FE00EAB5C3 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		24202D0D1B6B8EF90048E4F1 /* StopRaseStockListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockListViewController.h; sourceTree = "<group>"; };
 		24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRaseStockListViewController.m; sourceTree = "<group>"; };
 		24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockViewCell.h; sourceTree = "<group>"; };
@@ -317,6 +320,8 @@
 				24781F061B707EF2008DCBB1 /* RquestTotalStock.m */,
 				2467CA831B6A084C0045904E /* CaculationFunction.h */,
 				2467CA841B6A084C0045904E /* CaculationFunction.m */,
+				2404F38F1B82F1FE00EAB5C3 /* DBManager.h */,
+				2404F3901B82F1FE00EAB5C3 /* DBManager.m */,
 			);
 			name = CommentRequest;
 			sourceTree = "<group>";
@@ -822,6 +827,7 @@
 				9424749F19480FE700DA27CB /* SuggestDetailViewController.m in Sources */,
 				24202D0F1B6B8EF90048E4F1 /* StopRaseStockListViewController.m in Sources */,
 				94AFA465193A21510046F002 /* FMDatabasePool.m in Sources */,
+				2404F3911B82F1FE00EAB5C3 /* DBManager.m in Sources */,
 				94FA3678192A0DEB005C37A1 /* UIImageView+AFNetworking.m in Sources */,
 				24432D3F1B5DE37500213291 /* FunctionMethodsUtil.m in Sources */,
 				94FA366C192A0DEB005C37A1 /* AFHTTPRequestOperationManager.m in Sources */,

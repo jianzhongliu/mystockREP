@@ -63,7 +63,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
     
     [_sTableView registerClass:[SuggestTableViewCell class] forCellReuseIdentifier:SuggestCellReuseIdentifier];
     
-    [self request_suggest_list:NO];
+//    [self request_suggest_list:NO];
 }
 
 #pragma mark - Custom Method

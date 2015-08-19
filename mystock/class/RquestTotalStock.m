@@ -29,9 +29,9 @@
     return self;
 }
 
-- (void)startLoadingData {
+- (void)startLoadingDataWith:(NSInteger )number {
 //    for (int i = 0; i < 20; i ++) {
-        [self requestStockWithIndex:self.index ++ ];
+    [self requestStockWithIndex:self.index ++ number:number];
 //    }
 }
 
@@ -44,7 +44,7 @@
     [self.arrayShen addObjectsFromArray:[colorModel getSA]];
 }
 
-- (void)requestStockWithIndex:(NSInteger) index {
+- (void)requestStockWithIndex:(NSInteger) index number:(NSInteger) number{
     if (index > 2000) {
         return;
     }
@@ -64,7 +64,7 @@
     [arrayDoubleStock addObjectsFromArray:self.arrayShen];
     
     NSDictionary *code = [self.arrayShang objectAtIndex:index];
-    NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=30&packtype=0&version=2.0.5", code[@"innercode"]];
+    NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=%d&packtype=0&version=2.0.5", code[@"innercode"], number];
     
     
     [[TYAPIProxy shareProxy] callGETWithParams:code identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {
@@ -80,36 +80,13 @@
         [self.arrayResult addObject:response.content];
         //存储源数据
         [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"currentRequestData" object:self.arrayResult];
         
         [self recomentDoubleStock:response.content];
-        [self requestStockWithIndex:self.index ++];
+        [self requestStockWithIndex:self.index ++ number:number];
     } faildCallBack:^(TYURLResponse *response) {
-        [self requestStockWithIndex:self.index ++];
-    }];
-    return;
-    
-    
-    
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DMLog(@"JSON: %@", responseObject);
-        if (responseObject == nil) {
-            return;
-        }
-        NSMutableArray *lines = [NSMutableArray array];
-        //                [lines addObject:@"2010-03-15,17.95,17.99,17.45,17.56,6857700,16.89"];
-        for (NSDictionary *dic in [responseObject objectForKey:@"timedata"]) {
-            [lines addObject:[self dicStockToString:dic]];
-        }
-
-        [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",url]]];
-//        [self changeData:lines];
-        [self recomentDoubleStock:responseObject];
-        [self requestStockWithIndex:self.index ++];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self requestStockWithIndex:self.index ++];
+        [self requestStockWithIndex:self.index ++ number:number];
     }];
 }
 
