@@ -13,5 +13,7 @@
 @property (nonatomic, strong) NSMutableArray *arrayCode;
 + (instancetype)share;
 
+- (NSArray *)fetchStockLocationWithKey:(NSString *) key;
+- (void )insertIntoDBWith:(NSArray *) lines Key:(NSString *) key;
 
 @end

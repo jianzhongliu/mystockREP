@@ -7,6 +7,7 @@
 //
 
 #import "DBManager.h"
+#import "NSArray+TYAFNetworking.h"
 
 @implementation DBManager
 + (void)load {
@@ -91,10 +92,10 @@
     
 }
 
-- (NSArray *)fetchStockLocation {
+- (NSArray *)fetchStockLocationWithKey:(NSString *) key {
     NSMutableArray *arrayResult = [NSMutableArray array];
     FMDatabase *dbBase = [FMDatabase databaseWithPath:kDBFilePath];
-    NSString *sql = @"select * from stock";
+    NSString *sql = [NSString stringWithFormat:@"select * from stock where key = %@", key];
     if ([dbBase open]) {
         FMResultSet *result = [dbBase executeQuery:sql];
         while ([result next]) {
@@ -105,5 +106,11 @@
     return arrayResult;
 }
 
+- (void )insertIntoDBWith:(NSArray *) lines Key:(NSString *) key {
+    NSString *stringLine = [lines TY_jsonString];
+    FMDatabase *dbBase = [FMDatabase databaseWithPath:kDBFilePath];
+    NSString *sql = @"INSERT INTO stock(content, key) VALUES(?, ?)";
+    [dbBase executeUpdate:sql, stringLine, key];
+}
 
 @end

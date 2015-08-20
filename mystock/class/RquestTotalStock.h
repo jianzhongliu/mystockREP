@@ -17,6 +17,7 @@
 @property (nonatomic, assign) NSInteger index;
 
 @property (nonatomic, strong) NSMutableArray *arrayResult;
+@property (nonatomic, strong) NSMutableArray *arrayLines;
 
 + (instancetype)share;
 - (void)startLoadingDataWith:(NSInteger )number ;

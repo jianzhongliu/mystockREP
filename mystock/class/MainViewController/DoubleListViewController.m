@@ -111,7 +111,7 @@ cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"1000",@"3
         [hud hide:YES afterDelay:0.2];
     };
     NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", code[@"innercode"]];
-    data = [data initWithUrl:url fresh:YES];
+    data = [data initWithUrl:url fresh:code[@"innercode"]];
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate

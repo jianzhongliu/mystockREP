@@ -26,6 +26,6 @@ typedef void(^ReturnBlock)(void);
 @property (nonatomic,retain) NSDictionary *todayStock;
 
 @property (nonatomic, strong) ReturnBlock blockCallBack;
--(id)initWithUrl:(NSString*)url fresh:(BOOL) isRefresh;
+-(id)initWithUrl:(NSString*)url fresh:(NSString *) innerCode;
 
 @end

@@ -10,6 +10,7 @@
 #import "SuggestTableViewCell.h"
 #import "getData.h"
 #import "commond.h"
+#import "TYAPIProxy.h"
 
 NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
 
@@ -89,6 +90,28 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
         [hud hide:YES afterDelay:30];
     NSString *url = @"http://hq.niuguwang.com/aquote/userdata/getuserstocks.ashx?version=2.0.5&packtype=0&usertoken=njayg_XK-3AJQ9gsPjN9RHzmVogatdxspIs7v0KUj88*&s=App%20Store";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [[TYAPIProxy shareProxy] callGETWithParams:@{} identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {
+        DMLog(@"JSON: %@", response.content);
+        if (response.content == nil) {
+            return;
+        }
+        
+        self.suggestArray = [response.content objForKey:@"list"];
+        [commond setUserDefaults:self.suggestArray forKey:@"recommendList"];
+        
+        for (NSDictionary *dic in self.suggestArray) {
+            getData *data = [[getData alloc] init];
+            NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", [dic objectForKey:@"innercode"]];
+            data = [data initWithUrl:url fresh:dic[@"innercode"]];
+        }
+        
+        [_sTableView reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    } faildCallBack:^(TYURLResponse *response) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+    
+    return;
     [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DMLog(@"JSON: %@", responseObject);
         if (responseObject == nil) {
@@ -101,7 +124,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
         for (NSDictionary *dic in self.suggestArray) {
             getData *data = [[getData alloc] init];
             NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", [dic objectForKey:@"innercode"]];
-            data = [data initWithUrl:url fresh:YES];
+            data = [data initWithUrl:url fresh:dic[@"innercode"]];
         }
         
         [_sTableView reloadData];

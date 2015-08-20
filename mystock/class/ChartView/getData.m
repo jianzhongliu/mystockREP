@@ -10,6 +10,7 @@
 #import "FunctionMethodsUtil.h"
 #import "commond.h"
 #import "colorModel.h"
+#import "TYAPIProxy.h"
 
 static NSMutableArray *array;
 
@@ -28,7 +29,7 @@ static NSMutableArray *array;
     return  self;
 }
 
--(id)initWithUrl:(NSString*)url fresh:(BOOL) isRefresh{
+-(id)initWithUrl:(NSString*)url fresh:(NSString *) innerCode{
     if (self){
         if (array == nil) {
             array = [NSMutableArray arrayWithArray:[colorModel getStockCodeInfo600]];
@@ -39,14 +40,55 @@ static NSMutableArray *array;
             self.dayDatas = tempArray;
         }
         NSMutableArray *lines   = [NSMutableArray array];
-        [lines addObjectsFromArray:(NSArray *)[commond getUserDefaults:[commond md5HexDigest:url]]];
+//        [lines addObjectsFromArray:(NSArray *)[commond getUserDefaults:[commond md5HexDigest:innerCode]]];
 //        lines = (NSMutableArray*)[commond getUserDefaults:[commond md5HexDigest:url]];
-        if (isRefresh == NO && lines.count>0) {
+        NSArray *arrayAllData = [commond getUserDefaults:@"lines"];
+        for (NSDictionary *response in arrayAllData) {
+            if ([response[@"identify"] rangeOfString:innerCode].length > 0) {
+//                NSMutableArray *lines = [NSMutableArray array];
+                for (NSDictionary *dic in [response[@"response"] objectForKey:@"timedata"]) {
+                    [lines addObject:[self dicStockToString:dic]];
+                }
+            }
+        }
+        
+        if (lines.count>0) {
             [lines insertObject:lines[0] atIndex:0];
-            
             [self changeData:lines];
         }else{
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            [[TYAPIProxy shareProxy] callGETWithParams:@{} identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {
+                DMLog(@"JSON: %@", response.content);
+                if (response.content == nil) {
+                    return;
+                }
+                self.status.text = @"";
+                NSString *content = response.content;
+                NSMutableArray *lines = [NSMutableArray array];
+                //                [lines addObject:@"2010-03-15,17.95,17.99,17.45,17.56,6857700,16.89"];
+                for (NSDictionary *dic in [response.content objectForKey:@"timedata"]) {
+                    [lines addObject:[self dicStockToString:dic]];
+                }
+                if ([self.req_type isEqualToString:@"d"]) {
+                    self.dayDatas = lines;
+                    [commond setUserDefaults:lines forKey:@"daydatas"];
+                }
+                [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",url]]];
+                [self changeData:lines];
+                self.isFinish = YES;
+                [self recomentDoubleStock:response.content];
+                if (self.blockCallBack) {
+                    self.blockCallBack();
+                }
+            } faildCallBack:^(TYURLResponse *response) {
+                if (self.blockCallBack) {
+                    self.blockCallBack();
+                }
+                self.status.text = @"Error!";
+                self.isFinish = YES;
+            }];
+            return self;
+            
             [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 DMLog(@"JSON: %@", responseObject);
                 if (responseObject == nil) {
@@ -56,6 +98,7 @@ static NSMutableArray *array;
                 NSString *content = responseObject;
                 NSMutableArray *lines = [NSMutableArray array];
 //                [lines addObject:@"2010-03-15,17.95,17.99,17.45,17.56,6857700,16.89"];
+                
                 for (NSDictionary *dic in [responseObject objectForKey:@"timedata"]) {
                     [lines addObject:[self dicStockToString:dic]];
                 }

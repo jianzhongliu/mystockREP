@@ -8,6 +8,7 @@
 
 #import "RquestTotalStock.h"
 #import "TYApiProxy.h"
+#import "DBManager.h"
 
 @implementation RquestTotalStock
 
@@ -37,6 +38,7 @@
 
 - (void)initData {
     self.index = 0;
+    self.arrayLines = [NSMutableArray array];
     self.arrayResult = [NSMutableArray array];
     self.arrayShang = [NSMutableArray array];
     self.arrayShen = [NSMutableArray array];
@@ -45,7 +47,8 @@
 }
 
 - (void)requestStockWithIndex:(NSInteger) index number:(NSInteger) number{
-    if (index > 2000) {
+    if (index >= self.arrayShang.count) {
+        [self localisationData];
         return;
     }
     if (index >= self.arrayShang.count) {
@@ -65,29 +68,46 @@
     
     NSDictionary *code = [self.arrayShang objectAtIndex:index];
     NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=%d&packtype=0&version=2.0.5", code[@"innercode"], number];
-    
-    
+    __block NSString *identify = [NSString stringWithFormat:@"%@", code[@"innercode"]];
     [[TYAPIProxy shareProxy] callGETWithParams:code identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {
         if (response.content == nil) {
             return;
         }
-        NSMutableArray *lines = [NSMutableArray array];
-        for (NSDictionary *dic in [response.content objectForKey:@"timedata"]) {
-            [lines addObject:[self dicStockToString:dic]];
-        }
-        NSLog(@"%@", response.content);
-        [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",url]]];
+        
+        [self.arrayLines addObject:@{@"response":response.content,@"identify":identify}];
+        
+//        NSMutableArray *lines = [NSMutableArray array];
+//        for (NSDictionary *dic in [response.content objectForKey:@"timedata"]) {
+//            [lines addObject:[self dicStockToString:dic]];
+//        }
+//        NSLog(@"%@", response.content);
+//        [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",identify]]];
         [self.arrayResult addObject:response.content];
-        //存储源数据
-        [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
-
+//        //存储源数据
+//        [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
+//
         [[NSNotificationCenter defaultCenter] postNotificationName:@"currentRequestData" object:self.arrayResult];
         
-        [self recomentDoubleStock:response.content];
+//        [self recomentDoubleStock:response.content];
         [self requestStockWithIndex:self.index ++ number:number];
     } faildCallBack:^(TYURLResponse *response) {
         [self requestStockWithIndex:self.index ++ number:number];
     }];
+}
+
+- (void)localisationData {
+//    for (NSDictionary *response in self.arrayLines) {
+//        NSMutableArray *lines = [NSMutableArray array];
+//        for (NSDictionary *dic in [response[@"response"] objectForKey:@"timedata"]) {
+//            [lines addObject:[self dicStockToString:dic]];
+//        }
+//        NSLog(@"%@", response);
+//        [[DBManager share] insertIntoDBWith:lines Key:response[@"identify"]];
+//        [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",response[@"identify"]]]];
+//    }
+    [commond setUserDefaults:self.arrayLines forKey:@"lines"];
+
+    [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
 }
 
 - (void)recomentDoubleStock:(NSDictionary *) respose {
