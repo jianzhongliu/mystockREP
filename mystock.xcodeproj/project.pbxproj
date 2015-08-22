@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2404F3911B82F1FE00EAB5C3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2404F3901B82F1FE00EAB5C3 /* DBManager.m */; };
+		2404F39A1B872C0C00EAB5C3 /* MoneyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */; };
 		24202D0F1B6B8EF90048E4F1 /* StopRaseStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */; };
 		24202D121B6B8F910048E4F1 /* StopRaseStockViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */; };
 		2422522A1B5AA3FA00B09FBA /* localstocktjz2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 242252291B5AA3FA00B09FBA /* localstocktjz2.plist */; };
@@ -107,6 +108,8 @@
 /* Begin PBXFileReference section */
 		2404F38F1B82F1FE00EAB5C3 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		2404F3901B82F1FE00EAB5C3 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		2404F3981B872C0C00EAB5C3 /* MoneyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyListViewController.h; sourceTree = "<group>"; };
+		2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyListViewController.m; sourceTree = "<group>"; };
 		24202D0D1B6B8EF90048E4F1 /* StopRaseStockListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockListViewController.h; sourceTree = "<group>"; };
 		24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRaseStockListViewController.m; sourceTree = "<group>"; };
 		24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockViewCell.h; sourceTree = "<group>"; };
@@ -487,6 +490,8 @@
 		9406954B1929B68700BA2694 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2404F3981B872C0C00EAB5C3 /* MoneyListViewController.h */,
+				2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */,
 				24BC31CC1B6B6B6B0078FCE2 /* JingzhunLineViewController.h */,
 				24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */,
 				24BC31C91B6B6B6B0078FCE2 /* SortStockValueViewController.h */,
@@ -799,6 +804,7 @@
 				94FA366F192A0DEB005C37A1 /* AFSecurityPolicy.m in Sources */,
 				2467CA7E1B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m in Sources */,
 				94DD72D2193AE29C00CFFF1B /* MBProgressHUD.m in Sources */,
+				2404F39A1B872C0C00EAB5C3 /* MoneyListViewController.m in Sources */,
 				94AFA463193A21510046F002 /* FMDatabase.m in Sources */,
 				94FA366B192A0DEB005C37A1 /* AFHTTPRequestOperation.m in Sources */,
 				94FA3673192A0DEB005C37A1 /* AFURLSessionManager.m in Sources */,

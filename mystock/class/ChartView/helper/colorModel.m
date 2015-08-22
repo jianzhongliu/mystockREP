@@ -128,7 +128,7 @@
     NSMutableArray *arrayStock = [NSMutableArray array];
     for (NSString *stringStockKey in [dic allKeys]) {
         NSArray *array = [NSArray arrayWithObject:[dic objectForKey:stringStockKey]];
-        NSLog(@"%d", [[array objectAtIndex:0] count]);
+//        NSLog(@"%d", [[array objectAtIndex:0] count]);
         if ([[array objectAtIndex:0] count] == 4) {
             NSDictionary *dic = @{@"innercode":array[0][0],@"stockcode":array[0][1],@"stockname":array[0][2]};
             [arrayStock addObject:dic];
@@ -137,6 +137,19 @@
     return arrayStock;
 }
 
-
+/**仅仅深A*/
++ (NSArray *)getStockCodeInfo002 {
+    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"local002" withExtension:@"plist"]];
+    NSMutableArray *arrayStock = [NSMutableArray array];
+    for (NSString *stringStockKey in [dic allKeys]) {
+        NSArray *array = [NSArray arrayWithObject:[dic objectForKey:stringStockKey]];
+//        NSLog(@"%d", [[array objectAtIndex:0] count]);
+        if ([[array objectAtIndex:0] count] == 4) {
+            NSDictionary *dic = @{@"innercode":array[0][0],@"stockcode":array[0][1],@"stockname":array[0][2]};
+            [arrayStock addObject:dic];
+        }
+    }
+    return arrayStock;
+}
 
 @end

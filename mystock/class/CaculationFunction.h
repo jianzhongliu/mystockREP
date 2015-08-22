@@ -14,7 +14,8 @@
 @property (nonatomic, strong) NSMutableArray *arrayDouble;//倍
 @property (nonatomic, strong) NSMutableArray *arrayLow;//地量
 @property (nonatomic, strong) NSMutableArray *arrayBetween;//价差
-
+@property (nonatomic, strong) NSMutableArray *arrayMoneyData;//散装对比
+@property (nonatomic, strong) NSMutableArray *arrayDayPrice;//5日价格
 
 + (instancetype)share;
 /**地量绿*/
@@ -27,5 +28,9 @@
 - (NSArray *)averageValue:(NSString *)code;
 /**精准线*/
 - (NSArray *)jingzhunxian;
+
+- (NSArray *)getMoneyListOrderByNumber;
+/**主在入，价在跌*/
+- (NSArray *)getMoneyEnterAndPriceDepress;
 
 @end

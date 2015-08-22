@@ -20,5 +20,7 @@
 
 /**仅仅沪A*/
 + (NSArray *)getStockCodeInfo600;
+/**仅仅深A*/
++ (NSArray *)getStockCodeInfo002;
 
 @end

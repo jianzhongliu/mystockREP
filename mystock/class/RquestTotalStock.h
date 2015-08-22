@@ -19,6 +19,10 @@
 @property (nonatomic, strong) NSMutableArray *arrayResult;
 @property (nonatomic, strong) NSMutableArray *arrayLines;
 
+@property (nonatomic, strong) NSMutableArray *arrayMoney;
+@property (nonatomic, strong) NSMutableArray *arrayDayPrice;
+
 + (instancetype)share;
 - (void)startLoadingDataWith:(NSInteger )number ;
+- (void)startLoadingMoney;
 @end

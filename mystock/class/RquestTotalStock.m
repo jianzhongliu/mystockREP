@@ -11,7 +11,9 @@
 #import "DBManager.h"
 
 @implementation RquestTotalStock
-
++ (void)load {
+//    [[RquestTotalStock share] requestMoneyWithIndex:0];
+}
 + (instancetype)share{
     static RquestTotalStock *stock = nil;
     static dispatch_once_t onceToken;
@@ -31,9 +33,13 @@
 }
 
 - (void)startLoadingDataWith:(NSInteger )number {
-//    for (int i = 0; i < 20; i ++) {
+    self.index = 0;
     [self requestStockWithIndex:self.index ++ number:number];
-//    }
+}
+
+- (void)startLoadingMoney {
+    self.index = 0;
+    [self requestMoneyWithIndex:self.index];
 }
 
 - (void)initData {
@@ -42,8 +48,11 @@
     self.arrayResult = [NSMutableArray array];
     self.arrayShang = [NSMutableArray array];
     self.arrayShen = [NSMutableArray array];
+    self.arrayMoney = [NSMutableArray array];
+    self.arrayDayPrice = [NSMutableArray array];
+    
     [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
-    [self.arrayShen addObjectsFromArray:[colorModel getSA]];
+    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo002]];
 }
 
 - (void)requestStockWithIndex:(NSInteger) index number:(NSInteger) number{
@@ -51,21 +60,6 @@
         [self localisationData];
         return;
     }
-    if (index >= self.arrayShang.count) {
-        NSString *message = [NSString stringWithFormat:@"当前数量:%d", index];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请求结束" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-    } else {
-        if (index > 0 && index / 100 == index/100.0f) {
-            NSString *message = [NSString stringWithFormat:@"当前数量:%d", index];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"整数提醒" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//            [alert show];
-        }
-    }
-    NSMutableArray *arrayDoubleStock = [NSMutableArray array];
-    [arrayDoubleStock addObjectsFromArray:self.arrayShang];
-    [arrayDoubleStock addObjectsFromArray:self.arrayShen];
-    
     NSDictionary *code = [self.arrayShang objectAtIndex:index];
     NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=%d&packtype=0&version=2.0.5", code[@"innercode"], number];
     __block NSString *identify = [NSString stringWithFormat:@"%@", code[@"innercode"]];
@@ -75,17 +69,9 @@
         }
         
         [self.arrayLines addObject:@{@"response":response.content,@"identify":identify}];
-        
-//        NSMutableArray *lines = [NSMutableArray array];
-//        for (NSDictionary *dic in [response.content objectForKey:@"timedata"]) {
-//            [lines addObject:[self dicStockToString:dic]];
-//        }
-//        NSLog(@"%@", response.content);
-//        [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",identify]]];
+
         [self.arrayResult addObject:response.content];
-//        //存储源数据
-//        [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
-//
+
         [[NSNotificationCenter defaultCenter] postNotificationName:@"currentRequestData" object:self.arrayResult];
         
 //        [self recomentDoubleStock:response.content];
@@ -95,19 +81,51 @@
     }];
 }
 
-- (void)localisationData {
-//    for (NSDictionary *response in self.arrayLines) {
-//        NSMutableArray *lines = [NSMutableArray array];
-//        for (NSDictionary *dic in [response[@"response"] objectForKey:@"timedata"]) {
-//            [lines addObject:[self dicStockToString:dic]];
-//        }
-//        NSLog(@"%@", response);
-//        [[DBManager share] insertIntoDBWith:lines Key:response[@"identify"]];
-//        [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",response[@"identify"]]]];
-//    }
-    [commond setUserDefaults:self.arrayLines forKey:@"lines"];
+- (void)requestMoneyWithIndex:(NSInteger) index{
+    if (index >= self.arrayShang.count) {
+        [self localisationMoneyData];
+        return;
+    }
+    NSDictionary *code = [self.arrayShang objectAtIndex:index];
+    NSString *url = [NSString stringWithFormat:@"http://ifzq.gtimg.cn/appstock/app/kline/kline?p=1&param=sh%@,day,,,5", code[@"stockcode"]];
+    __block NSString *identify = @"";
+   identify = [NSString stringWithFormat:@"sh%@", code[@"stockcode"]];
 
+    if (index > 1066) {
+        url = [NSString stringWithFormat:@"http://ifzq.gtimg.cn/appstock/app/kline/kline?p=1&param=sz%@,day,,,5", code[@"stockcode"]];
+        identify = [NSString stringWithFormat:@"sz%@", code[@"stockcode"]];
+    }
+    [[TYAPIProxy shareProxy] callGETWithParams:code identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {
+        if (response.content == nil) {
+            return;
+        }
+        NSDictionary *dic = (NSDictionary *)response.content;
+       NSMutableArray *dicResultData = [[[dic[@"data"] objectForKey:identify] objectForKey:@"qt"] objectForKey:@"zjlx"];
+        NSLog(@"%@", dicResultData);
+        if (dicResultData != nil) {
+            [self.arrayMoney addObject:dicResultData];
+        }
+        NSMutableArray *dicDayPrice = [[dic[@"data"] objectForKey:identify] objectForKey:@"day"];
+        [dicDayPrice addObjectsFromArray:dicResultData];
+        if (dicDayPrice != nil) {
+            [self.arrayDayPrice addObject:dicDayPrice];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"currentRequestData" object:self.arrayMoney];
+        [self requestMoneyWithIndex:self.index ++];
+    } faildCallBack:^(TYURLResponse *response) {
+        [self requestMoneyWithIndex:self.index ++];
+    }];
+}
+
+- (void)localisationData {
+    [commond setUserDefaults:self.arrayLines forKey:@"lines"];
     [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
+}
+
+- (void)localisationMoneyData {
+    [commond setUserDefaults:self.arrayMoney forKey:@"moneyData"];
+    [commond setUserDefaults:self.arrayDayPrice forKey:@"dayPrice"];
 }
 
 - (void)recomentDoubleStock:(NSDictionary *) respose {
@@ -137,6 +155,7 @@
     NSString *data = [NSString stringWithFormat:@"%@,%@,%@,%@,%@,%@", date,todyOpen,todyHigh,todyLow,todeClose,temp];
     return data;
 }
+
 - (NSString *)dateFormater:(NSString *) time {
     NSDateFormatter *dateForm = [[NSDateFormatter alloc] init];
     dateForm.dateFormat = @"yyyyMMddHHmmss";
@@ -144,63 +163,6 @@
     dateForm.dateFormat = @"yyyy-MM-dd";
     return [dateForm stringFromDate:timeString];
 }
-
-//-(void)changeData:(NSArray*)lines{
-//    NSMutableArray *data =[[NSMutableArray alloc] init];
-//    NSMutableArray *category =[[NSMutableArray alloc] init];
-//    NSArray *newArray = lines;
-//    newArray = [newArray objectsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:
-//                                           NSMakeRange(0, self.kCount>=newArray.count?newArray.count:self.kCount)]]; // 只要前面指定的数据
-//    //NSLog(@"lines:%@",newArray);
-//    NSInteger idx;
-//    int MA5=5,MA10=10,MA20=20; // 均线统计
-//    for (idx = newArray.count-1; idx > 0; idx--) {
-//        NSString *line = [newArray objectAtIndex:idx];
-//        if([line isEqualToString:@""]){
-//            continue;
-//        }
-//        NSArray   *arr = [line componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
-//        // 收盘价的最小值和最大值
-//        if ([[arr objectAtIndex:2] floatValue]>self.maxValue) {
-//            self.maxValue = [[arr objectAtIndex:2] floatValue];
-//        }
-//        if ([[arr objectAtIndex:3] floatValue]<self.minValue) {
-//            self.minValue = [[arr objectAtIndex:3] floatValue];
-//        }
-//        // 成交量的最大值最小值
-//        if ([[arr objectAtIndex:5] floatValue]>self.volMaxValue) {
-//            self.volMaxValue = [[arr objectAtIndex:5] floatValue];
-//        }
-//        if ([[arr objectAtIndex:5] floatValue]<self.volMinValue) {
-//            self.volMinValue = [[arr objectAtIndex:5] floatValue];
-//        }
-//        NSMutableArray *item =[[NSMutableArray alloc] init];
-//        [item addObject:[arr objectAtIndex:1]]; // open
-//        [item addObject:[arr objectAtIndex:2]]; // high
-//        [item addObject:[arr objectAtIndex:3]]; // low
-//        [item addObject:[arr objectAtIndex:4]]; // close
-//        [item addObject:[arr objectAtIndex:5]]; // volume 成交量
-//        CGFloat idxLocation = [lines indexOfObject:line];
-//        // MA5
-//        [item addObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA5)]]]; // 前五日收盘价平均值
-//        // MA10
-//        [item addObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA10)]]]; // 前十日收盘价平均值
-//        // MA20
-//        [item addObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA20)]]]; // 前二十日收盘价平均值
-//        // 前面二十个数据不要了，因为只是用来画均线的
-//        [category addObject:[arr objectAtIndex:0]]; // date
-//        [data addObject:item];
-//    }
-//    if(data.count==0){
-//        self.status.text = @"Error!";
-//        return;
-//    }
-//    
-//    self.data = data; // Open,High,Low,Close,Adj Close,Volume
-//    self.category = category; // Date
-//    //NSLog(@"%@",data);
-//}
-
 
 -(CGFloat)sumArrayWithData:(NSArray*)data andRange:(NSRange)range{
     CGFloat value = 0;

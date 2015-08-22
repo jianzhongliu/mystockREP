@@ -22,6 +22,8 @@
 //    [[CaculationFunction share] falseUp];
 //    [[CaculationFunction share] averageValue];
 //    NSLog(@"%@", [[CaculationFunction share] getDownMore]);
+    
+    [[CaculationFunction share] getMoneyEnterAndPriceDepress];
 }
 
 + (instancetype)share {
@@ -44,9 +46,13 @@
 
 - (void)initData {
     self.arraySourceData = [NSMutableArray arrayWithArray:[commond getUserDefaults:@"sourceData"]];
-    self.arrayBetween = [NSMutableArray array];
+    self.arrayMoneyData = [NSMutableArray arrayWithArray:[commond getUserDefaults:@"moneyData"]];
+    self.arrayDayPrice = [NSMutableArray arrayWithArray:[commond getUserDefaults:@"dayPrice"]];
+    
+    self.arrayBetween = [NSMutableArray array];//
     self.arrayDouble = [NSMutableArray array];
     self.arrayLow = [NSMutableArray array];
+    
 }
 
 /**超跌排序*/
@@ -414,5 +420,52 @@
     }
     return arrayValueEveryDay;
 }
+
+/**主交易量大于散*/
+- (NSArray *)getMoneyListOrderByNumber {
+    NSMutableArray *arrayResult = [NSMutableArray array];
+    for (NSArray *arrayTemp in self.arrayMoneyData) {
+        if (arrayTemp.count == 18 && [arrayTemp[1] floatValue] + [arrayTemp[2] floatValue] > [arrayTemp[5] floatValue] + [arrayTemp[6] floatValue]) {
+            [arrayResult addObject:arrayTemp];
+        }
+    }
+    NSArray *arraySorted = [arrayResult sortedArrayUsingComparator:
+                       ^NSComparisonResult(NSArray *obj1, NSArray *obj2) {
+                           CGFloat rate1 = ([obj1[1] floatValue] + [obj1[2] floatValue])/([obj1[1] floatValue] + [obj1[2] floatValue] + [obj1[5] floatValue] + [obj1[6] floatValue]);
+                           CGFloat rate2 = ([obj2[1] floatValue] + [obj2[2] floatValue])/([obj2[1] floatValue] + [obj2[2] floatValue] + [obj2[5] floatValue] + [obj2[6] floatValue]);
+                           NSComparisonResult result = [@(rate2) compare:@(rate1)];
+                           return result;
+                       }];
+    return arraySorted;
+}
+
+/**主在入，价在跌*/
+- (NSArray *)getMoneyEnterAndPriceDepress {
+    NSMutableArray *arrayResult = [NSMutableArray array];
+    for (NSMutableArray *arrayTemp in self.arrayDayPrice) {
+        if (arrayTemp.count == 23) {
+            NSArray *arrayTodayPrice = [arrayTemp objectAtIndex:4];
+            NSArray *arrayYesterdayPrice = [arrayTemp objectAtIndex:3];
+            if ([arrayTodayPrice[2] floatValue] < [arrayYesterdayPrice[2] floatValue]) {//价在跌
+                if ([arrayTodayPrice[5] floatValue] > 2*[arrayYesterdayPrice[5] floatValue]) {//多倍量
+                    if ([arrayTemp[6] floatValue] > [arrayTemp[7] floatValue]) {//庄在入
+                        [arrayTemp removeObjectsInRange:NSMakeRange(0, 5)];
+                        [arrayResult addObject:arrayTemp];
+                    }
+                }
+            }
+        }
+    }
+    NSArray *arraySorted = [arrayResult sortedArrayUsingComparator:
+                            ^NSComparisonResult(NSArray *obj1, NSArray *obj2) {
+                                CGFloat rate1 = ([obj1[6] floatValue] + [obj1[7] floatValue])/([obj1[6] floatValue] + [obj1[7] floatValue] + [obj1[10] floatValue] + [obj1[11] floatValue]);
+                                CGFloat rate2 = ([obj2[6] floatValue] + [obj2[7] floatValue])/([obj2[6] floatValue] + [obj2[7] floatValue] + [obj2[10] floatValue] + [obj2[11] floatValue]);
+                                NSComparisonResult result = [@(rate2) compare:@(rate1)];
+                                return result;
+                            }];
+    NSLog(@"%@",arraySorted);
+    return arraySorted;
+}
+
 
 @end

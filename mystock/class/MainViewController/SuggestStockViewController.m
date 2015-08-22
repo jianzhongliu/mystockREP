@@ -13,6 +13,7 @@
 #import "SortByDownRateViewController.h"
 #import "SortStockValueViewController.h"
 #import "JingzhunLineViewController.h"
+#import "MoneyListViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -73,7 +74,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return 7;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -120,6 +121,10 @@
             cell.textLabel.text = @"精准线";
         }
             break;
+        case 6:{
+            cell.textLabel.text = @"装散对比";
+        }
+            break;
         default:
             break;
     }
@@ -158,6 +163,11 @@
             break;
         case 5:{
             JingzhunLineViewController *controller = [[JingzhunLineViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 6:{
+            MoneyListViewController *controller = [[MoneyListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
