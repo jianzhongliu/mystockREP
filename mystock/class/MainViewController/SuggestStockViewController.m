@@ -14,6 +14,7 @@
 #import "SortStockValueViewController.h"
 #import "JingzhunLineViewController.h"
 #import "MoneyListViewController.h"
+#import "ZiJingViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -74,7 +75,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 7;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -125,6 +126,10 @@
             cell.textLabel.text = @"装散对比";
         }
             break;
+        case 7:{
+            cell.textLabel.text = @"资金流";
+        }
+            break;
         default:
             break;
     }
@@ -168,6 +173,11 @@
             break;
         case 6:{
             MoneyListViewController *controller = [[MoneyListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 7:{
+            ZiJingViewController *controller = [[ZiJingViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

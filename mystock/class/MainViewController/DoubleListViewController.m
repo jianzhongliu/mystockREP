@@ -88,7 +88,7 @@
 
 - (void)showDoubleStock {
     UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"选择数据量" delegate:self
-cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"1000",@"300",@"100",@"50",@"30",@"20",@"15", nil];
+cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"300",@"100",@"50",@"30",@"20",@"15", nil];
     [action showInView:self.view];
 
 }
@@ -161,7 +161,7 @@ cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"1000",@"3
     switch (buttonIndex) {
         case 0:
         {
-            number = 1000;
+            number = 600;
         }
             break;
         case 1:

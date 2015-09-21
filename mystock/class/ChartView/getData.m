@@ -11,6 +11,7 @@
 #import "commond.h"
 #import "colorModel.h"
 #import "TYAPIProxy.h"
+#import "DBManager.h"
 
 static NSMutableArray *array;
 
@@ -42,7 +43,7 @@ static NSMutableArray *array;
         NSMutableArray *lines   = [NSMutableArray array];
 //        [lines addObjectsFromArray:(NSArray *)[commond getUserDefaults:[commond md5HexDigest:innerCode]]];
 //        lines = (NSMutableArray*)[commond getUserDefaults:[commond md5HexDigest:url]];
-        NSArray *arrayAllData = [commond getUserDefaults:@"lines"];
+        NSArray *arrayAllData = [[DBManager share] fetchStockLocationWithKey:@"lines"];
         for (NSDictionary *response in arrayAllData) {
             if ([response[@"identify"] rangeOfString:innerCode].length > 0) {
 //                NSMutableArray *lines = [NSMutableArray array];

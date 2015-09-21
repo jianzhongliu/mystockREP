@@ -24,6 +24,8 @@
 - (NSArray *)todayDouble;
 /**超跌排序*/
 - (NSArray *)getDownMore;
+/**数天数*/
+- (NSArray *)daysUpOfNow;
 /**找精准点*/
 - (NSArray *)averageValue:(NSString *)code;
 /**精准线*/

@@ -52,7 +52,7 @@
     self.arrayDayPrice = [NSMutableArray array];
     
     [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
-    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo002]];
+//    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo002]];
 }
 
 - (void)requestStockWithIndex:(NSInteger) index number:(NSInteger) number{
@@ -63,21 +63,22 @@
     NSDictionary *code = [self.arrayShang objectAtIndex:index];
     NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=%d&packtype=0&version=2.0.5", code[@"innercode"], number];
     __block NSString *identify = [NSString stringWithFormat:@"%@", code[@"innercode"]];
+    __weak typeof(self) blockSelf = self;
     [[TYAPIProxy shareProxy] callGETWithParams:code identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {
         if (response.content == nil) {
             return;
         }
         
-        [self.arrayLines addObject:@{@"response":response.content,@"identify":identify}];
+        [blockSelf.arrayLines addObject:@{@"response":response.content,@"identify":identify}];
 
-        [self.arrayResult addObject:response.content];
+        [blockSelf.arrayResult addObject:response.content];
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"currentRequestData" object:self.arrayResult];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"currentRequestData" object:nil];
         
 //        [self recomentDoubleStock:response.content];
-        [self requestStockWithIndex:self.index ++ number:number];
+        [blockSelf requestStockWithIndex:self.index ++ number:number];
     } faildCallBack:^(TYURLResponse *response) {
-        [self requestStockWithIndex:self.index ++ number:number];
+        [blockSelf requestStockWithIndex:self.index ++ number:number];
     }];
 }
 
@@ -119,13 +120,20 @@
 }
 
 - (void)localisationData {
-    [commond setUserDefaults:self.arrayLines forKey:@"lines"];
-    [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
+//    [commond setUserDefaults:self.arrayLines forKey:@"lines"];
+    [[DBManager share] insertIntoDBWith:self.arrayLines Key:@"lines"];
+//    [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
+    [[DBManager share] insertIntoDBWith:self.arrayResult Key:@"sourceData"];
+
+    [self.arrayLines removeAllObjects];
+    [self.arrayResult removeAllObjects];
 }
 
 - (void)localisationMoneyData {
     [commond setUserDefaults:self.arrayMoney forKey:@"moneyData"];
     [commond setUserDefaults:self.arrayDayPrice forKey:@"dayPrice"];
+    [self.arrayMoney removeAllObjects];
+    [self.arrayDayPrice removeAllObjects];
 }
 
 - (void)recomentDoubleStock:(NSDictionary *) respose {

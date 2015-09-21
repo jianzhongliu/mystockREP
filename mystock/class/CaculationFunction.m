@@ -9,6 +9,7 @@
 #import "CaculationFunction.h"
 #import "RquestTotalStock.h"
 #import "commond.h"
+#import "DBManager.h"
 
 @implementation CaculationFunction
 + (void)load {
@@ -19,11 +20,12 @@
 //    [[CaculationFunction share] dowblecolumn];
 //    [[CaculationFunction share] goldenColumn];
 //    [[CaculationFunction share] falseDown];
+//    [[CaculationFunction share] daysUpOfNow];//当前价格位置
 //    [[CaculationFunction share] falseUp];
 //    [[CaculationFunction share] averageValue];
 //    NSLog(@"%@", [[CaculationFunction share] getDownMore]);
     
-    [[CaculationFunction share] getMoneyEnterAndPriceDepress];
+//    [[CaculationFunction share] getMoneyEnterAndPriceDepress];
 }
 
 + (instancetype)share {
@@ -45,7 +47,7 @@
 }
 
 - (void)initData {
-    self.arraySourceData = [NSMutableArray arrayWithArray:[commond getUserDefaults:@"sourceData"]];
+    self.arraySourceData = [NSMutableArray arrayWithArray:[[DBManager share] fetchStockLocationWithKey:@"sourceData"]];
     self.arrayMoneyData = [NSMutableArray arrayWithArray:[commond getUserDefaults:@"moneyData"]];
     self.arrayDayPrice = [NSMutableArray arrayWithArray:[commond getUserDefaults:@"dayPrice"]];
     
@@ -180,7 +182,7 @@
         NSArray *arraySingleStock = dic[@"timedata"];
         if (arraySingleStock.count > 0) {
             for (int s = 1 ; s<arraySingleStock.count ; s++) {
-                if (2*[[arraySingleStock[s] objectForKey:@"curvol"] integerValue] <= [[arraySingleStock[s -1] objectForKey:@"curvol"] integerValue]) {
+                if (4*[[arraySingleStock[s] objectForKey:@"curvol"] integerValue] <= [[arraySingleStock[s -1] objectForKey:@"curvol"] integerValue]) {
                     //就是倍量柱了
                     if (arraySingleStock.count > s  && s > days) {
                         if ([arraySingleStock[s - days][@"nowv"] integerValue] > [arraySingleStock[s][@"nowv"] integerValue]) {
@@ -377,6 +379,33 @@
     return arrayTemp;
 }
 
+/**数天数*/
+- (NSArray *)daysUpOfNow{
+    NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSMutableDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleStock = dic[@"timedata"];
+        if (arraySingleStock.count > 0) {
+            int number = 0;
+            for (int s = 1 ; s<arraySingleStock.count ; s++) {
+                NSDictionary *dicToday = arraySingleStock[0];
+                if ([dicToday[@"highp"] floatValue] < [arraySingleStock[s][@"highp"] floatValue]) {
+                    number ++;
+                }
+            }
+            CGFloat rate = number/(arraySingleStock.count+0.0001);
+            [dic setValue:@(rate) forKey:@"rate"];
+            [arrayValueEveryDay addObject:dic];
+        }
+    }
+    NSArray *arraySorted = [arrayValueEveryDay sortedArrayUsingComparator:
+                            ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                                NSComparisonResult result = [obj1[@"rate"] compare:obj2[@"rate"]];
+                                return result;
+                            }];
+    NSLog(@"数天数：===%@",arraySorted);
+    return arraySorted;
+}
 
 /**精准线*/
 - (NSArray *)jingzhunxian {

@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		2404F3911B82F1FE00EAB5C3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2404F3901B82F1FE00EAB5C3 /* DBManager.m */; };
 		2404F39A1B872C0C00EAB5C3 /* MoneyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */; };
+		240B1F071B68F572000E48DD /* locationStock.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 240B1F061B68F572000E48DD /* locationStock.sqlite */; };
 		24202D0F1B6B8EF90048E4F1 /* StopRaseStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */; };
 		24202D121B6B8F910048E4F1 /* StopRaseStockViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */; };
 		2422522A1B5AA3FA00B09FBA /* localstocktjz2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 242252291B5AA3FA00B09FBA /* localstocktjz2.plist */; };
 		2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522C1B5AA55100B09FBA /* SuggestStockViewController.m */; };
 		242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */; };
+		243755661B67661300085967 /* ZiJingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 243755651B67661300085967 /* ZiJingViewController.m */; };
+		243923291B67981500A25CCC /* location.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 243923281B67981400A25CCC /* location.sqlite */; };
 		244059861B5B55DB0094BC1E /* local600.plist in Resources */ = {isa = PBXBuildFile; fileRef = 244059851B5B55DB0094BC1E /* local600.plist */; };
 		24432D3F1B5DE37500213291 /* FunctionMethodsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */; };
 		2467CA7C1B6A00EE0045904E /* NSArray+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA6E1B6A00EE0045904E /* NSArray+TYAFNetworking.m */; };
@@ -40,6 +43,9 @@
 		24D54E331B55261000AAE334 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D54E301B55261000AAE334 /* Default-568h@2x.png */; };
 		24D54E341B55261000AAE334 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D54E311B55261000AAE334 /* Default.png */; };
 		24D54E351B55261000AAE334 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D54E321B55261000AAE334 /* Default@2x.png */; };
+		24F4E8181B69B93400BB245C /* DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 24F4E8171B69B93400BB245C /* DB.sqlite */; };
+		24F4E81C1B69C99800BB245C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F4E81B1B69C99800BB245C /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		24F4E81E1B69CB0500BB245C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F4E81D1B69CB0500BB245C /* libz.tbd */; };
 		9406951619299DFA00BA2694 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406951519299DFA00BA2694 /* Foundation.framework */; };
 		9406951819299DFA00BA2694 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406951719299DFA00BA2694 /* CoreGraphics.framework */; };
 		9406951A19299DFA00BA2694 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406951919299DFA00BA2694 /* UIKit.framework */; };
@@ -110,6 +116,7 @@
 		2404F3901B82F1FE00EAB5C3 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		2404F3981B872C0C00EAB5C3 /* MoneyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyListViewController.h; sourceTree = "<group>"; };
 		2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyListViewController.m; sourceTree = "<group>"; };
+		240B1F061B68F572000E48DD /* locationStock.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = locationStock.sqlite; sourceTree = "<group>"; };
 		24202D0D1B6B8EF90048E4F1 /* StopRaseStockListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockListViewController.h; sourceTree = "<group>"; };
 		24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRaseStockListViewController.m; sourceTree = "<group>"; };
 		24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockViewCell.h; sourceTree = "<group>"; };
@@ -119,6 +126,9 @@
 		2422522C1B5AA55100B09FBA /* SuggestStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestStockViewController.m; sourceTree = "<group>"; };
 		2422522E1B5AA7C700B09FBA /* DoubleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleListViewController.h; sourceTree = "<group>"; };
 		2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleListViewController.m; sourceTree = "<group>"; };
+		243755641B67661300085967 /* ZiJingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiJingViewController.h; sourceTree = "<group>"; };
+		243755651B67661300085967 /* ZiJingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiJingViewController.m; sourceTree = "<group>"; };
+		243923281B67981400A25CCC /* location.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = location.sqlite; sourceTree = "<group>"; };
 		244059851B5B55DB0094BC1E /* local600.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = local600.plist; sourceTree = "<group>"; };
 		24432D3D1B5DE37500213291 /* FunctionMethodsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionMethodsUtil.h; sourceTree = "<group>"; };
 		24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionMethodsUtil.m; sourceTree = "<group>"; };
@@ -167,6 +177,10 @@
 		24D54E301B55261000AAE334 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		24D54E311B55261000AAE334 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		24D54E321B55261000AAE334 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		24F4E8171B69B93400BB245C /* DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DB.sqlite; sourceTree = "<group>"; };
+		24F4E81A1B69C99800BB245C /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		24F4E81B1B69C99800BB245C /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		24F4E81D1B69CB0500BB245C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = text; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9406951219299DFA00BA2694 /* mystock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mystock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9406951519299DFA00BA2694 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9406951719299DFA00BA2694 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -274,6 +288,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24F4E81E1B69CB0500BB245C /* libz.tbd in Frameworks */,
 				94AFA469193A22200046F002 /* libsqlite3.dylib in Frameworks */,
 				9406951819299DFA00BA2694 /* CoreGraphics.framework in Frameworks */,
 				9406951A19299DFA00BA2694 /* UIKit.framework in Frameworks */,
@@ -360,6 +375,15 @@
 			path = helper;
 			sourceTree = "<group>";
 		};
+		24F4E8191B69C99800BB245C /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				24F4E81A1B69C99800BB245C /* JSONKit.h */,
+				24F4E81B1B69C99800BB245C /* JSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = "<group>";
+		};
 		9406950919299DFA00BA2694 = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +406,7 @@
 		9406951419299DFA00BA2694 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24F4E81D1B69CB0500BB245C /* libz.tbd */,
 				94AFA468193A22200046F002 /* libsqlite3.dylib */,
 				9406951519299DFA00BA2694 /* Foundation.framework */,
 				9406951719299DFA00BA2694 /* CoreGraphics.framework */,
@@ -412,11 +437,14 @@
 		9406951C19299DFA00BA2694 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				24F4E8171B69B93400BB245C /* DB.sqlite */,
 				2467CA6C1B6A00EE0045904E /* TYNetworking */,
 				244059851B5B55DB0094BC1E /* local600.plist */,
 				24BC31C41B6B61470078FCE2 /* local002.plist */,
 				242252291B5AA3FA00B09FBA /* localstocktjz2.plist */,
 				94AFA4511939F80B0046F002 /* stock.db */,
+				243923281B67981400A25CCC /* location.sqlite */,
+				240B1F061B68F572000E48DD /* locationStock.sqlite */,
 				9406951D19299DFA00BA2694 /* mystock-Info.plist */,
 				9406951E19299DFA00BA2694 /* InfoPlist.strings */,
 				9406952119299DFA00BA2694 /* main.m */,
@@ -446,6 +474,7 @@
 		940695441929A26800BA2694 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				24F4E8191B69C99800BB245C /* JSONKit */,
 				24781F041B707ECE008DCBB1 /* CommentRequest */,
 				249092F61B54D19A004B4584 /* ChartView */,
 				94DD72CB193AB9A100CFFF1B /* Utility */,
@@ -490,6 +519,8 @@
 		9406954B1929B68700BA2694 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
+				243755641B67661300085967 /* ZiJingViewController.h */,
+				243755651B67661300085967 /* ZiJingViewController.m */,
 				2404F3981B872C0C00EAB5C3 /* MoneyListViewController.h */,
 				2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */,
 				24BC31CC1B6B6B6B0078FCE2 /* JingzhunLineViewController.h */,
@@ -746,7 +777,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				24D54E351B55261000AAE334 /* Default@2x.png in Resources */,
+				240B1F071B68F572000E48DD /* locationStock.sqlite in Resources */,
 				244059861B5B55DB0094BC1E /* local600.plist in Resources */,
+				24F4E8181B69B93400BB245C /* DB.sqlite in Resources */,
+				243923291B67981500A25CCC /* location.sqlite in Resources */,
 				9406952019299DFA00BA2694 /* InfoPlist.strings in Resources */,
 				2422522A1B5AA3FA00B09FBA /* localstocktjz2.plist in Resources */,
 				24D54E331B55261000AAE334 /* Default-568h@2x.png in Resources */,
@@ -818,6 +852,7 @@
 				940695521929B70800BA2694 /* MainViewController.m in Sources */,
 				24D54E081B54D1EC00AAE334 /* lines.m in Sources */,
 				9430A0BE19405B8600569444 /* NSString+stringValue.m in Sources */,
+				243755661B67661300085967 /* ZiJingViewController.m in Sources */,
 				24BC31C81B6B6B6B0078FCE2 /* SortByDownRateViewController.m in Sources */,
 				94D94CAE193B453900597D59 /* MSDynamicsDrawerViewController.m in Sources */,
 				94FA367B192A0DEB005C37A1 /* UIWebView+AFNetworking.m in Sources */,
@@ -825,6 +860,7 @@
 				24D54E091B54D1EC00AAE334 /* lineView.m in Sources */,
 				94FE50E619498F6000CCE18A /* StockLineView.m in Sources */,
 				2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */,
+				24F4E81C1B69C99800BB245C /* JSONKit.m in Sources */,
 				9430A0BB193F164E00569444 /* SearchViewController.m in Sources */,
 				2467CA7F1B6A00EE0045904E /* TYAPIProxy.m in Sources */,
 				94AFA464193A21510046F002 /* FMDatabaseAdditions.m in Sources */,
