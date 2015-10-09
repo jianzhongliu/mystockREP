@@ -127,7 +127,7 @@
  低量柱结果：降：61=====升:298=====上涨率：0.83======涨幅:0.20 ===== 跌幅:0.04
  */
 - (void)lowColumnRate {
-    int days = 6;//时差天数
+    int days = 10;//时差天数
     int low = 0;//下降
     int up = 0;//上涨
     CGFloat uprate = 0.0f;
@@ -269,6 +269,36 @@
                 }
             }
             if ([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue] || [dicLow[@"curvol"] integerValue] == [[arraySingleDay[1] objectForKey:@"curvol"] integerValue]||[dicLow[@"curvol"] integerValue] == [[arraySingleDay[2] objectForKey:@"curvol"] integerValue]) {
+                [arrayLow addObject:dic];
+            }
+        }
+    }
+    return arrayLow;
+}
+
+/**三日内一字板
+ */
+- (NSArray *)stopStock {
+    NSMutableArray *arrayLow = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleDay = dic[@"timedata"];
+        if (arraySingleDay.count > 0) {
+            NSDictionary *dicLow = arraySingleDay[0];
+            
+            BOOL today = NO;
+            BOOL yesterday = NO;
+            BOOL lastday = NO;
+            if ([[arraySingleDay[0] objectForKey:@"highp"] integerValue] == [[arraySingleDay[0] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[0] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[0] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[0] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[0] objectForKey:@"openp"] integerValue]) {
+                today = YES;
+            }
+            if ([[arraySingleDay[1] objectForKey:@"highp"] integerValue] == [[arraySingleDay[1] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[1] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[1] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[1] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[1] objectForKey:@"openp"] integerValue]) {
+                yesterday = YES;
+            }
+            if ([[arraySingleDay[2] objectForKey:@"highp"] integerValue] == [[arraySingleDay[2] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[2] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[2] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[2] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[2] objectForKey:@"openp"] integerValue]) {
+                lastday = YES;
+            }
+            if (today == YES || lastday == YES || yesterday == YES) {
                 [arrayLow addObject:dic];
             }
         }

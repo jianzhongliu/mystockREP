@@ -20,6 +20,10 @@
 + (instancetype)share;
 /**地量绿*/
 - (NSArray *)lowStockes;
+/**三日内一字板
+ */
+- (NSArray *)stopStock;
+
 /**今日倍量柱*/
 - (NSArray *)todayDouble;
 /**超跌排序*/

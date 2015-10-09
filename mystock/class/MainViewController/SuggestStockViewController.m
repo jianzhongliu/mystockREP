@@ -15,6 +15,7 @@
 #import "JingzhunLineViewController.h"
 #import "MoneyListViewController.h"
 #import "ZiJingViewController.h"
+#import "StopStockViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -75,7 +76,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 8;
+    return 9;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -130,6 +131,10 @@
             cell.textLabel.text = @"资金流";
         }
             break;
+        case 8:{
+            cell.textLabel.text = @"一字板";
+        }
+            break;
         default:
             break;
     }
@@ -178,6 +183,11 @@
             break;
         case 7:{
             ZiJingViewController *controller = [[ZiJingViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 8:{
+            StopStockViewController *controller = [[StopStockViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

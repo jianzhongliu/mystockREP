@@ -6,25 +6,24 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "MoneyListViewController.h"
-#import "RquestTotalStock.h"
+#import "StopStockViewController.h"
 #import "CaculationFunction.h"
+#import "RquestTotalStock.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
 
-@interface MoneyListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface StopStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
-@property (nonatomic, strong) NSMutableArray *arrayShen;//深市A股
-@property (nonatomic, strong) NSMutableArray *arrayDouble;//倍量柱
+
+@property (nonatomic, strong) NSMutableArray *arrayLow;//地量柱
 
 @property (nonatomic, assign) NSInteger index;
 
 @end
 
-@implementation MoneyListViewController
+@implementation StopStockViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -54,13 +53,8 @@
 
 - (void)initData {
     self.index = 0;
-    self.arrayShang = [NSMutableArray array];
-    self.arrayShen = [NSMutableArray array];
 //    [colorModel getStockCodeInfo];
-//    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
-//    [self.arrayShen addObjectsFromArray:[colorModel getSA]];
-    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] getMoneyListOrderByNumber]];
-    self.arrayDouble = [NSMutableArray arrayWithArray:arrayLocalStock];
+    self.arrayLow = [NSMutableArray arrayWithArray:[[CaculationFunction share] stopStock]];
     
 }
 
@@ -72,9 +66,11 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"倍量柱";
+    titleLabel.text = @"一字板";
     self.navigationItem.titleView = titleLabel;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
+    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,17 +80,13 @@
     
 }
 
-- (void) showDoubleStock{
-
-}
-
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.arrayDouble.count;
+    return self.arrayLow.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -115,11 +107,8 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSArray *arrayTemp = self.arrayDouble[indexPath.row];
-    CGFloat rate = ([arrayTemp[1] floatValue] + [arrayTemp[2] floatValue])/([arrayTemp[1] floatValue] + [arrayTemp[2] floatValue] + [arrayTemp[5] floatValue] + [arrayTemp[6] floatValue]);
-    NSString *stringTitle = [NSString stringWithFormat:@"%@   %@===rate:%.3f", arrayTemp[0], arrayTemp[12], rate];
-    cell.textLabel.font = [UIFont systemFontOfSize:12];
-    cell.textLabel.textColor = [UIColor lightGrayColor];
+    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@", [self.arrayLow[indexPath.row] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"stockcode"]];
+    
     cell.textLabel.text = stringTitle;
     return cell;
 }
@@ -127,9 +116,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    FMViewController *sDetailVC = [[FMViewController alloc] init];
-//    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
-//    [self.navigationController pushViewController:sDetailVC animated:YES];
+    FMViewController *sDetailVC = [[FMViewController alloc] init];
+    sDetailVC.dicStock = self.arrayLow[indexPath.row];
+    [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }
 

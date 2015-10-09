@@ -102,7 +102,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
         for (NSDictionary *dic in self.suggestArray) {
             getData *data = [[getData alloc] init];
             NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", [dic objectForKey:@"innercode"]];
-            data = [data initWithUrl:url fresh:dic[@"innercode"]];
+            data = [data initWithUrl:url stock:dic];
         }
         
         [_sTableView reloadData];
@@ -124,7 +124,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
         for (NSDictionary *dic in self.suggestArray) {
             getData *data = [[getData alloc] init];
             NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", [dic objectForKey:@"innercode"]];
-            data = [data initWithUrl:url fresh:dic[@"innercode"]];
+            data = [data initWithUrl:url stock:dic];
         }
         
         [_sTableView reloadData];

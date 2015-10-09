@@ -30,7 +30,7 @@ static NSMutableArray *array;
     return  self;
 }
 
--(id)initWithUrl:(NSString*)url fresh:(NSString *) innerCode{
+-(id)initWithUrl:(NSString*)url stock:(NSDictionary *) dicStock{
     if (self){
         if (array == nil) {
             array = [NSMutableArray arrayWithArray:[colorModel getStockCodeInfo600]];
@@ -41,16 +41,9 @@ static NSMutableArray *array;
             self.dayDatas = tempArray;
         }
         NSMutableArray *lines   = [NSMutableArray array];
-//        [lines addObjectsFromArray:(NSArray *)[commond getUserDefaults:[commond md5HexDigest:innerCode]]];
-//        lines = (NSMutableArray*)[commond getUserDefaults:[commond md5HexDigest:url]];
-        NSArray *arrayAllData = [[DBManager share] fetchStockLocationWithKey:@"lines"];
-        for (NSDictionary *response in arrayAllData) {
-            if ([response[@"identify"] rangeOfString:innerCode].length > 0) {
-//                NSMutableArray *lines = [NSMutableArray array];
-                for (NSDictionary *dic in [response[@"response"] objectForKey:@"timedata"]) {
-                    [lines addObject:[self dicStockToString:dic]];
-                }
-            }
+        
+        for (NSDictionary *dic in [dicStock objectForKey:@"timedata"]) {
+            [lines addObject:[self dicStockToString:dic]];
         }
         
         if (lines.count>0) {
@@ -63,6 +56,7 @@ static NSMutableArray *array;
                 if (response.content == nil) {
                     return;
                 }
+                [self showStockLineWithDic:response.content];
                 self.status.text = @"";
                 NSString *content = response.content;
                 NSMutableArray *lines = [NSMutableArray array];
@@ -89,41 +83,22 @@ static NSMutableArray *array;
                 self.isFinish = YES;
             }];
             return self;
-            
-            [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                DMLog(@"JSON: %@", responseObject);
-                if (responseObject == nil) {
-                    return;
-                }
-                self.status.text = @"";
-                NSString *content = responseObject;
-                NSMutableArray *lines = [NSMutableArray array];
-//                [lines addObject:@"2010-03-15,17.95,17.99,17.45,17.56,6857700,16.89"];
-                
-                for (NSDictionary *dic in [responseObject objectForKey:@"timedata"]) {
-                    [lines addObject:[self dicStockToString:dic]];
-                }
-                if ([self.req_type isEqualToString:@"d"]) {
-                    self.dayDatas = lines;
-                    [commond setUserDefaults:lines forKey:@"daydatas"];
-                }
-                [commond setUserDefaults:lines forKey:[commond md5HexDigest:[[NSString alloc] initWithFormat:@"%@",url]]];
-                [self changeData:lines];
-                self.isFinish = YES;
-                [self recomentDoubleStock:responseObject];
-                if (self.blockCallBack) {
-                    self.blockCallBack();
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                if (self.blockCallBack) {
-                    self.blockCallBack();
-                }
-                	self.status.text = @"Error!";
-                    self.isFinish = YES;
-            }];
         }
 	}
     return self;
+}
+
+- (void)showStockLineWithDic:(NSDictionary *) dicStock {
+    NSMutableArray *lines   = [NSMutableArray array];
+    
+    for (NSDictionary *dic in [dicStock objectForKey:@"timedata"]) {
+        [lines addObject:[self dicStockToString:dic]];
+    }
+    
+    if (lines.count>0) {
+        [lines insertObject:lines[0] atIndex:0];
+        [self changeData:lines];
+    }
 }
 
 - (void)recomentDoubleStock:(NSDictionary *) respose {

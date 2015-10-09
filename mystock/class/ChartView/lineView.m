@@ -281,8 +281,7 @@
     getdata.kCount = self.kCount;
     getdata.req_type = self.req_type;
     
-    getdata = [getdata initWithUrl:[self changeUrl] fresh:[NSString stringWithFormat:@"%@",[self.dicStock objectForKey:@"innercode"]]];
-    getdata.todayStock = self.dicStock;
+    getdata = [getdata initWithUrl:[self changeUrl] stock:self.dicStock];
     self.data = getdata.data;
     self.category = getdata.category;
     NSLog(@"当前：%i",self.data.count);

@@ -17,7 +17,8 @@
 //    [[DBManager share] insertIntoDBWith:array Key:@"sourceData"];
 //    NSArray *dataSource = [[DBManager share] fetchStockLocationWithKey:@"sourceData"];
 //    NSArray *arrayLines =  [[DBManager share] fetchStockLocationWithKey:@"lines"];
-    
+//    [[DBManager share] deleteDBWithKey:@"lines"];
+//    [[DBManager share] deleteDBWithKey:@"sourceData"];
 }
 
 + (instancetype)share {
@@ -82,12 +83,11 @@
         }
     }
     [self closeDB];
-    NSArray *arrayLines =  [[DBManager share] fetchStockLocationWithKey:@"lines"];
 }
 
 - (void )deleteDBWithKey:(NSString *) key {
     [self openDB];
-    NSString *sql = [NSString stringWithFormat:@"DELETE FROM stock WHERE key = %@;", key];
+    NSString *sql = [NSString stringWithFormat:@"DELETE FROM stock WHERE key = '%@';", key];
     [self.db executeUpdate:sql];
     [self closeDB];
 }
