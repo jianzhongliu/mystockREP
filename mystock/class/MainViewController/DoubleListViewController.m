@@ -201,7 +201,7 @@ cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"30
         [commond setUserDefaults:@[] forKey:@"Double"];
         NSLog(@"%@", self.arrayDouble);
         //    [self requestDataWithIndex:self.index ++];
-        [[RquestTotalStock share] startLoadingDataWith:number];
+        [[RquestTotalStock share] startLoadingDataWith:number];//请求票面信息        
     }
 
 }

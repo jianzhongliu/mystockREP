@@ -10,9 +10,18 @@
 
 @interface SettingViewController ()
 
+@property (nonatomic, strong) UIWebView *webView;
+
 @end
 
 @implementation SettingViewController
+
+- (UIWebView *)webView {
+    if (_webView == nil) {
+        _webView = [[UIWebView alloc] init];
+    }
+    return _webView;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,19 +51,17 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(back_click:)];
     
-    self.settingTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    _settingTableView.delegate = self;
-    _settingTableView.dataSource = self;
-    _settingTableView.backgroundColor = [UIColor clearColor];
-    _settingTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_settingTableView];
+    [self.view addSubview:self.webView];
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.webView.frame = self.view.bounds;
+    NSString *webUrl = @"http://www.feinongdata.com/kuaixun";
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:webUrl]];
+    [self.webView loadRequest:request];
+    
 }
 
 #pragma mark - Custom Method
@@ -83,7 +90,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:apiHost parameters:sendDataDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DMLog(@"JSON: %@", responseObject);
+        NSLog(@"JSON: %@", responseObject);
         if (responseObject == nil || [responseObject objForKey:@"result"] == 0) {
             return;
         }
@@ -126,78 +133,8 @@
         
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DMLog(@"Error: %@", error);
+        NSLog(@"Error: %@", error);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-}
-
-#pragma mark - UITableViewDataSource,UITableViewDelegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellDefaultIdentifier = @"cellDefault";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellDefaultIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellDefaultIdentifier];
-        cell.backgroundColor = [UIColor clearColor];
-        
-        UIView *tempView = [[UIView alloc] initWithFrame:cell.bounds];
-        tempView.backgroundColor = NAVI_COLOR;
-        cell.selectedBackgroundView = tempView;
-        
-        cell.textLabel.textColor = [UIColor whiteColor];
-    }
-    
-    switch (indexPath.row) {
-        case 0:{
-            cell.textLabel.text = @"同步数据库";
-        }
-            break;
-        case 1:{
-            cell.textLabel.text = @"自选股";
-        }
-            break;
-        case 2:{
-            cell.textLabel.text = @"设置";
-        }
-            break;
-        default:
-            break;
-    }
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    switch (indexPath.row) {
-        case 0:{
-            [self refresh_focus_list];
-        }
-            break;
-        case 1:{
-            
-        }
-            break;
-        case 2:{
-            
-        }
-            break;
-        default:
-            break;
-    }
-
 }
 @end

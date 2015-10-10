@@ -134,7 +134,7 @@
 }
 
 - (NSInteger)length {
-    DMLog(@"NSArray call length by error!!!!!!!####!!!!!!!*******!!!!!!! /r/n:%@",self);
+    NSLog(@"NSArray call length by error!!!!!!!####!!!!!!!*******!!!!!!! /r/n:%@",self);
     return 0;
 }
 

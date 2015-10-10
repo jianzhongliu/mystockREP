@@ -13,6 +13,7 @@
 		241D3AA51BAFB53900D71EF9 /* StopStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241D3AA41BAFB53900D71EF9 /* StopStockViewController.m */; };
 		24202D0F1B6B8EF90048E4F1 /* StopRaseStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */; };
 		24202D121B6B8F910048E4F1 /* StopRaseStockViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */; };
+		242090DB1BC8F7F70025E68B /* UpTodayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 242090DA1BC8F7F70025E68B /* UpTodayListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2422522A1B5AA3FA00B09FBA /* localstocktjz2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 242252291B5AA3FA00B09FBA /* localstocktjz2.plist */; };
 		2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522C1B5AA55100B09FBA /* SuggestStockViewController.m */; };
 		242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */; };
@@ -124,6 +125,8 @@
 		24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRaseStockListViewController.m; sourceTree = "<group>"; };
 		24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRaseStockViewCell.h; sourceTree = "<group>"; };
 		24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRaseStockViewCell.m; sourceTree = "<group>"; };
+		242090D91BC8F7F70025E68B /* UpTodayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpTodayListViewController.h; sourceTree = "<group>"; };
+		242090DA1BC8F7F70025E68B /* UpTodayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpTodayListViewController.m; sourceTree = "<group>"; };
 		242252291B5AA3FA00B09FBA /* localstocktjz2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = localstocktjz2.plist; sourceTree = "<group>"; };
 		2422522B1B5AA55100B09FBA /* SuggestStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestStockViewController.h; sourceTree = "<group>"; };
 		2422522C1B5AA55100B09FBA /* SuggestStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestStockViewController.m; sourceTree = "<group>"; };
@@ -544,6 +547,8 @@
 				2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */,
 				24BC31C11B6B56F80078FCE2 /* LowestListViewController.h */,
 				24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */,
+				242090D91BC8F7F70025E68B /* UpTodayListViewController.h */,
+				242090DA1BC8F7F70025E68B /* UpTodayListViewController.m */,
 				24202D0D1B6B8EF90048E4F1 /* StopRaseStockListViewController.h */,
 				24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */,
 				24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */,
@@ -866,6 +871,7 @@
 				24D54E091B54D1EC00AAE334 /* lineView.m in Sources */,
 				94FE50E619498F6000CCE18A /* StockLineView.m in Sources */,
 				2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */,
+				242090DB1BC8F7F70025E68B /* UpTodayListViewController.m in Sources */,
 				24F4E81C1B69C99800BB245C /* JSONKit.m in Sources */,
 				9430A0BB193F164E00569444 /* SearchViewController.m in Sources */,
 				2467CA7F1B6A00EE0045904E /* TYAPIProxy.m in Sources */,

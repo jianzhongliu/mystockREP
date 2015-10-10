@@ -182,7 +182,7 @@ static NSString *searchCellIdentifier = @"searchCell";
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:apiHost parameters:sendDataDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DMLog(@"JSON: %@", responseObject);
+        NSLog(@"JSON: %@", responseObject);
         if (responseObject == nil || [responseObject objForKey:@"result"] == 0) {
             return;
         }
@@ -237,7 +237,7 @@ static NSString *searchCellIdentifier = @"searchCell";
         isADD = NO;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         isADD = NO;
-        DMLog(@"Error: %@", error);
+        NSLog(@"Error: %@", error);
         [MBProgressHUD hideHUDForView:self.view animated:NO];
     }];
     

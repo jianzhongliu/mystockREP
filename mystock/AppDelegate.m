@@ -91,7 +91,7 @@
     NSString * tokenAsString = [[[deviceToken description]
                                  stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
                                 stringByReplacingOccurrencesOfString:@" " withString:@""];
-    DMLog(@"token : %@", tokenAsString);
+    NSLog(@"token : %@", tokenAsString);
     
     NSMutableDictionary *sendDataDict = [NSMutableDictionary dictionary];
     //添加默认参数
@@ -100,10 +100,10 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:apiHost parameters:sendDataDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DMLog(@"JSON: %@", responseObject);
+        NSLog(@"JSON: %@", responseObject);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DMLog(@"Error: %@", error);
+        NSLog(@"Error: %@", error);
     }];
     
 }
@@ -111,14 +111,14 @@
 // Provide a user explanation for when the registration fails
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    DMLog(@"!!!!!!!Error in registration. Error: %@", error);
+    NSLog(@"!!!!!!!Error in registration. Error: %@", error);
 }
 
 #pragma mark - 程序收到远程推送消息 Remote notification
 // Handle an actual notification收到某一个消息
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-	DMLog(@"%@", userInfo);
+	NSLog(@"%@", userInfo);
 
 }
 

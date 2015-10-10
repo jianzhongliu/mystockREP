@@ -91,7 +91,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
     NSString *url = @"http://hq.niuguwang.com/aquote/userdata/getuserstocks.ashx?version=2.0.5&packtype=0&usertoken=njayg_XK-3AJQ9gsPjN9RHzmVogatdxspIs7v0KUj88*&s=App%20Store";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [[TYAPIProxy shareProxy] callGETWithParams:@{} identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {
-        DMLog(@"JSON: %@", response.content);
+        NSLog(@"JSON: %@", response.content);
         if (response.content == nil) {
             return;
         }
@@ -113,7 +113,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
     
     return;
     [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DMLog(@"JSON: %@", responseObject);
+        NSLog(@"JSON: %@", responseObject);
         if (responseObject == nil) {
             return;
         }
@@ -130,7 +130,7 @@ NSString * const SuggestCellReuseIdentifier = @"SuggestCell";
         [_sTableView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DMLog(@"Error: %@", error);
+        NSLog(@"Error: %@", error);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 

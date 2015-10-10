@@ -10,17 +10,27 @@
 ////*******************************************
 ////*******************************************
 ////调试开关 //For test Only    Release版本一定要关闭本开关，切记切记！！！！！！！！！！！！！！
-#define DEBUG_LOG
+//#define DEBUG_LOG
 //#define DEBUG_TEST
 ////*******************************************//
 ////*******************************************//
 
 
-#ifdef DEBUG_LOG
-#define DMLog(...) NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
+//#ifdef DEBUG_LOG
+//#define NSLog(...) NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
+//#else
+//#define NSLog(...) do { } while (0)
+//#endif
+
+
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#define debugMethod() NSLog(@"%s", __func__)
 #else
-#define DMLog(...) do { } while (0)
+#define NSLog(...)
+#define debugMethod()
 #endif
+
 
 #define IS_iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 

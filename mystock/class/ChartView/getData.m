@@ -52,7 +52,7 @@ static NSMutableArray *array;
         }else{
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             [[TYAPIProxy shareProxy] callGETWithParams:@{} identify:url methodName:@"" successCallBack:^(TYURLResponse *response) {
-                DMLog(@"JSON: %@", response.content);
+                NSLog(@"JSON: %@", response.content);
                 if (response.content == nil) {
                     return;
                 }

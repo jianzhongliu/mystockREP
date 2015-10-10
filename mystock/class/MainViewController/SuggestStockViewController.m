@@ -16,6 +16,7 @@
 #import "MoneyListViewController.h"
 #import "ZiJingViewController.h"
 #import "StopStockViewController.h"
+#import "UpTodayListViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -76,7 +77,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 9;
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -135,6 +136,10 @@
             cell.textLabel.text = @"一字板";
         }
             break;
+        case 9:{
+            cell.textLabel.text = @"高于今天最高价比例";
+        }
+            break;
         default:
             break;
     }
@@ -188,6 +193,11 @@
             break;
         case 8:{
             StopStockViewController *controller = [[StopStockViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 9:{
+            UpTodayListViewController *controller = [[UpTodayListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

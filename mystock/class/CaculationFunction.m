@@ -13,7 +13,7 @@
 
 @implementation CaculationFunction
 + (void)load {
-//    [[CaculationFunction share] lowColumnRate];
+    [[CaculationFunction share] lowColumnRate];
 //    [[CaculationFunction share] hightColumnRate];
 //    NSLog(@"%@", [[CaculationFunction share] todayDouble]) ;
 //    NSLog(@"%@", [[CaculationFunction share] lowStockes]) ;
@@ -57,6 +57,7 @@
     
 }
 
+#pragma mark - 数据展示
 /**超跌排序*/
 - (NSArray *)getDownMore {
     NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
@@ -78,7 +79,6 @@
     }
     NSArray *array2 = [arrayValueEveryDay sortedArrayUsingComparator:
                        ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-                           // 先按照姓排序
                    NSComparisonResult result = [obj2[@"rate"] compare:obj1[@"rate"]];
 
                    return result;
@@ -86,6 +86,125 @@
     return array2;
 }
 
+
+/**三日内今天低量柱
+ */
+- (NSArray *)lowStockes {
+    NSMutableArray *arrayLow = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleDay = dic[@"timedata"];
+        if (arraySingleDay.count > 0) {
+            NSDictionary *dicLow = arraySingleDay[0];
+            for (NSDictionary *dicDay in arraySingleDay) {
+                if ([dicDay[@"curvol"] integerValue] <= [dicLow[@"curvol"] integerValue]) {
+                    dicLow = dicDay;
+                }
+            }
+            if ([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue] || [dicLow[@"curvol"] integerValue] == [[arraySingleDay[1] objectForKey:@"curvol"] integerValue]||[dicLow[@"curvol"] integerValue] == [[arraySingleDay[2] objectForKey:@"curvol"] integerValue]) {
+                [arrayLow addObject:dic];
+            }
+        }
+    }
+    return arrayLow;
+}
+
+/**三日内一字板
+ */
+- (NSArray *)stopStock {
+    NSMutableArray *arrayLow = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleDay = dic[@"timedata"];
+        if (arraySingleDay.count > 0) {
+            NSDictionary *dicLow = arraySingleDay[0];
+            
+            BOOL today = NO;
+            BOOL yesterday = NO;
+            BOOL lastday = NO;
+            if ([[arraySingleDay[0] objectForKey:@"highp"] integerValue] == [[arraySingleDay[0] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[0] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[0] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[0] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[0] objectForKey:@"openp"] integerValue]) {
+                today = YES;
+            }
+            if ([[arraySingleDay[1] objectForKey:@"highp"] integerValue] == [[arraySingleDay[1] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[1] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[1] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[1] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[1] objectForKey:@"openp"] integerValue]) {
+                yesterday = YES;
+            }
+            if ([[arraySingleDay[2] objectForKey:@"highp"] integerValue] == [[arraySingleDay[2] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[2] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[2] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[2] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[2] objectForKey:@"openp"] integerValue]) {
+                lastday = YES;
+            }
+            if (today == YES || lastday == YES || yesterday == YES) {
+                [arrayLow addObject:dic];
+            }
+        }
+    }
+    return arrayLow;
+}
+
+/**今日倍量柱*/
+- (NSArray *)todayDouble {
+    NSMutableArray *arrayDouble = [NSMutableArray array];
+    for (NSDictionary *dicTemp in self.arraySourceData){
+        NSArray *arrayDataList = dicTemp[@"timedata"];
+        
+        if (arrayDataList.count > 0 && [[arrayDataList[0] objectForKey:@"curvol"] floatValue] > 2.0f * [[arrayDataList[1] objectForKey:@"curvol"] floatValue] ) {
+            [arrayDouble addObject:dicTemp];
+        }
+    }
+    return arrayDouble;
+}
+
+/**找精准点*/
+- (NSArray *)averageValue:(NSString *)code {
+    NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        if ([dic[@"stockcode"] integerValue]== [code integerValue]) {
+            NSArray *arraySingleStock = dic[@"timedata"];
+            if (arraySingleStock.count > 0) {
+                for (int s = 0 ; s<arraySingleStock.count ; s++) {
+                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"openp"] integerValue])];
+                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"highp"] integerValue])];
+                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"lowp"] integerValue])];
+                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"nowv"] integerValue])];
+                }
+            }
+        }
+    }
+    NSArray *arrayTemp = [arrayValueEveryDay sortedArrayUsingSelector:@selector(compare:)];
+    return arrayTemp;
+}
+
+
+/**数天数,最高价大于当天最高价除以数据总天数(比如60)，60天中价格大于今天的天数比例*/
+- (NSArray *)daysUpOfNow{
+    NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:self.arraySourceData[i]];
+        NSArray *arraySingleStock = dic[@"timedata"];
+        if (arraySingleStock.count > 0) {
+            int number = 0;
+            for (int s = 1 ; s<arraySingleStock.count ; s++) {
+                NSDictionary *dicToday = arraySingleStock[0];
+                if ([dicToday[@"highp"] floatValue] < [arraySingleStock[s][@"highp"] floatValue]) {
+                    number ++;
+                }
+            }
+            CGFloat rate = (number + 0.00000001)/(arraySingleStock.count+0.0001) * 100;
+            NSString *numberRate = [NSString stringWithFormat:@"%.5f",rate];
+            [dic setObject:numberRate forKey:@"updayrate"];
+            
+            [arrayValueEveryDay addObject:dic];
+        }
+    }
+    NSArray *arraySorted = [arrayValueEveryDay sortedArrayUsingComparator:
+                            ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                                NSComparisonResult result = [obj2[@"updayrate"] compare:obj1[@"updayrate"]];
+                                return result;
+                            }];
+    NSLog(@"数天数：===%@",arraySorted[0]);
+    return arraySorted;
+}
+
+#pragma mark - 数据概率计算
 
 /**高量柱数据
  高量柱结果：降：289=====升:69=====上涨率：0.19=====涨幅：0.30=======跌幅：0.17
@@ -166,13 +285,14 @@
 }
 
 /**倍量柱数据
- 6日倍量柱结果：降：1429=====升:5159=====上涨率：0.78======涨幅:0.06 ===== 跌幅:0.04
- 40日倍量柱结果：降：1194=====升:4706=====上涨率：0.80======涨幅:0.28 ===== 跌幅:0.13
- 60倍量柱结果：降：828=====升:4782=====上涨率：0.85======涨幅:0.38 ===== 跌幅:0.11
- 100倍量柱结果：降：303=====升:4631=====上涨率：0.94======涨幅:0.55 ===== 跌幅:0.09
+取600个交易日的数据，也就是三年多的数据做基本数据分析结果如下：
+倍量柱60天之后涨幅结果：降：1422=====升:2266=====上涨率：0.61======涨幅:0.30 ===== 跌幅:0.17
+倍量柱3天之后涨幅结果： 降：1424=====升:3033=====上涨率：0.68======涨幅:0.10 ===== 跌幅:0.06
+倍量柱5天之后涨幅结果：降：1495=====升:2954=====上涨率：0.66======涨幅:0.12 ===== 跌幅:0.08
+倍量柱10天之后涨幅结果降：1625=====升:2798=====上涨率：0.63======涨幅:0.16 ===== 跌幅:0.09
  */
 - (void)dowblecolumn {
-    int days = 60;//时差天数
+    int days = 10;//时差天数
     int low = 0;//下降
     int up = 0;//上涨
     CGFloat uprate = 0.0f;
@@ -254,71 +374,6 @@
     return arrayGolden;
 }
 
-/**三日内今天低量柱
- */
-- (NSArray *)lowStockes {
-    NSMutableArray *arrayLow = [NSMutableArray array];
-    for (int i = 0; i < self.arraySourceData.count; i++) {
-        NSDictionary *dic = self.arraySourceData[i];
-        NSArray *arraySingleDay = dic[@"timedata"];
-        if (arraySingleDay.count > 0) {
-            NSDictionary *dicLow = arraySingleDay[0];
-            for (NSDictionary *dicDay in arraySingleDay) {
-                if ([dicDay[@"curvol"] integerValue] <= [dicLow[@"curvol"] integerValue]) {
-                    dicLow = dicDay;
-                }
-            }
-            if ([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue] || [dicLow[@"curvol"] integerValue] == [[arraySingleDay[1] objectForKey:@"curvol"] integerValue]||[dicLow[@"curvol"] integerValue] == [[arraySingleDay[2] objectForKey:@"curvol"] integerValue]) {
-                [arrayLow addObject:dic];
-            }
-        }
-    }
-    return arrayLow;
-}
-
-/**三日内一字板
- */
-- (NSArray *)stopStock {
-    NSMutableArray *arrayLow = [NSMutableArray array];
-    for (int i = 0; i < self.arraySourceData.count; i++) {
-        NSDictionary *dic = self.arraySourceData[i];
-        NSArray *arraySingleDay = dic[@"timedata"];
-        if (arraySingleDay.count > 0) {
-            NSDictionary *dicLow = arraySingleDay[0];
-            
-            BOOL today = NO;
-            BOOL yesterday = NO;
-            BOOL lastday = NO;
-            if ([[arraySingleDay[0] objectForKey:@"highp"] integerValue] == [[arraySingleDay[0] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[0] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[0] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[0] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[0] objectForKey:@"openp"] integerValue]) {
-                today = YES;
-            }
-            if ([[arraySingleDay[1] objectForKey:@"highp"] integerValue] == [[arraySingleDay[1] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[1] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[1] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[1] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[1] objectForKey:@"openp"] integerValue]) {
-                yesterday = YES;
-            }
-            if ([[arraySingleDay[2] objectForKey:@"highp"] integerValue] == [[arraySingleDay[2] objectForKey:@"lowp"] integerValue] && [[arraySingleDay[2] objectForKey:@"lowp"] integerValue] == [[arraySingleDay[2] objectForKey:@"nowv"] integerValue] && [[arraySingleDay[2] objectForKey:@"nowv"] integerValue] == [[arraySingleDay[2] objectForKey:@"openp"] integerValue]) {
-                lastday = YES;
-            }
-            if (today == YES || lastday == YES || yesterday == YES) {
-                [arrayLow addObject:dic];
-            }
-        }
-    }
-    return arrayLow;
-}
-
-/**今日倍量柱*/
-- (NSArray *)todayDouble {
-    NSMutableArray *arrayDouble = [NSMutableArray array];
-    for (NSDictionary *dicTemp in self.arraySourceData){
-        NSArray *arrayDataList = dicTemp[@"timedata"];
-        
-            if (arrayDataList.count > 0 && [[arrayDataList[0] objectForKey:@"curvol"] floatValue] > 2.0f * [[arrayDataList[1] objectForKey:@"curvol"] floatValue] ) {
-                [arrayDouble addObject:dicTemp];
-            }
-    }
-    return arrayDouble;
-}
-
 
 /**假阴真阳
 假阴真阳柱结果：降：1384=====升:1941=====上涨率：0.58======涨幅:0.07 ===== 跌幅:0.05
@@ -388,54 +443,6 @@
     NSLog(@"假阳真阴柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
 }
 
-/**找精准点*/
-- (NSArray *)averageValue:(NSString *)code {
-    NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
-    for (int i = 0; i < self.arraySourceData.count; i++) {
-        NSDictionary *dic = self.arraySourceData[i];
-        if ([dic[@"stockcode"] integerValue]== [code integerValue]) {
-            NSArray *arraySingleStock = dic[@"timedata"];
-            if (arraySingleStock.count > 0) {
-                for (int s = 0 ; s<arraySingleStock.count ; s++) {
-                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"openp"] integerValue])];
-                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"highp"] integerValue])];
-                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"lowp"] integerValue])];
-                    [arrayValueEveryDay addObject:@([[arraySingleStock[s] objectForKey:@"nowv"] integerValue])];
-                }
-            }
-        }
-    }
-    NSArray *arrayTemp = [arrayValueEveryDay sortedArrayUsingSelector:@selector(compare:)];
-    return arrayTemp;
-}
-
-/**数天数*/
-- (NSArray *)daysUpOfNow{
-    NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
-    for (int i = 0; i < self.arraySourceData.count; i++) {
-        NSMutableDictionary *dic = self.arraySourceData[i];
-        NSArray *arraySingleStock = dic[@"timedata"];
-        if (arraySingleStock.count > 0) {
-            int number = 0;
-            for (int s = 1 ; s<arraySingleStock.count ; s++) {
-                NSDictionary *dicToday = arraySingleStock[0];
-                if ([dicToday[@"highp"] floatValue] < [arraySingleStock[s][@"highp"] floatValue]) {
-                    number ++;
-                }
-            }
-            CGFloat rate = number/(arraySingleStock.count+0.0001);
-            [dic setValue:@(rate) forKey:@"rate"];
-            [arrayValueEveryDay addObject:dic];
-        }
-    }
-    NSArray *arraySorted = [arrayValueEveryDay sortedArrayUsingComparator:
-                            ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-                                NSComparisonResult result = [obj1[@"rate"] compare:obj2[@"rate"]];
-                                return result;
-                            }];
-    NSLog(@"数天数：===%@",arraySorted);
-    return arraySorted;
-}
 
 /**精准线*/
 - (NSArray *)jingzhunxian {
@@ -473,11 +480,26 @@
             if (o >= 3 || h >= 3 || l>=3 || n >= 3) {
                 NSString *valueDetail = [NSString stringWithFormat:@"最低：%d个 最高：%d个 开盘：%d个 收盘：%d个",l,h,o,n];
                 [dic setObject:valueDetail forKey:@"detail"];
+                [dic setObject:@(o) forKey:@"o"];
+                [dic setObject:@(h) forKey:@"h"];
+                [dic setObject:@(l) forKey:@"l"];
+                [dic setObject:@(n) forKey:@"n"];
                 [arrayValueEveryDay addObject:dic];
             }
         }
     }
-    return arrayValueEveryDay;
+    NSArray *arrayValueEveryDayOrder = [arrayValueEveryDay sortedArrayUsingComparator:
+                       ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                           NSInteger obj1number = [obj1[@"o"] integerValue] + [obj1[@"h"] integerValue] +[obj1[@"l"] integerValue] +[obj1[@"n"] integerValue];
+                           
+                           NSInteger obj2number = [obj2[@"o"] integerValue] + [obj2[@"h"] integerValue] +[obj2[@"l"] integerValue] +[obj2[@"n"] integerValue];
+                           
+                           NSComparisonResult result = [@(obj2number) compare:@(obj1number)];
+                           
+                           return result;
+                       }];
+    
+    return arrayValueEveryDayOrder;
 }
 
 /**主交易量大于散*/

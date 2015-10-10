@@ -23,13 +23,13 @@
 /**三日内一字板
  */
 - (NSArray *)stopStock;
+/**数天数,最高价大于当天最高价除以数据总天数(比如60)，60天中价格大于今天的天数比例*/
+- (NSArray *)daysUpOfNow;
 
 /**今日倍量柱*/
 - (NSArray *)todayDouble;
 /**超跌排序*/
 - (NSArray *)getDownMore;
-/**数天数*/
-- (NSArray *)daysUpOfNow;
 /**找精准点*/
 - (NSArray *)averageValue:(NSString *)code;
 /**精准线*/
