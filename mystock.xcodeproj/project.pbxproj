@@ -46,7 +46,6 @@
 		24D54E341B55261000AAE334 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D54E311B55261000AAE334 /* Default.png */; };
 		24D54E351B55261000AAE334 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D54E321B55261000AAE334 /* Default@2x.png */; };
 		24F4E8181B69B93400BB245C /* DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 24F4E8171B69B93400BB245C /* DB.sqlite */; };
-		24F4E81C1B69C99800BB245C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F4E81B1B69C99800BB245C /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		24F4E81E1B69CB0500BB245C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F4E81D1B69CB0500BB245C /* libz.tbd */; };
 		9406951619299DFA00BA2694 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406951519299DFA00BA2694 /* Foundation.framework */; };
 		9406951819299DFA00BA2694 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406951719299DFA00BA2694 /* CoreGraphics.framework */; };
@@ -184,8 +183,6 @@
 		24D54E311B55261000AAE334 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		24D54E321B55261000AAE334 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		24F4E8171B69B93400BB245C /* DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DB.sqlite; sourceTree = "<group>"; };
-		24F4E81A1B69C99800BB245C /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		24F4E81B1B69C99800BB245C /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		24F4E81D1B69CB0500BB245C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = text; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9406951219299DFA00BA2694 /* mystock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mystock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9406951519299DFA00BA2694 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -384,8 +381,6 @@
 		24F4E8191B69C99800BB245C /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
-				24F4E81A1B69C99800BB245C /* JSONKit.h */,
-				24F4E81B1B69C99800BB245C /* JSONKit.m */,
 			);
 			path = JSONKit;
 			sourceTree = "<group>";
@@ -757,6 +752,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Ryan;
 				TargetAttributes = {
+					9406951119299DFA00BA2694 = {
+						DevelopmentTeam = 4DW89V8URU;
+					};
 					9406952C19299DFA00BA2694 = {
 						TestTargetID = 9406951119299DFA00BA2694;
 					};
@@ -872,7 +870,6 @@
 				94FE50E619498F6000CCE18A /* StockLineView.m in Sources */,
 				2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */,
 				242090DB1BC8F7F70025E68B /* UpTodayListViewController.m in Sources */,
-				24F4E81C1B69C99800BB245C /* JSONKit.m in Sources */,
 				9430A0BB193F164E00569444 /* SearchViewController.m in Sources */,
 				2467CA7F1B6A00EE0045904E /* TYAPIProxy.m in Sources */,
 				94AFA464193A21510046F002 /* FMDatabaseAdditions.m in Sources */,
@@ -1008,6 +1005,7 @@
 				GCC_PREFIX_HEADER = "mystock/mystock-Prefix.pch";
 				INFOPLIST_FILE = "mystock/mystock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.stock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1024,6 +1022,7 @@
 				GCC_PREFIX_HEADER = "mystock/mystock-Prefix.pch";
 				INFOPLIST_FILE = "mystock/mystock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.stock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

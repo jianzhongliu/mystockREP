@@ -76,7 +76,7 @@
     NSString *sql = @"CREATE TABLE IF NOT EXISTS stock(content varchar, key varchar);";
     [self.db executeUpdate:sql];
     for (NSArray *array in lines) {
-        NSString *stringLine = [array JSONString];
+        NSString *stringLine = [array TY_jsonString];
         NSString *sql = @"INSERT INTO stock(content,key) VALUES(?,?)";
         if (![self.db executeUpdate:sql, stringLine, key]) {
             NSLog(@"数据处理失败");

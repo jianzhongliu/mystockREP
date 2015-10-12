@@ -30,6 +30,8 @@
 - (NSString *)TY_jsonString
 {
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:NULL];
+    
+    NSArray *arr = [NSArray arrayWithObject:jsonData];
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
