@@ -6,24 +6,25 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "LowestListViewController.h"
-#import "CaculationFunction.h"
+#import "PriceOrderListViewController.h"
 #import "RquestTotalStock.h"
+#import "CaculationFunction.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
 
-@interface LowestListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface PriceOrderListViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-
-@property (nonatomic, strong) NSMutableArray *arrayLow;//地量柱
+@property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
+@property (nonatomic, strong) NSMutableArray *arrayShen;//深市A股
+@property (nonatomic, strong) NSMutableArray *arrayDouble;//倍量柱
 
 @property (nonatomic, assign) NSInteger index;
 
 @end
 
-@implementation LowestListViewController
+@implementation PriceOrderListViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -53,8 +54,13 @@
 
 - (void)initData {
     self.index = 0;
+    self.arrayShang = [NSMutableArray array];
+    self.arrayShen = [NSMutableArray array];
 //    [colorModel getStockCodeInfo];
-    self.arrayLow = [NSMutableArray arrayWithArray:[[CaculationFunction share] lowStockes]];
+//    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
+//    [self.arrayShen addObjectsFromArray:[colorModel getSA]];
+    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] getPriceOrder]];
+    self.arrayDouble = [NSMutableArray arrayWithArray:arrayLocalStock];
     
 }
 
@@ -66,7 +72,7 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"地量柱";
+    titleLabel.text = @"价格排序";
     self.navigationItem.titleView = titleLabel;
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
@@ -80,13 +86,19 @@
     
 }
 
+- (void)showDoubleStock {
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"选择数据量" delegate:self
+cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"300",@"100",@"50",@"30",@"20",@"15", nil];
+    [action showInView:self.view];
+
+}
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.arrayLow.count;
+    return self.arrayDouble.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,7 +119,7 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@", [self.arrayLow[indexPath.row] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"stockcode"]];
+    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@ // %@", [self.arrayDouble[indexPath.row] objectForKey:@"stockname"], [self.arrayDouble[indexPath.row] objectForKey:@"stockcode"], [self.arrayDouble[indexPath.row] objectForKey:@"openp"]];
     
     cell.textLabel.text = stringTitle;
     return cell;
@@ -117,10 +129,58 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     FMViewController *sDetailVC = [[FMViewController alloc] init];
-//    sDetailVC.dicStock = self.arrayLow[indexPath.row];
-    sDetailVC.arrayStock = self.arrayLow;
+    //    sDetailVC.dicStock = self.arrayLow[indexPath.row];
+    sDetailVC.arrayStock = self.arrayDouble;
     [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSInteger number = 0;
+    switch (buttonIndex) {
+        case 0:
+        {
+            number = 600;
+        }
+            break;
+        case 1:
+        {
+            number = 300;
+        }
+            break;
+        case 2:
+        {
+            number = 100;
+        }
+            break;
+        case 3:
+        {
+            number = 50;
+        }
+            break;
+        case 4:
+        {
+            number = 30;
+        }
+            break;
+        case 5:
+        {
+            number = 20;
+        }
+            break;
+        case 6:
+        {
+            number = 15;
+        }
+            break;
+        default:
+            break;
+    }
+    if (number > 0) {
+        [commond setUserDefaults:@[] forKey:@"Double"];
+        NSLog(@"%@", self.arrayDouble);
+        [[RquestTotalStock share] startLoadingDataWith:number];//请求票面信息
+    }
+
+}
 @end

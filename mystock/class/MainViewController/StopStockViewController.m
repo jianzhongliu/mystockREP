@@ -117,7 +117,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     FMViewController *sDetailVC = [[FMViewController alloc] init];
-    sDetailVC.dicStock = self.arrayLow[indexPath.row];
+    //    sDetailVC.dicStock = self.arrayLow[indexPath.row];
+    sDetailVC.arrayStock = self.arrayLow;
     [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }

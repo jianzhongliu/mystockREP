@@ -566,7 +566,7 @@
         CGFloat yHeight = getdata.volMaxValue - getdata.volMinValue ; // y的价格高度
         CGFloat yViewHeight = bottomBoxView.frame.size.height ;// y的实际像素高度
         // 换算成实际的坐标
-        CGFloat volumePointY = yViewHeight * (1 - (volumevalue - getdata.volMinValue) / yHeight);
+        CGFloat volumePointY = yViewHeight * (1.0 - volumevalue / getdata.volMaxValue);
         CGPoint volumePoint =  CGPointMake(PointStartX, volumePointY); // 成交量换算为实际坐标值
         CGPoint volumePointStart = CGPointMake(PointStartX, yViewHeight);
         // 把开盘价收盘价放进去好计算实体的颜色

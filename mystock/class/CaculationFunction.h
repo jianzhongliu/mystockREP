@@ -18,6 +18,13 @@
 @property (nonatomic, strong) NSMutableArray *arrayDayPrice;//5日价格
 
 + (instancetype)share;
+
+/**超跌排序*/
+- (NSArray *)getDownMore;
+/**涨幅排序*/
+- (NSArray *)getUPMore;
+/**价格排序*/
+- (NSArray *)getPriceOrder;
 /**地量绿*/
 - (NSArray *)lowStockes;
 /**三日内一字板
@@ -28,8 +35,21 @@
 
 /**今日倍量柱*/
 - (NSArray *)todayDouble;
-/**超跌排序*/
-- (NSArray *)getDownMore;
+/**
+ ST类型
+ */
+- (NSArray *)STStock;
+/**缩倍柱+30日地量柱+倍量柱
+ 表示有主力故意在玩弄，避开系统风险，很容易就是牛股了
+ 下面数据虽然才65%,但是这类股分启动上升时期和启动下跌时期
+ 低量柱结果：降：267=====升:494=====上涨率：0.65======涨幅:131.22 ===== 跌幅:76.72
+ */
+- (NSArray *)doubleLowDouble;
+
+
+/**缩倍柱*/
+- (void)dowbleLowcolumn;
+
 /**找精准点*/
 - (NSArray *)averageValue:(NSString *)code;
 /**精准线*/

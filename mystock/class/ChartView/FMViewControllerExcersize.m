@@ -6,11 +6,11 @@
 //  Copyright (c) 2014年 zhaomingxi. All rights reserved.
 //
 
-#import "FMViewController.h"
+#import "FMViewControllerExcersize.h"
 #import "lineView.h"
 #import "UIColor+helper.h"
 
-@interface FMViewController ()
+@interface FMViewControllerExcersize ()
 {
     lineView *lineview;
     UIButton *btnDay;
@@ -18,11 +18,13 @@
     UIButton *btnMonth;
 }
 
+@property (nonatomic, strong) UIButton *buttonExercises;
+@property (nonatomic, strong) UIButton *buttonNext;
 @property (nonatomic, assign) NSInteger index;
 
 @end
 
-@implementation FMViewController
+@implementation FMViewControllerExcersize
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
     return YES;
@@ -40,6 +42,11 @@
 }
 
 -(void)viewDidLoad{
+    
+    self.buttonExercises.frame = CGRectMake(0, self.view.frame.size.height - 40, 40, 40);
+    
+    [self.view addSubview:self.buttonExercises];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
 
     // 日k按钮
@@ -114,6 +121,51 @@
     [self setButtonAttrWithClick:btnDay];
 }
 
+- (void)doExersiseReloadView {
+    
+    int stockIndex = (0 + (arc4random() % (self.arrayStock.count + 1)));
+    int dayIndex = (0 + (arc4random() % (200 + 1)));
+    if (stockIndex >= self.arrayStock.count) {
+        return;
+    }
+    NSMutableDictionary *dic = self.arrayStock[stockIndex];
+    
+    if (dayIndex >= [[dic objectForKey:@"timedata"] count] ) {
+        return;
+    }
+    
+    NSMutableArray *arraySoureData = [NSMutableArray array];
+    [arraySoureData addObjectsFromArray:[dic objectForKey:@"timedata"]];
+    
+    NSArray *tempArray = [self subobjectsAtArray:arraySoureData from:dayIndex];
+    
+    [arraySoureData removeAllObjects];
+    [arraySoureData addObjectsFromArray:tempArray];
+//    [dic removeObjectForKey:@"timedata"];
+    [dic setObject:arraySoureData forKey:@"timedata"];
+    
+    // 添加k线图
+    [lineview removeFromSuperview];
+    lineview = nil;
+    lineview = [[lineView alloc] init];
+
+    lineview.dicStock = dic;
+    
+    [self setTitle:[NSString stringWithFormat:@"%@%@",lineview.dicStock[@"stockname"], lineview.dicStock[@"stockcode"]]];
+    
+    CGRect frame = self.view.frame;
+    frame.origin = CGPointMake(0, 120);
+    frame.size = CGSizeMake(310, 200);
+    lineview.frame = frame;
+    //lineview.backgroundColor = [UIColor blueColor];
+    lineview.req_type = @"d";
+    lineview.req_freq = @"601888.SS";
+    lineview.kLineWidth = 5;
+    lineview.kLinePadding = 0.5;
+    [self.view addSubview:lineview];
+    [lineview start]; // k线图运行
+    [self setButtonAttrWithClick:btnDay];
+}
 
 -(void)kDayLine{
     [self setButtonAttrWithClick:btnDay];
@@ -163,6 +215,60 @@
 -(void)setButtonAttrWithClick:(UIButton*)button{
     button.backgroundColor = [UIColor colorWithHexString:@"cccccc" withAlpha:1];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+}
+
+//做练习
+- (void)didDoExcersice {
+    [self doExersiseReloadView];
+}
+
+//下一个数据
+- (void)didNext {
+
+}
+
+#pragma mark -- getter && setter
+
+- (UIButton *)buttonExercises {
+    if (_buttonExercises == nil) {
+        _buttonExercises = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_buttonExercises setBackgroundColor:[UIColor yellowColor]];
+        [_buttonExercises setImage:[UIImage imageNamed:@"icon"] forState:UIControlStateNormal];
+        [_buttonExercises setImage:[UIImage imageNamed:@"icon"] forState:UIControlStateHighlighted];
+        [_buttonExercises addTarget:self action:@selector(didDoExcersice) forControlEvents:UIControlEventTouchUpInside];
+        _buttonExercises.selected = NO;
+        [_buttonExercises setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _buttonExercises.titleLabel.font = [UIFont systemFontOfSize:13];
+        _buttonExercises.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return _buttonExercises ;
+    
+}
+
+- (UIButton *)buttonNext {
+    if (_buttonNext == nil) {
+        _buttonNext = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_buttonNext setImage:[UIImage imageNamed:@"icon"] forState:UIControlStateNormal];
+        [_buttonNext setImage:[UIImage imageNamed:@"icon"] forState:UIControlStateHighlighted];
+        [_buttonNext addTarget:self action:@selector(didNext) forControlEvents:UIControlEventTouchUpInside];
+        _buttonNext.selected = NO;
+        [_buttonNext setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _buttonNext.titleLabel.font = [UIFont systemFontOfSize:13];
+        _buttonNext.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return _buttonNext;
+    
+}
+
+- (NSArray *)subobjectsAtArray:(NSArray *) array from:(NSInteger ) index {
+    NSMutableArray *arrayResult = [NSMutableArray array];
+    if (array.count <= index) {
+        return array;
+    }
+    for (int i = 0; i < index; i ++ ) {
+        [arrayResult addObject:[array objectAtIndex:(array.count - i - 1)]];
+    }
+    return arrayResult;
 }
 
 @end

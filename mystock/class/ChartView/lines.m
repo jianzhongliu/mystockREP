@@ -94,11 +94,11 @@
     CGContextSetShouldAntialias(context, NO);
     // 首先判断是绿的还是红的，根据开盘价和收盘价的坐标来计算
     BOOL isKong = NO;
-    colorModel *colormodel = [UIColor RGBWithHexString:@"#FF0000" withAlpha:self.alpha]; // 设置默认红色
+    colorModel *colormodel = [UIColor RGBWithHexString:@"#CC99CC" withAlpha:self.alpha]; // 设置默认红色
     // 如果开盘价坐标在收盘价坐标上方 则为绿色 即空
     if (openPoint.y<closePoint.y) {
         isKong = YES;
-        colormodel = [UIColor RGBWithHexString:@"#00FFFF" withAlpha:self.alpha]; // 设置为绿色
+        colormodel = [UIColor RGBWithHexString:@"#6699CC" withAlpha:self.alpha]; // 设置为绿色#00FFFF
     }
     // 设置颜色
     CGContextSetRGBStrokeColor(context, (CGFloat)colormodel.R/255.0f, (CGFloat)colormodel.G/255.0f, (CGFloat)colormodel.B/255.0f, self.alpha);

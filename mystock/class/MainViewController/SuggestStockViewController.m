@@ -17,6 +17,10 @@
 #import "ZiJingViewController.h"
 #import "StopStockViewController.h"
 #import "UpTodayListViewController.h"
+#import "PriceOrderListViewController.h"
+#import "DoubleLowDoubleListViewController.h"
+#import "SortByUPRateViewController.h"
+#import "STListViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -34,7 +38,7 @@
         _tableView.dataSource = self;
         _tableView.backgroundColor = BACKGROUND_COLOR;
         _tableView.separatorColor = [UIColor clearColor];
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
     }
     return _tableView;
@@ -77,7 +81,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return 14;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -140,6 +144,22 @@
             cell.textLabel.text = @"高于今天最高价比例";
         }
             break;
+        case 10:{
+            cell.textLabel.text = @"价格排序";
+        }
+            break;
+        case 11:{
+            cell.textLabel.text = @"缩倍+地+倍";
+        }
+            break;
+        case 12:{
+            cell.textLabel.text = @"涨幅排序";
+        }
+            break;
+        case 13:{
+            cell.textLabel.text = @"ST";
+        }
+            break;
         default:
             break;
     }
@@ -198,6 +218,26 @@
             break;
         case 9:{
             UpTodayListViewController *controller = [[UpTodayListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 10:{
+            PriceOrderListViewController *controller = [[PriceOrderListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 11:{
+            DoubleLowDoubleListViewController *controller = [[DoubleLowDoubleListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 12:{
+            SortByUPRateViewController *controller = [[SortByUPRateViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 13:{
+            STListViewController *controller = [[STListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FMViewController : UIViewController
+@interface FMViewControllerExcersize : UIViewController
 
 @property (nonatomic, strong) NSDictionary *dicStock;
 @property (nonatomic, strong) NSArray *arrayStock;

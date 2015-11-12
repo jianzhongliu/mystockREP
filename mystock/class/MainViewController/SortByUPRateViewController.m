@@ -6,14 +6,14 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "LowestListViewController.h"
+#import "SortByUPRateViewController.h"
 #import "CaculationFunction.h"
 #import "RquestTotalStock.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
 
-@interface LowestListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SortByUPRateViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation LowestListViewController
+@implementation SortByUPRateViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -54,7 +54,7 @@
 - (void)initData {
     self.index = 0;
 //    [colorModel getStockCodeInfo];
-    self.arrayLow = [NSMutableArray arrayWithArray:[[CaculationFunction share] lowStockes]];
+    self.arrayLow = [NSMutableArray arrayWithArray:[[CaculationFunction share] getUPMore]];
     
 }
 
@@ -66,7 +66,7 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"地量柱";
+    titleLabel.text = @"下降率";
     self.navigationItem.titleView = titleLabel;
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
@@ -107,7 +107,7 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@", [self.arrayLow[indexPath.row] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"stockcode"]];
+    NSString *stringTitle = [NSString stringWithFormat:@"%@%@ // %@ ///%@",[self.arrayLow[indexPath.row] objectForKey:@"innercode"], [[self.arrayLow[indexPath.row] objectForKey:@"sorceData"] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"storck"], [self.arrayLow[indexPath.row] objectForKey:@"rate"]];
     
     cell.textLabel.text = stringTitle;
     return cell;
@@ -117,10 +117,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     FMViewController *sDetailVC = [[FMViewController alloc] init];
-//    sDetailVC.dicStock = self.arrayLow[indexPath.row];
-    sDetailVC.arrayStock = self.arrayLow;
+//    sDetailVC.dicStock = [self.arrayLow[indexPath.row] objectForKey:@"sorceData"];
+    sDetailVC.arrayStock = [self getArrayData:self.arrayLow];
     [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }
 
+- (NSArray *)getArrayData:(NSArray *) array {
+    NSMutableArray *arrayResult = [NSMutableArray array];
+    for (NSDictionary *dic  in array) {
+        [arrayResult addObject:[dic objectForKey:@"sorceData"]];
+    }
+    return arrayResult;
+}
 @end

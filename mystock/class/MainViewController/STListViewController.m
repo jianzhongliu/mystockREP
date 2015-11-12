@@ -6,14 +6,14 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "JingzhunLineViewController.h"
+#import "STListViewController.h"
 #import "RquestTotalStock.h"
 #import "CaculationFunction.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
 
-@interface JingzhunLineViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface STListViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation JingzhunLineViewController
+@implementation STListViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -59,7 +59,7 @@
 //    [colorModel getStockCodeInfo];
 //    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
 //    [self.arrayShen addObjectsFromArray:[colorModel getSA]];
-    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] jingzhunxian]];
+    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] STStock]];
     self.arrayDouble = [NSMutableArray arrayWithArray:arrayLocalStock];
     
 }
@@ -75,6 +75,8 @@
     titleLabel.text = @"倍量柱";
     self.navigationItem.titleView = titleLabel;
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -82,6 +84,34 @@
     self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
     
+}
+
+- (void)showDoubleStock {
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"选择数据量" delegate:self
+cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"300",@"100",@"50",@"30",@"20",@"15",@"3000", nil];
+    [action showInView:self.view];
+
+}
+
+- (void)requestDataWithIndex:(NSInteger) index {
+    if (index > self.arrayDouble.count) {
+        return;
+    }
+    NSMutableArray *arrayDoubleStock = [NSMutableArray array];
+    [arrayDoubleStock addObjectsFromArray:self.arrayShang];
+    [arrayDoubleStock addObjectsFromArray:self.arrayShen];
+    NSDictionary *code = [self.arrayShang objectAtIndex:index];
+    getData *data = [[getData alloc] init];
+    __weak typeof(self) blockSelf = self;
+    data.blockCallBack = ^{
+        [blockSelf requestDataWithIndex:blockSelf.index ++];
+        [MBProgressHUD hideHUDForView:blockSelf.view animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:blockSelf.view animated:YES];
+        hud.labelText = [NSString stringWithFormat:@"当前：%d",self.index ];
+        [hud hide:YES afterDelay:0.2];
+    };
+    NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", code[@"innercode"]];
+    data = [data initWithUrl:url stock:self.arrayDouble[index]];
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
@@ -111,9 +141,8 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = [NSString stringWithFormat:@"%@   %@", [self.arrayDouble[indexPath.row] objectForKey:@"stockname"],[self.arrayDouble[indexPath.row] objectForKey:@"detail"]];
-    cell.textLabel.font = [UIFont systemFontOfSize:12];
-    cell.textLabel.textColor = [UIColor lightGrayColor];
+    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@", [self.arrayDouble[indexPath.row] objectForKey:@"stockname"], [self.arrayDouble[indexPath.row] objectForKey:@"stockcode"]];
+    
     cell.textLabel.text = stringTitle;
     return cell;
 }
@@ -128,4 +157,58 @@
     
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSInteger number = 0;
+    switch (buttonIndex) {
+        case 0:
+        {
+            number = 600;
+        }
+            break;
+        case 1:
+        {
+            number = 300;
+        }
+            break;
+        case 2:
+        {
+            number = 100;
+        }
+            break;
+        case 3:
+        {
+            number = 50;
+        }
+            break;
+        case 4:
+        {
+            number = 30;
+        }
+            break;
+        case 5:
+        {
+            number = 20;
+        }
+            break;
+        case 6:
+        {
+            number = 15;
+        }
+            break;
+        case 7:
+        {
+            number = 3000;
+        }
+            break;
+        default:
+            break;
+    }
+    if (number > 0) {
+        [commond setUserDefaults:@[] forKey:@"Double"];
+        NSLog(@"%@", self.arrayDouble);
+        //    [self requestDataWithIndex:self.index ++];
+        [[RquestTotalStock share] startLoadingDataWith:number];//请求票面信息        
+    }
+
+}
 @end

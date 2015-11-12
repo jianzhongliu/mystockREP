@@ -88,7 +88,7 @@
 
 - (void)showDoubleStock {
     UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"选择数据量" delegate:self
-cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"300",@"100",@"50",@"30",@"20",@"15", nil];
+cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"300",@"100",@"50",@"30",@"20",@"15",@"3000", nil];
     [action showInView:self.view];
 
 }
@@ -151,7 +151,8 @@ cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"30
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     FMViewController *sDetailVC = [[FMViewController alloc] init];
-    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
+//    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
+    sDetailVC.arrayStock = self.arrayDouble;
     [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }
@@ -192,6 +193,11 @@ cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"30
         case 6:
         {
             number = 15;
+        }
+            break;
+        case 7:
+        {
+            number = 3000;
         }
             break;
         default:
