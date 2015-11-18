@@ -119,6 +119,7 @@
     FMViewController *sDetailVC = [[FMViewController alloc] init];
 //    sDetailVC.dicStock = self.arrayLow[indexPath.row];
     sDetailVC.arrayStock = self.arrayLow;
+    sDetailVC.index = indexPath.row;
     [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }

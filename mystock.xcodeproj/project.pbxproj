@@ -537,6 +537,12 @@
 		9406954B1929B68700BA2694 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2422522E1B5AA7C700B09FBA /* DoubleListViewController.h */,
+				2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */,
+				24BC31C11B6B56F80078FCE2 /* LowestListViewController.h */,
+				24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */,
+				242652111B6882E600355C59 /* PriceOrderListViewController.h */,
+				242652121B6882E600355C59 /* PriceOrderListViewController.m */,
 				241D3AA31BAFB53900D71EF9 /* StopStockViewController.h */,
 				241D3AA41BAFB53900D71EF9 /* StopStockViewController.m */,
 				243755641B67661300085967 /* ZiJingViewController.h */,
@@ -557,22 +563,16 @@
 				940695511929B70800BA2694 /* MainViewController.m */,
 				942C0CAA19541D1D00108A75 /* SuggestTableViewCell.h */,
 				942C0CAB19541D1D00108A75 /* SuggestTableViewCell.m */,
-				2422522E1B5AA7C700B09FBA /* DoubleListViewController.h */,
-				2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */,
 				2499B37C1BF32E3900B905EF /* STListViewController.h */,
 				2499B37D1BF32E3900B905EF /* STListViewController.m */,
 				2474F19B1BD29422007CA5B5 /* DoubleLowDoubleListViewController.h */,
 				2474F19C1BD29422007CA5B5 /* DoubleLowDoubleListViewController.m */,
-				24BC31C11B6B56F80078FCE2 /* LowestListViewController.h */,
-				24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */,
 				242090D91BC8F7F70025E68B /* UpTodayListViewController.h */,
 				242090DA1BC8F7F70025E68B /* UpTodayListViewController.m */,
 				24202D0D1B6B8EF90048E4F1 /* StopRaseStockListViewController.h */,
 				24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */,
 				24202D101B6B8F910048E4F1 /* StopRaseStockViewCell.h */,
 				24202D111B6B8F910048E4F1 /* StopRaseStockViewCell.m */,
-				242652111B6882E600355C59 /* PriceOrderListViewController.h */,
-				242652121B6882E600355C59 /* PriceOrderListViewController.m */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";

@@ -210,7 +210,10 @@
     if (dayIndex >= [[self.dicCurrentStock objectForKey:@"timedata"] count] ) {
         return;
     }
-    
+    if (NO == [self isLow]) {
+        [self didDoExcersice];
+        return;
+    }
     NSMutableArray *arraySoureData = [NSMutableArray array];
     [arraySoureData addObjectsFromArray:[self.dicCurrentStock objectForKey:@"timedata"]];
 
@@ -334,5 +337,20 @@
     }
     return arraySort;
 }
+
+- (BOOL)isLow {
+    if ([self.dicSourceData[@"timedata"] count] < self.indector + 20) {
+        return NO;
+    }
+  NSDictionary *dic = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector];
+    for (NSInteger i = self.indector; i<self.indector + 20; i ++) {
+        NSDictionary *dicBehindData = [self.dicSourceData[@"timedata"] objectAtIndex:i];
+        if ([dic[@"curvol"] integerValue] > [dicBehindData[@"curvol"] integerValue]) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
 
 @end

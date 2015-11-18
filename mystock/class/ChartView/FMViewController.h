@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSDictionary *dicStock;
 @property (nonatomic, strong) NSArray *arrayStock;
+@property (nonatomic, assign) NSInteger index;
 
 
 @end

@@ -72,7 +72,7 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"倍量柱";
+    titleLabel.text = @"精准数据";
     self.navigationItem.titleView = titleLabel;
     
 }

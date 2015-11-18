@@ -18,7 +18,6 @@
     UIButton *btnMonth;
 }
 
-@property (nonatomic, assign) NSInteger index;
 
 @end
 
@@ -41,7 +40,11 @@
 
 -(void)viewDidLoad{
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
-
+    UIButton *buttonNext = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    buttonNext.frame = CGRectMake(0, self.view.frame.size.height - 60, 40, 40);
+    [buttonNext setBackgroundColor:[UIColor redColor]];
+    [buttonNext addTarget:self action:@selector(showDoubleStock) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:buttonNext];
     // 日k按钮
     btnDay = [[UIButton alloc] initWithFrame:CGRectMake(20, 70, 50, 30)];
     [btnDay setTitle:@"日K" forState:UIControlStateNormal];

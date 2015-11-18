@@ -140,7 +140,7 @@
     return array2;
 }
 
-/**三日内今天低量柱
+/**今天低量柱
  */
 - (NSArray *)lowStockes {
     NSInteger days = 20;//比较多少天以内的数据，一般20日内就是一个月的最低点

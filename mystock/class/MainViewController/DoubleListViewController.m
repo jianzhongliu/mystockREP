@@ -153,6 +153,7 @@ cancelButtonTitle:@"==" destructiveButtonTitle:nil otherButtonTitles:@"600",@"30
     FMViewController *sDetailVC = [[FMViewController alloc] init];
 //    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
     sDetailVC.arrayStock = self.arrayDouble;
+    sDetailVC.index = indexPath.row;
     [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }

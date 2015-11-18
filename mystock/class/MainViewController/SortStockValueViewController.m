@@ -75,7 +75,7 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"倍量柱";
+    titleLabel.text = @"价格排序";
     self.navigationItem.titleView = titleLabel;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
