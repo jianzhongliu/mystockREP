@@ -159,7 +159,7 @@
                     dicLow = dicDay;
                 }
             }
-            if (([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue] || [dicLow[@"curvol"] integerValue] == [[arraySingleDay[1] objectForKey:@"curvol"] integerValue] || [dicLow[@"curvol"] integerValue] == [[arraySingleDay[2] objectForKey:@"curvol"] integerValue]) && [[dicLow objectForKey:@"lowp"] integerValue] != [[dicLow objectForKey:@"highp"] integerValue]) {
+            if (([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue]) && [[dicLow objectForKey:@"lowp"] integerValue] != [[dicLow objectForKey:@"highp"] integerValue]) {
                 [arrayLow addObject:dic];
             }
         }

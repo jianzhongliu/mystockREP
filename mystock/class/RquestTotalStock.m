@@ -52,7 +52,7 @@
     self.arrayDayPrice = [NSMutableArray array];
     
     [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
-//    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo002]];
+    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo002]];
 }
 
 - (void)requestStockWithIndex:(NSInteger) index number:(NSInteger) number{

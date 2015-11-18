@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "FMViewControllerExcersize.h"
 
 @interface SettingViewController ()
 
@@ -50,9 +51,13 @@
     self.navigationItem.titleView = titleLabel;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(back_click:)];
-    
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(right_click)];
     [self.view addSubview:self.webView];
     
+}
+- (void)right_click {
+    FMViewControllerExcersize *controller = [[FMViewControllerExcersize alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -7,6 +7,7 @@
 //
 
 #import "SearchViewController.h"
+#import "FMViewControllerExcersize.h"
 
 static NSString *searchCellIdentifier = @"searchCell";
 
@@ -47,7 +48,8 @@ static NSString *searchCellIdentifier = @"searchCell";
     self.navigationItem.titleView = titleLabel;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(back_click:)];
-
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(right_click)];
+    
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
     _searchBar.backgroundColor = NAVI_COLOR;
     _searchBar.barTintColor = [UIColor whiteColor];
@@ -64,6 +66,11 @@ static NSString *searchCellIdentifier = @"searchCell";
     [self.view addSubview:_sTableView];
     
     [_sTableView registerClass:[SearchTableViewCell class] forCellReuseIdentifier:searchCellIdentifier];
+}
+
+- (void)right_click {
+    FMViewControllerExcersize *controller = [[FMViewControllerExcersize alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
