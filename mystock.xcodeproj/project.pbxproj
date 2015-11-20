@@ -31,6 +31,8 @@
 		2467CA811B6A00EE0045904E /* TYSignatureGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA791B6A00EE0045904E /* TYSignatureGenerator.m */; };
 		2467CA821B6A00EE0045904E /* TYURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA7B1B6A00EE0045904E /* TYURLResponse.m */; };
 		2467CA851B6A084C0045904E /* CaculationFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA841B6A084C0045904E /* CaculationFunction.m */; };
+		2470A3A61BFF803D0099BD1F /* DaysChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2470A3A31BFF803D0099BD1F /* DaysChartModel.m */; };
+		2470A3A71BFF803D0099BD1F /* FMStockIndexs.m in Sources */ = {isa = PBXBuildFile; fileRef = 2470A3A51BFF803D0099BD1F /* FMStockIndexs.m */; };
 		2474F19D1BD29422007CA5B5 /* DoubleLowDoubleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2474F19C1BD29422007CA5B5 /* DoubleLowDoubleListViewController.m */; };
 		24781F071B707EF2008DCBB1 /* RquestTotalStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 24781F061B707EF2008DCBB1 /* RquestTotalStock.m */; };
 		249092F91B54D1A8004B4584 /* FMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249092F81B54D1A8004B4584 /* FMViewController.m */; };
@@ -163,6 +165,10 @@
 		2467CA7B1B6A00EE0045904E /* TYURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYURLResponse.m; sourceTree = "<group>"; };
 		2467CA831B6A084C0045904E /* CaculationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaculationFunction.h; sourceTree = "<group>"; };
 		2467CA841B6A084C0045904E /* CaculationFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaculationFunction.m; sourceTree = "<group>"; };
+		2470A3A21BFF803D0099BD1F /* DaysChartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaysChartModel.h; sourceTree = "<group>"; };
+		2470A3A31BFF803D0099BD1F /* DaysChartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaysChartModel.m; sourceTree = "<group>"; };
+		2470A3A41BFF803D0099BD1F /* FMStockIndexs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMStockIndexs.h; sourceTree = "<group>"; };
+		2470A3A51BFF803D0099BD1F /* FMStockIndexs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMStockIndexs.m; sourceTree = "<group>"; };
 		2474F19B1BD29422007CA5B5 /* DoubleLowDoubleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleLowDoubleListViewController.h; sourceTree = "<group>"; };
 		2474F19C1BD29422007CA5B5 /* DoubleLowDoubleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleLowDoubleListViewController.m; sourceTree = "<group>"; };
 		24781F051B707EF2008DCBB1 /* RquestTotalStock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RquestTotalStock.h; sourceTree = "<group>"; };
@@ -383,6 +389,10 @@
 		24D54E261B5525DE00AAE334 /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				2470A3A21BFF803D0099BD1F /* DaysChartModel.h */,
+				2470A3A31BFF803D0099BD1F /* DaysChartModel.m */,
+				2470A3A41BFF803D0099BD1F /* FMStockIndexs.h */,
+				2470A3A51BFF803D0099BD1F /* FMStockIndexs.m */,
 				24432D3D1B5DE37500213291 /* FunctionMethodsUtil.h */,
 				24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */,
 				24D54E271B5525DE00AAE334 /* colorModel.h */,
@@ -881,6 +891,7 @@
 				94FA366B192A0DEB005C37A1 /* AFHTTPRequestOperation.m in Sources */,
 				94FA3673192A0DEB005C37A1 /* AFURLSessionManager.m in Sources */,
 				94DFD45E193C904F00DBD6EC /* SearchTableViewCell.m in Sources */,
+				2470A3A61BFF803D0099BD1F /* DaysChartModel.m in Sources */,
 				9406952219299DFA00BA2694 /* main.m in Sources */,
 				2467CA821B6A00EE0045904E /* TYURLResponse.m in Sources */,
 				249092F91B54D1A8004B4584 /* FMViewController.m in Sources */,
@@ -902,6 +913,7 @@
 				242652131B6882E600355C59 /* PriceOrderListViewController.m in Sources */,
 				9430A0BB193F164E00569444 /* SearchViewController.m in Sources */,
 				2467CA7F1B6A00EE0045904E /* TYAPIProxy.m in Sources */,
+				2470A3A71BFF803D0099BD1F /* FMStockIndexs.m in Sources */,
 				94AFA464193A21510046F002 /* FMDatabaseAdditions.m in Sources */,
 				94AFA467193A21510046F002 /* FMResultSet.m in Sources */,
 				94FA366E192A0DEB005C37A1 /* AFNetworkReachabilityManager.m in Sources */,
