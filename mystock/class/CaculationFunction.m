@@ -14,7 +14,7 @@
 @implementation CaculationFunction
 + (void)load {
     
-    [[CaculationFunction share] Trate];
+//    [[CaculationFunction share] Trate];
 //        [[CaculationFunction share] lowLiangRate];
 //    [[CaculationFunction share] getPriceOrder];
 //    [[CaculationFunction share] lowColumnRate];

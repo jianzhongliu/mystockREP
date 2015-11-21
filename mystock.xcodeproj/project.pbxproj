@@ -43,7 +43,7 @@
 		24BC31CB1B6B6B6B0078FCE2 /* SortStockValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31CA1B6B6B6B0078FCE2 /* SortStockValueViewController.m */; };
 		24BC31CE1B6B6B6B0078FCE2 /* JingzhunLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */; };
 		24D0CAAB1BDD12AC005826B0 /* SortByUPRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0CAAA1BDD12AC005826B0 /* SortByUPRateViewController.m */; };
-		24D54E081B54D1EC00AAE334 /* lines.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E031B54D1EC00AAE334 /* lines.m */; };
+		24D54E081B54D1EC00AAE334 /* KLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E031B54D1EC00AAE334 /* KLineView.m */; };
 		24D54E091B54D1EC00AAE334 /* lineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E051B54D1EC00AAE334 /* lineView.m */; };
 		24D54E0A1B54D1EC00AAE334 /* getData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E071B54D1EC00AAE334 /* getData.m */; };
 		24D54E2D1B5525DE00AAE334 /* colorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E281B5525DE00AAE334 /* colorModel.m */; };
@@ -188,8 +188,8 @@
 		24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JingzhunLineViewController.m; sourceTree = "<group>"; };
 		24D0CAA91BDD12AC005826B0 /* SortByUPRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByUPRateViewController.h; sourceTree = "<group>"; };
 		24D0CAAA1BDD12AC005826B0 /* SortByUPRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByUPRateViewController.m; sourceTree = "<group>"; };
-		24D54E021B54D1EC00AAE334 /* lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lines.h; sourceTree = "<group>"; };
-		24D54E031B54D1EC00AAE334 /* lines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lines.m; sourceTree = "<group>"; };
+		24D54E021B54D1EC00AAE334 /* KLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineView.h; sourceTree = "<group>"; };
+		24D54E031B54D1EC00AAE334 /* KLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineView.m; sourceTree = "<group>"; };
 		24D54E041B54D1EC00AAE334 /* lineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lineView.h; sourceTree = "<group>"; };
 		24D54E051B54D1EC00AAE334 /* lineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lineView.m; sourceTree = "<group>"; };
 		24D54E061B54D1EC00AAE334 /* getData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getData.h; sourceTree = "<group>"; };
@@ -372,8 +372,8 @@
 			isa = PBXGroup;
 			children = (
 				24D54E261B5525DE00AAE334 /* helper */,
-				24D54E021B54D1EC00AAE334 /* lines.h */,
-				24D54E031B54D1EC00AAE334 /* lines.m */,
+				24D54E021B54D1EC00AAE334 /* KLineView.h */,
+				24D54E031B54D1EC00AAE334 /* KLineView.m */,
 				24D54E041B54D1EC00AAE334 /* lineView.h */,
 				24D54E051B54D1EC00AAE334 /* lineView.m */,
 				24D54E061B54D1EC00AAE334 /* getData.h */,
@@ -899,7 +899,7 @@
 				94FA366D192A0DEB005C37A1 /* AFHTTPSessionManager.m in Sources */,
 				2467CA7D1B6A00EE0045904E /* NSDictionary+TYAFNetworking.m in Sources */,
 				940695521929B70800BA2694 /* MainViewController.m in Sources */,
-				24D54E081B54D1EC00AAE334 /* lines.m in Sources */,
+				24D54E081B54D1EC00AAE334 /* KLineView.m in Sources */,
 				9430A0BE19405B8600569444 /* NSString+stringValue.m in Sources */,
 				243755661B67661300085967 /* ZiJingViewController.m in Sources */,
 				24BC31C81B6B6B6B0078FCE2 /* SortByDownRateViewController.m in Sources */,

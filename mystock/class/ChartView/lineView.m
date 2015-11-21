@@ -9,7 +9,7 @@
 // http://ichart.yahoo.com/table.csv?s=399001.SZ&g=w  d,w,m  返回某个股票的天，星期，月等k线数据
 
 #import "lineView.h"
-#import "lines.h"
+#import "KLineView.h"
 #import "UIColor+helper.h"
 #import "getData.h"
 #import "commond.h"
@@ -263,7 +263,7 @@
         CGFloat padRealValue = mainboxView.frame.size.height / 6;
         for (int i = 0; i<7; i++) {
             CGFloat y = mainboxView.frame.size.height-padRealValue * i;
-            lines *line = [[lines alloc] initWithFrame:CGRectMake(0, 0, mainboxView.frame.size.width, mainboxView.frame.size.height)];
+            KLineView *line = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, mainboxView.frame.size.width, mainboxView.frame.size.height)];
             line.color = @"#333333";
             line.startPoint = CGPointMake(0, y);
             line.endPoint = CGPointMake(mainboxView.frame.size.width, y);
@@ -291,7 +291,7 @@
     NSLog(@"处理得dddd");
     // 清除旧的k线
     if (lineOldArray.count>0 && isUpdate) {
-        for (lines *line in lineOldArray) {
+        for (KLineView *line in lineOldArray) {
             [line removeFromSuperview];
         }
     }
@@ -346,7 +346,7 @@
     // 开始画连K线
     // x轴从0 到 框框的宽度 mainboxView.frame.size.width 变化  y轴为每个间隔的连线，如，今天的点连接明天的点
     NSArray *ktempArray = [self changeKPointWithData:getdata.data]; // 换算成实际每天收盘价坐标数组
-    lines *kline = [[lines alloc] initWithFrame:CGRectMake(0, 0, mainboxView.frame.size.width, mainboxView.frame.size.height)];
+    KLineView *kline = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, mainboxView.frame.size.width, mainboxView.frame.size.height)];
     kline.points = ktempArray;
     kline.lineWidth = self.kLineWidth;
     kline.isK = YES;
@@ -355,7 +355,7 @@
     
     // 开始画连成交量
     NSArray *voltempArray = [self changeVolumePointWithData:getdata.data]; // 换算成实际成交量坐标数组
-    lines *volline = [[lines alloc] initWithFrame:CGRectMake(0, 0, bottomBoxView.frame.size.width, bottomBoxView.frame.size.height)];
+    KLineView *volline = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, bottomBoxView.frame.size.width, bottomBoxView.frame.size.height)];
     volline.points = voltempArray;
     volline.lineWidth = self.kLineWidth;
     volline.isK = YES;
@@ -370,7 +370,7 @@
 #pragma mark 画各种均线
 -(void)drawMAWithIndex:(int)index andColor:(NSString*)color{
     NSArray *tempArray = [self changePointWithData:getdata.data andMA:index]; // 换算成实际坐标数组
-    lines *line = [[lines alloc] initWithFrame:CGRectMake(0, 0, mainboxView.frame.size.width, mainboxView.frame.size.height)];
+    KLineView *line = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, mainboxView.frame.size.width, mainboxView.frame.size.height)];
     line.color = color;
     line.points = tempArray;
     line.isK = NO;

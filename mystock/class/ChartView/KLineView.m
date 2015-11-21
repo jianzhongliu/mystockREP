@@ -1,21 +1,24 @@
 //
 //  lineView.m
 //  Kline
-//
+//缩量柱，极阴次阳，长发顶天，倍量伸缩，假阴真阳，涨停板，倍量过左锋，长腿才发，单阳不破，阳后双阴，三种以上能到>90%
+//突破涨停
+//002486，均线：5 13，20， 60
+//主升浪：13天，普通的5天，在第一天买入，一般股票启动不会只有一天
 //  Created by zhaomingxi on 14-2-9.
 //  Copyright (c) 2014年 zhaomingxi. All rights reserved.
 //
 
-#import "lines.h"
+#import "KLineView.h"
 #import "colorModel.h"
 #import "UIColor+helper.h"
 
-@interface lines(){
+@interface KLineView(){
 
 }
 @end
 
-@implementation lines
+@implementation KLineView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -91,7 +94,7 @@
 
 #pragma mark 画一根K线
 -(void)drawKWithContext:(CGContextRef)context height:(CGPoint)heightPoint Low:(CGPoint)lowPoint open:(CGPoint)openPoint close:(CGPoint)closePoint width:(CGFloat)width{
-    CGContextSetShouldAntialias(context, NO);
+    CGContextSetShouldAntialias(context, NO);//抗锯齿效果
     // 首先判断是绿的还是红的，根据开盘价和收盘价的坐标来计算
     BOOL isKong = NO;
     colorModel *colormodel = [UIColor RGBWithHexString:@"#CC99CC" withAlpha:self.alpha]; // 设置默认红色
@@ -100,6 +103,7 @@
         isKong = YES;
         colormodel = [UIColor RGBWithHexString:@"#6699CC" withAlpha:self.alpha]; // 设置为绿色#00FFFF
     }
+    
     // 设置颜色
     CGContextSetRGBStrokeColor(context, (CGFloat)colormodel.R/255.0f, (CGFloat)colormodel.G/255.0f, (CGFloat)colormodel.B/255.0f, self.alpha);
     // 首先画一个垂直的线包含上影线和下影线
@@ -116,12 +120,7 @@
     CGContextSetLineWidth(context, width); // 改变线的宽度
     CGFloat halfWidth = 0;//width/2;
     // 纠正实体的中心点为当前坐标
-    
-//    if (openPoint.y > closePoint.y && openPoint.y - closePoint.y < 10) {//红
-//        closePoint.y = closePoint.y - 10;
-//    } else if(closePoint.y > openPoint.y && closePoint.y - openPoint.y < 10){//绿
-//        closePoint.y = closePoint.y + 10;
-//    }
+
     openPoint = CGPointMake(openPoint.x-halfWidth, openPoint.y);
     
     closePoint = CGPointMake(closePoint.x-halfWidth, closePoint.y);

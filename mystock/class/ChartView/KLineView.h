@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface lines : UIView
+@interface KLineView : UIView
 @property (nonatomic,assign) CGPoint startPoint; // 线条起点
 @property (nonatomic,assign) CGPoint endPoint; // 线条终点
 @property (nonatomic,retain) NSArray *points; // 多点连线数组
