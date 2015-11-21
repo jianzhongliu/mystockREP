@@ -148,7 +148,7 @@
         dic = nil;
     }
     
-    [macdData setObject:[NSNumber numberWithDouble:dif] forKey:@"DIF"];
+    [macdData setObject:[NSNumber numberWithDouble:dif] forKey:@"DIF"];//红绿柱
     [macdData setObject:[NSNumber numberWithDouble:dea] forKey:@"DEA"];
     [macdData setObject:[NSNumber numberWithDouble:macd] forKey:@"M"];
     diffList = nil;
@@ -190,12 +190,12 @@
     // 第九天的k线图数据单例
     DaysChartModel *model = [[DaysChartModel alloc] initWithDic:[m_kData objectAtIndex:(n1-1)]];
     // 计算N日内的最低最高价
-    float maxhigh = [model.heightPrice floatValue]; // 最高价
+    float maxhigh = [model.highPrice floatValue]; // 最高价
     float minlow = [model.lowPrice floatValue]; // 最低价
     for(int j = n1 - 1; j >= 0; j--) {
         DaysChartModel *m = [[DaysChartModel alloc] initWithDic:[m_kData objectAtIndex:(j)]];
-        if(maxhigh < [m.heightPrice floatValue])
-            maxhigh = [m.heightPrice floatValue];
+        if(maxhigh < [m.highPrice floatValue])
+            maxhigh = [m.highPrice floatValue];
         if(minlow > [m.lowPrice floatValue])
             minlow = [m.lowPrice floatValue];
         m = nil;
@@ -219,12 +219,12 @@
     
     for(int i = n1; i < m_kData.count; i++) {
         DaysChartModel *m = [[DaysChartModel alloc] initWithDic:[m_kData objectAtIndex:i]];
-        maxhigh = [m.heightPrice floatValue];
+        maxhigh = [m.highPrice floatValue];
         minlow = [m.lowPrice floatValue];
         for(int j = i - 1; j > i - n1; j--) {
             DaysChartModel *mm = [[DaysChartModel alloc] initWithDic:[m_kData objectAtIndex:j]];
-            if(maxhigh < [mm.heightPrice floatValue])
-                maxhigh = [mm.heightPrice floatValue];
+            if(maxhigh < [mm.highPrice floatValue])
+                maxhigh = [mm.highPrice floatValue];
             if(minlow > [mm.lowPrice floatValue])
                 minlow = [mm.lowPrice floatValue];
             mm = nil;

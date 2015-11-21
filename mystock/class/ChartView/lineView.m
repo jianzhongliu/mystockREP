@@ -18,6 +18,7 @@
     NSThread *thread;
     UIView *mainboxView; // k线图控件
     UIView *bottomBoxView; // 成交量
+    UIView *viewMacd; // MACD
     getData *getdata;
     UIView *movelineone; // 手指按下后显示的两根白色十字线
     UIView *movelinetwo;
@@ -159,7 +160,16 @@
         bottomBoxView.userInteractionEnabled = YES;
         [mainboxView addSubview:bottomBoxView];
     }
-
+    // 画个MACD的框框
+    if (viewMacd==nil) {
+        viewMacd = [[UIView alloc] initWithFrame:CGRectMake(0,mainboxView.frame.size.height+20 + 70, self.xWidth, self.bottomBoxHeight)];
+        viewMacd.backgroundColor = [UIColor colorWithHexString:@"#222222" withAlpha:1];
+        viewMacd.layer.borderColor = [UIColor colorWithHexString:@"#444444" withAlpha:1].CGColor;
+        viewMacd.layer.borderWidth = 0.5;
+        viewMacd.userInteractionEnabled = YES;
+        [mainboxView addSubview:viewMacd];
+    }
+    
     // 把显示开始结束日期放在成交量的底部左右两侧
     // 显示开始日期控件
     if (startDateLab==nil) {
@@ -364,9 +374,20 @@
     volMaxValueLab.text = [commond changePrice:getdata.volMaxValue];
     [lineArray addObject:volline];
     
-    
+    // MACD
+    NSArray *macdArray = [self changeMACDPointWithData:getdata.data]; // 换算成实际成交量坐标数组
+    KLineView *macdLine = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, viewMacd.frame.size.width, viewMacd.frame.size.height)];
+    macdLine.points = macdArray;
+    macdLine.lineWidth = self.kLineWidth;
+    macdLine.isK = YES;
+    macdLine.isVol = NO;
+    macdLine.isMacd = YES;
+    [viewMacd addSubview:macdLine];
+//    volMaxValueLab.text = [commond changePrice:getdata.volMaxValue];
+    [lineArray addObject:macdLine];
     
 }
+
 #pragma mark 画各种均线
 -(void)drawMAWithIndex:(int)index andColor:(NSString*)color{
     NSArray *tempArray = [self changePointWithData:getdata.data andMA:index]; // 换算成实际坐标数组
@@ -431,14 +452,13 @@
 -(void)updateNib{
     NSLog(@"block");
     if (movelineone==Nil) {
-        movelineone = [[UIView alloc] initWithFrame:CGRectMake(0,0, 0.5,
-                                                               bottomBoxView.frame.size.height+bottomBoxView.frame.origin.y)];
+        movelineone = [[UIView alloc] initWithFrame:CGRectMake(0,0, 0.5, bottomBoxView.frame.size.height+bottomBoxView.frame.origin.y + 80)];
         movelineone.backgroundColor = [UIColor whiteColor];
         [mainboxView addSubview:movelineone];
         movelineone.hidden = YES;
     }
     if (movelinetwo==Nil) {
-        movelinetwo = [[UIView alloc] initWithFrame:CGRectMake(0,0, mainboxView.frame.size.width,0.5)];
+        movelinetwo = [[UIView alloc] initWithFrame:CGRectMake(0,0, mainboxView.frame.size.width + 80,0.5)];
         movelinetwo.backgroundColor = [UIColor whiteColor];
         movelinetwo.hidden = YES;
         [mainboxView addSubview:movelinetwo];
@@ -471,7 +491,7 @@
     }
     
     movelineone.frame = CGRectMake(touchViewPoint.x,0, 0.5,
-                                   bottomBoxView.frame.size.height+bottomBoxView.frame.origin.y);
+                                   bottomBoxView.frame.size.height+bottomBoxView.frame.origin.y + 60);
     movelinetwo.frame = CGRectMake(0,touchViewPoint.y, mainboxView.frame.size.width,0.5);
     CGRect oneFrame = movelineone.frame;
     oneFrame.size = CGSizeMake(50, 12);
@@ -591,6 +611,77 @@
     NSLog(@"处理完成");
     return tempArray;
 }
+
+#pragma mark 把股市数据换算成MACD实际坐标数组
+-(NSArray*)changeMACDPointWithData:(NSArray*)data{
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    CGFloat pointStartX = self.kLineWidth/2; // 起始点坐标
+    for (NSArray *item in data) {
+        if ([item count] > 10) {
+            
+            CGFloat MACD = [[item objectAtIndex:10] floatValue];// 得到每日MACD的RIF
+            CGFloat yHight = 0.0f;
+            CGFloat maxMacd = 0.0f;
+            CGFloat minMacd = 0.0f;
+            if ((getdata.MACDMMaxValue - getdata.MACDMMinValue) > (getdata.MACDPMaxValue - getdata.MACDPMinValue)) {
+                yHight = getdata.MACDMMaxValue - getdata.MACDMMinValue;
+                maxMacd = getdata.MACDMMaxValue;
+                minMacd = getdata.MACDMMinValue;
+            } else {
+                yHight = getdata.MACDPMaxValue - getdata.MACDPMinValue;
+                maxMacd = getdata.MACDPMaxValue;
+                minMacd = getdata.MACDPMinValue;
+            }
+            
+            CGPoint volumePoint ; // 成交量换算为实际坐标值
+            CGPoint volumePointStart;// 把开盘价收盘价放进去好计算实体的颜色
+            CGFloat openvalue ;
+            CGFloat closevalue ;// 得到收盘价
+            CGPoint openPoint ; // 开盘价换算为实际坐标值
+            CGPoint closePoint ; // 收盘价换算为实际坐标值
+            
+//            CGFloat yHeight = getdata.volMaxValue - getdata.volMinValue ; // y的价格高度
+            CGFloat yViewHeight = viewMacd.frame.size.height ;// y的实际像素高度
+            // 换算成实际的坐标
+            CGFloat volumePointY ;
+            if (MACD > 0) {
+                 volumePointY = yViewHeight * (1.0 - MACD / maxMacd) / 2.0f;
+                 volumePoint =  CGPointMake(pointStartX, volumePointY); // 成交量换算为实际坐标值
+                 volumePointStart = CGPointMake(pointStartX, yViewHeight / 2.0f);
+                // 把开盘价收盘价放进去好计算实体的颜色
+                 openvalue = [[item objectAtIndex:0] floatValue];// 得到开盘价
+                 closevalue = [[item objectAtIndex:3] floatValue];// 得到收盘价
+                 openPoint =  CGPointMake(pointStartX, closevalue); // 开盘价换算为实际坐标值
+                 closePoint =  CGPointMake(pointStartX, openvalue); // 收盘价换算为实际坐标值
+            } else {
+                volumePointY = yViewHeight * 0.5f - yViewHeight * (MACD / maxMacd) / 2;
+                 volumePoint =  CGPointMake(pointStartX, volumePointY); // 成交量换算为实际坐标值
+                 volumePointStart = CGPointMake(pointStartX, yViewHeight / 2.0f);
+                // 把开盘价收盘价放进去好计算实体的颜色
+                 openvalue = [[item objectAtIndex:0] floatValue];// 得到开盘价
+                 closevalue = [[item objectAtIndex:3] floatValue];// 得到收盘价
+                 openPoint =  CGPointMake(pointStartX, closevalue); // 开盘价换算为实际坐标值
+                 closePoint =  CGPointMake(pointStartX, openvalue); // 收盘价换算为实际坐标值
+                NSLog(@"%.10f", MACD);
+            }
+            
+            // 实际坐标组装为数组
+            NSArray *currentArray = [[NSArray alloc] initWithObjects:
+                                     NSStringFromCGPoint(volumePointStart),
+                                     NSStringFromCGPoint(volumePoint),
+                                     NSStringFromCGPoint(openPoint),
+                                     NSStringFromCGPoint(closePoint),
+                                     nil];
+            [tempArray addObject:currentArray]; // 把坐标添加进新数组
+            currentArray = Nil;
+            pointStartX += self.kLineWidth+self.kLinePadding; // 生成下一个点的x轴
+        }
+        
+    }
+    NSLog(@"处理完成");
+    return tempArray;
+}
+
 
 #pragma mark 判断并在十字线上显示提示信息
 -(void)isKPointWithPoint:(CGPoint)point{

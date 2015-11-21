@@ -16,4 +16,6 @@
 @property (nonatomic,assign) CGFloat lineWidth; // 线条宽度
 @property (nonatomic,assign) BOOL isK;// 是否是实体K线 默认是连接线
 @property (nonatomic,assign) BOOL isVol;// 是否是画成交量的实体
+@property (nonatomic,assign) BOOL isMacd;//是否是MACD
+
 @end

@@ -39,6 +39,7 @@
     self.lineWidth = 1.0f;
     self.isK = NO;
     self.isVol = NO;
+    self.isMacd = NO;
 }
 
 
@@ -126,6 +127,10 @@
     closePoint = CGPointMake(closePoint.x-halfWidth, closePoint.y);
     
     if (self.isVol) {
+        openPoint = CGPointMake(heightPoint.x-halfWidth, heightPoint.y);
+        closePoint = CGPointMake(lowPoint.x-halfWidth, lowPoint.y);
+    }
+    if (self.isMacd) {
         openPoint = CGPointMake(heightPoint.x-halfWidth, heightPoint.y);
         closePoint = CGPointMake(lowPoint.x-halfWidth, lowPoint.y);
     }

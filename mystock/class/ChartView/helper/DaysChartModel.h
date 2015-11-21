@@ -24,9 +24,9 @@ typedef NS_ENUM(NSInteger , kStockTianjiEMACycle) {
 @property (nonatomic, strong) NSString *EMA_Tianji_2;
 
 @property (nonatomic, strong) NSString *closePrice;
-@property (nonatomic, strong) NSString *heightPrice;
+@property (nonatomic, strong) NSString *highPrice;
 @property (nonatomic, strong) NSString *lowPrice;
-//@property (nonatomic, strong) NSString *closePrice;
+@property (nonatomic, strong) NSString *openPrice;
 @property (nonatomic, strong) NSString *volume;
 
 @property (nonatomic, strong) NSString *MACD_DEA;
@@ -37,7 +37,7 @@ typedef NS_ENUM(NSInteger , kStockTianjiEMACycle) {
 
 @property (nonatomic, strong) NSString *volMA5;
 @property (nonatomic, strong) NSString *volMA10;
-
+@property (nonatomic, strong) NSString *date;
 - (instancetype)initWithDic:(NSDictionary *) dic;
 
 

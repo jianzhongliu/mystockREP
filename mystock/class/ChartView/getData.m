@@ -12,6 +12,7 @@
 #import "colorModel.h"
 #import "TYAPIProxy.h"
 #import "DBManager.h"
+#import "FMStockIndexs.h"
 
 static NSMutableArray *array;
 
@@ -25,7 +26,14 @@ static NSMutableArray *array;
         self.minValue = CGFLOAT_MAX;
         self.volMaxValue = 0;
         self.volMinValue = CGFLOAT_MAX;
+        
+        self.MACDPMaxValue = 0;
+        self.MACDPMinValue = CGFLOAT_MAX;
+        self.MACDMMaxValue = 0;
+        self.MACDMMinValue = CGFLOAT_MAX;
+        
         self.todayStock = [NSDictionary dictionary];
+        self.arrayDicData = [NSMutableArray array];
     }
     return  self;
 }
@@ -138,6 +146,7 @@ static NSMutableArray *array;
 }
 
 -(void)changeData:(NSArray*)lines{
+    [self.arrayDicData removeAllObjects];
     NSMutableArray *data =[[NSMutableArray alloc] init];
 	NSMutableArray *category =[[NSMutableArray alloc] init];
     NSArray *newArray = lines;
@@ -181,7 +190,57 @@ static NSMutableArray *array;
         [item addObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA20)]]]; // 前二十日收盘价平均值
         // 前面二十个数据不要了，因为只是用来画均线的
         [category addObject:[arr objectAtIndex:0]]; // date
+
+        
+        //存一遍dic吧
+        NSMutableDictionary *dicItem = [NSMutableDictionary dictionary];
+        [dicItem setObject:[arr objectAtIndex:1] forKey:@"open"];
+        [dicItem setObject:[arr objectAtIndex:2] forKey:@"high"];
+        [dicItem setObject:[arr objectAtIndex:3] forKey:@"low"];
+        [dicItem setObject:[arr objectAtIndex:4] forKey:@"close"];
+        [dicItem setObject:[arr objectAtIndex:5] forKey:@"volume"];
+        [dicItem setObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA5)]] forKey:@"MA5"];
+        [dicItem setObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA10)]] forKey:@"MA10"];
+        [dicItem setObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA20)]] forKey:@"MA20"];
+        [dicItem setObject:[arr objectAtIndex:0] forKey:@"date"];
+        
+        if (self.arrayDicData.count > 26) {
+            NSDictionary *dicMacd = [FMStockIndexs getMACD:self.arrayDicData andDays:self.arrayDicData.count - 1 DhortPeriod:9 LongPeriod:12 MidPeriod:26];
+            
+            [dicItem setObject:dicMacd[@"DEA"] forKey:@"DEA"];
+            [dicItem setObject:dicMacd[@"DIF"] forKey:@"DIF"];
+            [dicItem setObject:dicMacd[@"M"] forKey:@"M"];
+            
+            [item addObject:dicMacd[@"DEA"]];
+            [item addObject:dicMacd[@"DIF"]];
+            [item addObject:dicMacd[@"M"]];
+            
+        }
+        [self.arrayDicData addObject:dicItem];
+
         [data addObject:item];
+        if ([item count] > 10) {
+            // 成交量的最大值最小值
+            CGFloat dif = [[item objectAtIndex:10] floatValue];
+            if (dif > 0) {
+                if ([[item objectAtIndex:10] floatValue]>self.MACDPMaxValue) {
+                    self.MACDPMaxValue = [[item objectAtIndex:10] floatValue];
+                }
+                if ([[item objectAtIndex:10] floatValue]<self.MACDPMinValue) {
+                    self.MACDPMinValue = [[item objectAtIndex:10] floatValue];
+                }
+            } else {
+                dif = 0 - dif;
+                if (dif > self.MACDMMaxValue) {
+                    self.MACDMMaxValue = dif;
+                }
+                if (dif < self.MACDMMinValue) {
+                    self.MACDMMinValue = dif;
+                }
+            }
+
+        }
+
     }
 	if(data.count==0){
 		self.status.text = @"Error!";
