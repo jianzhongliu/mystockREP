@@ -107,7 +107,7 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@", [self.arrayLow[indexPath.row] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"stockcode"]];
+    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@ // %@", [self.arrayLow[indexPath.row] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"stockcode"],[self.arrayLow[indexPath.row] objectForKey:@"numberRaiseReason"] ];
     
     cell.textLabel.text = stringTitle;
     return cell;

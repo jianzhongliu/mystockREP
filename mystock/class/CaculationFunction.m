@@ -148,6 +148,7 @@
     for (int i = 0; i < self.arraySourceData.count; i++) {
         NSDictionary *dic = self.arraySourceData[i];
         NSArray *arraySingleDay = dic[@"timedata"];
+        NSInteger numberRaiseReason = [self caculateNumberOFRaiseReason:arraySingleDay];
         arraySingleDay = [self subobjectsAtArray:arraySingleDay from:days];
         if (arraySingleDay.count > 0) {
             NSDictionary *dicLow ;
@@ -160,11 +161,19 @@
                 }
             }
             if (([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue]) && [[dicLow objectForKey:@"lowp"] integerValue] != [[dicLow objectForKey:@"highp"] integerValue]) {
-                [arrayLow addObject:dic];
+                NSMutableDictionary *dicStock = [NSMutableDictionary dictionaryWithDictionary:dic];
+                [dicStock setObject:@(numberRaiseReason) forKey:@"numberRaiseReason"];
+                [arrayLow addObject:dicStock];
             }
         }
     }
-    return arrayLow;
+    
+    NSArray *arraySorted = [arrayLow sortedArrayUsingComparator:
+                            ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                                NSComparisonResult result = [obj2[@"numberRaiseReason"] compare:obj1[@"numberRaiseReason"]];
+                                return result;
+                            }];
+    return arraySorted;
 }
 
 /**三日内一字板
@@ -898,9 +907,9 @@
     return NO;
 }
 
-/***/
-
-
+/**
+ 截取数组
+ */
 - (NSArray *)subobjectsAtArray:(NSArray *) array from:(NSInteger ) index {
     NSMutableArray *arrayResult = [NSMutableArray array];
     if (array.count <= index) {
@@ -910,6 +919,129 @@
         [arrayResult addObject:[array objectAtIndex:i]];
     }
     return arrayResult;
+}
+
+- (NSInteger )caculateNumberOFRaiseReason:(NSArray *) array {
+    NSInteger number = 0;
+    if ([self isCross:array]) {
+        number ++;
+    }
+    if ([self isHaveRaiseStopDay:array]) {
+        number ++;
+    }
+    if ([self isHaveDoubleColume:array]) {
+        number ++;
+    }
+    if ([self isHaveDownThreadaysAndRaseToday:array]) {
+        number ++;
+    }
+    if ([self isHaveFalseDown:array]) {
+        number ++;
+    }
+    return number;
+}
+
+
+/**
+ 判断是否是十字
+ */
+- (BOOL)isCross:(NSArray *) array {
+    if (array == nil ||[array count] == 0) {
+        return NO;
+    }
+    NSDictionary *dic = array[0];
+    NSInteger open = [dic[@"openp"] integerValue];
+    NSInteger nowv = [dic[@"nowv"] integerValue];
+    NSInteger highp = [dic[@"highp"] integerValue];
+    NSInteger lowp = [dic[@"openp"] integerValue];
+    if (open > nowv) {//绿柱
+        if (highp- lowp > 2 *(open - nowv)) {
+            return YES;
+        }
+    } else {
+        if (highp- lowp > 2 *(nowv - open)) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+/**
+ 最近十天是否有过大阳
+ */
+- (BOOL)isHaveRaiseStopDay:(NSArray *) array {
+    NSInteger days = 10;
+    if (array.count <= 10) {
+        days = array.count;
+    }
+    for (int i = 0; i<days; i ++) {
+        NSDictionary *dic = array[i];
+        CGFloat nowv = [dic[@"nowv"] floatValue];
+        CGFloat preclose = [dic[@"preclose"] floatValue];
+        if (nowv > preclose && nowv > 1.90f*preclose) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+/**
+ 最近十天是否有过倍量伸缩
+ */
+- (BOOL)isHaveDoubleColume:(NSArray *) array {
+    NSInteger days = 10;
+    if (array.count <= 10) {
+        days = array.count;
+    }
+    for (int i = 0; i<days - 1; i ++) {
+        NSDictionary *dicToday = array[i];
+        NSDictionary *dicYesterday = array[i+1];
+        CGFloat todayCurvol = [dicToday[@"curvol"] floatValue];
+        CGFloat yesterdayCurvol = [dicYesterday[@"curvol"] floatValue];
+        if (todayCurvol > 2*yesterdayCurvol || yesterdayCurvol > 2*todayCurvol) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+/**
+极阴次阳
+ */
+- (BOOL)isHaveDownThreadaysAndRaseToday:(NSArray *) array {
+    if (array.count < 5) {
+        return NO;
+    }
+    NSDictionary *dicToday = array[0];
+    NSDictionary *dicYesterday1 = array[1];
+    NSDictionary *dicYesterday2 = array[2];
+    NSDictionary *dicYesterday3 = array[3];
+    
+    if ([dicToday[@"nowv"] integerValue] > [dicToday[@"preclose"] integerValue] && [dicYesterday1[@"nowv"] integerValue] < [dicYesterday1[@"preclose"] integerValue] && [dicYesterday2[@"nowv"] integerValue] < [dicYesterday2[@"preclose"] integerValue] && [dicYesterday3[@"nowv"] integerValue] < [dicYesterday3[@"preclose"] integerValue]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+/**
+ 假阴真阳
+ */
+- (BOOL)isHaveFalseDown:(NSArray *) array {
+    NSInteger days = 10;
+    if (array.count <= 10) {
+        days = array.count;
+    }
+    for (int i = 0; i < days; i ++) {
+        NSDictionary *dic = array[i];
+        CGFloat nowv = [dic[@"nowv"] floatValue];
+        CGFloat preclose = [dic[@"preclose"] floatValue];
+        CGFloat openp = [dic[@"openp"] floatValue];
+        if (nowv > preclose && nowv < openp) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

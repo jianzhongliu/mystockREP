@@ -1,10 +1,7 @@
 //
 //  lineView.m
 //  Kline
-//缩量柱，极阴次阳，长发顶天，倍量伸缩，假阴真阳，涨停板，倍量过左锋，长腿才发，单阳不破，阳后双阴，三种以上能到>90%
-//突破涨停
-//002486，均线：5 13，20， 60
-//主升浪：13天，普通的5天，在第一天买入，一般股票启动不会只有一天
+
 //  Created by zhaomingxi on 14-2-9.
 //  Copyright (c) 2014年 zhaomingxi. All rights reserved.
 //
@@ -104,7 +101,9 @@
         isKong = YES;
         colormodel = [UIColor RGBWithHexString:@"#6699CC" withAlpha:self.alpha]; // 设置为绿色#00FFFF
     }
-    
+    if (self.isMacd) {
+        colormodel = [UIColor RGBWithHexString:@"#6699CC" withAlpha:self.alpha]; // 设置为绿色#00FFFF
+    }
     // 设置颜色
     CGContextSetRGBStrokeColor(context, (CGFloat)colormodel.R/255.0f, (CGFloat)colormodel.G/255.0f, (CGFloat)colormodel.B/255.0f, self.alpha);
     // 首先画一个垂直的线包含上影线和下影线

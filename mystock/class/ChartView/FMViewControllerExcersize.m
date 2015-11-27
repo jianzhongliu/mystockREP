@@ -75,7 +75,7 @@
     [self.view addSubview:self.buttonRight];
     
     
-    self.lableCount.frame = CGRectMake(10, self.view.frame.size.height - 70, 200, 25);
+    self.lableCount.frame = CGRectMake(10, self.view.frame.size.height - 60, 200, 25);
     [self.view addSubview:self.lableCount];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];

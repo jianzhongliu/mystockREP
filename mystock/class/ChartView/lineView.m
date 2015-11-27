@@ -582,8 +582,7 @@
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     CGFloat PointStartX = self.kLineWidth/2; // 起始点坐标
     for (NSArray *item in data) {
-        CGFloat volumevalue = [[item objectAtIndex:4] floatValue];// 得到没份成交量
-        CGFloat yHeight = getdata.volMaxValue - getdata.volMinValue ; // y的价格高度
+        CGFloat volumevalue = [[item objectAtIndex:4] floatValue];// 得到每份成交量
         CGFloat yViewHeight = bottomBoxView.frame.size.height ;// y的实际像素高度
         // 换算成实际的坐标
         CGFloat volumePointY = yViewHeight * (1.0 - volumevalue / getdata.volMaxValue);
@@ -619,18 +618,13 @@
     for (NSArray *item in data) {
         if ([item count] > 10) {
             
-            CGFloat MACD = [[item objectAtIndex:10] floatValue];// 得到每日MACD的RIF
-            CGFloat yHight = 0.0f;
+            CGFloat MACD = [[item objectAtIndex:10] floatValue];// 得到每日MACD的值
+//            NSLog(@"%f",MACD);
             CGFloat maxMacd = 0.0f;
-            CGFloat minMacd = 0.0f;
             if ((getdata.MACDMMaxValue - getdata.MACDMMinValue) > (getdata.MACDPMaxValue - getdata.MACDPMinValue)) {
-                yHight = getdata.MACDMMaxValue - getdata.MACDMMinValue;
                 maxMacd = getdata.MACDMMaxValue;
-                minMacd = getdata.MACDMMinValue;
             } else {
-                yHight = getdata.MACDPMaxValue - getdata.MACDPMinValue;
                 maxMacd = getdata.MACDPMaxValue;
-                minMacd = getdata.MACDPMinValue;
             }
             
             CGPoint volumePoint ; // 成交量换算为实际坐标值
@@ -645,7 +639,7 @@
             // 换算成实际的坐标
             CGFloat volumePointY ;
             if (MACD > 0) {
-                 volumePointY = yViewHeight * (1.0 - MACD / maxMacd) / 2.0f;
+                 volumePointY = yViewHeight * (1.0 + MACD / maxMacd) / 2.0f;
                  volumePoint =  CGPointMake(pointStartX, volumePointY); // 成交量换算为实际坐标值
                  volumePointStart = CGPointMake(pointStartX, yViewHeight / 2.0f);
                 // 把开盘价收盘价放进去好计算实体的颜色
@@ -654,7 +648,7 @@
                  openPoint =  CGPointMake(pointStartX, closevalue); // 开盘价换算为实际坐标值
                  closePoint =  CGPointMake(pointStartX, openvalue); // 收盘价换算为实际坐标值
             } else {
-                volumePointY = yViewHeight * 0.5f - yViewHeight * (MACD / maxMacd) / 2;
+                volumePointY = yViewHeight * (1.0 + MACD / maxMacd) / 2.0f;
                  volumePoint =  CGPointMake(pointStartX, volumePointY); // 成交量换算为实际坐标值
                  volumePointStart = CGPointMake(pointStartX, yViewHeight / 2.0f);
                 // 把开盘价收盘价放进去好计算实体的颜色
@@ -662,7 +656,6 @@
                  closevalue = [[item objectAtIndex:3] floatValue];// 得到收盘价
                  openPoint =  CGPointMake(pointStartX, closevalue); // 开盘价换算为实际坐标值
                  closePoint =  CGPointMake(pointStartX, openvalue); // 收盘价换算为实际坐标值
-                NSLog(@"%.10f", MACD);
             }
             
             // 实际坐标组装为数组
@@ -672,6 +665,7 @@
                                      NSStringFromCGPoint(openPoint),
                                      NSStringFromCGPoint(closePoint),
                                      nil];
+//            NSLog(@"%@", volumePoint);
             [tempArray addObject:currentArray]; // 把坐标添加进新数组
             currentArray = Nil;
             pointStartX += self.kLineWidth+self.kLinePadding; // 生成下一个点的x轴

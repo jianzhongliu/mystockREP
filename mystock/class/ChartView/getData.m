@@ -203,19 +203,21 @@ static NSMutableArray *array;
         [dicItem setObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA10)]] forKey:@"MA10"];
         [dicItem setObject:[NSNumber numberWithFloat:[self sumArrayWithData:lines andRange:NSMakeRange(idxLocation, MA20)]] forKey:@"MA20"];
         [dicItem setObject:[arr objectAtIndex:0] forKey:@"date"];
-        
-        if (self.arrayDicData.count > 26) {
-            NSDictionary *dicMacd = [FMStockIndexs getMACD:self.arrayDicData andDays:self.arrayDicData.count - 1 DhortPeriod:9 LongPeriod:12 MidPeriod:26];
-            
+        NSMutableArray *arrayMACDList = [NSMutableArray array];
+       [arrayMACDList addObjectsFromArray:[self changeLinesToMACDModelWithArray:lines]];
+//        if (self.arrayDicData.count > 26) {
+            NSDictionary *dicMacd = [FMStockIndexs getMACD:arrayMACDList andDays:newArray.count-idx DhortPeriod:9 LongPeriod:26 MidPeriod:12];
+        NSLog(@"%@",dicMacd);
+            //MACD指标是由两线一柱组合起来形成，快速线为DIF，慢速线为DEA，柱状图为MACD
             [dicItem setObject:dicMacd[@"DEA"] forKey:@"DEA"];
-            [dicItem setObject:dicMacd[@"DIF"] forKey:@"DIF"];
             [dicItem setObject:dicMacd[@"M"] forKey:@"M"];
-            
-            [item addObject:dicMacd[@"DEA"]];
+            [dicItem setObject:dicMacd[@"DIF"] forKey:@"DIF"];
+        
             [item addObject:dicMacd[@"DIF"]];
+            [item addObject:dicMacd[@"DEA"]];
             [item addObject:dicMacd[@"M"]];
-            
-        }
+        
+//        }
         [self.arrayDicData addObject:dicItem];
 
         [data addObject:item];
@@ -242,6 +244,7 @@ static NSMutableArray *array;
         }
 
     }
+    
 	if(data.count==0){
 		self.status.text = @"Error!";
 	    return;
@@ -252,6 +255,21 @@ static NSMutableArray *array;
     //NSLog(@"%@",data);
 }
 
+- (NSArray *)changeLinesToMACDModelWithArray:(NSArray *) lines {
+    NSMutableArray *arrayResult = [NSMutableArray array];
+    for (NSString *item in lines) {
+        NSArray   *arr = [item componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
+        NSMutableDictionary *dicMacd = [NSMutableDictionary dictionary];
+        [dicMacd setObject:[arr objectAtIndex:1] forKey:@"open"];
+        [dicMacd setObject:[arr objectAtIndex:2] forKey:@"high"];
+        [dicMacd setObject:[arr objectAtIndex:3] forKey:@"low"];
+        [dicMacd setObject:[arr objectAtIndex:4] forKey:@"close"];
+        [dicMacd setObject:[arr objectAtIndex:5] forKey:@"volume"];
+        [dicMacd setObject:[arr objectAtIndex:0] forKey:@"date"];
+        [arrayResult addObject:dicMacd];
+    }
+    return arrayResult;
+}
 
 -(CGFloat)sumArrayWithData:(NSArray*)data andRange:(NSRange)range{
     CGFloat value = 0;

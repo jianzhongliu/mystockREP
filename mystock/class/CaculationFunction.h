@@ -1,11 +1,22 @@
 //
 //  CaculationFunction.h
 //  mystock
-//
+////缩量柱，极阴次阳，长发顶天，倍量伸缩，假阴真阳，涨停板，倍量过左锋，长腿才发，单阳不破，阳后双阴，三种以上能到>90%
+//突破涨停
+//002486，均线：5 13，20， 60
+//主升浪：13天，普通的5天，在第一天买入，一般股票启动不会只有一天
 //  Created by liujianzhong on 15/7/30.
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
-
+/**
+ curvol = 2985565;
+ highp = 490;
+ lowp = 464;
+ nowv = 472;
+ openp = 473;
+ preclose = 476;
+ times = 20121221000000;
+ */
 #import <UIKit/UIKit.h>
 
 @interface CaculationFunction : NSObject
