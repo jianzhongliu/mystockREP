@@ -8,12 +8,14 @@
 
 #import "CaculationFunction.h"
 #import "RquestTotalStock.h"
+#import "CaculationFunction.h"
 #import "commond.h"
 #import "DBManager.h"
 
 @implementation CaculationFunction
 + (void)load {
-    
+    [CaculationFunction share].lowDay = 20;
+    [[CaculationFunction share] lowStockesStar];
 //    [[CaculationFunction share] Trate];
 //        [[CaculationFunction share] lowLiangRate];
 //    [[CaculationFunction share] getPriceOrder];
@@ -144,10 +146,76 @@
  */
 - (NSArray *)lowStockes {
     NSInteger days = 20;//比较多少天以内的数据，一般20日内就是一个月的最低点
+    if ([CaculationFunction share].lowDay > 0) {
+        days = [CaculationFunction share].lowDay;
+    }
     NSMutableArray *arrayLow = [NSMutableArray array];
     for (int i = 0; i < self.arraySourceData.count; i++) {
         NSDictionary *dic = self.arraySourceData[i];
         NSArray *arraySingleDay = dic[@"timedata"];
+        NSInteger numberRaiseReason = [self caculateNumberOFRaiseReason:arraySingleDay];
+        arraySingleDay = [self subobjectsAtArray:arraySingleDay from:days];
+        if (arraySingleDay.count > 0) {
+            NSDictionary *dicLow ;
+            for (NSDictionary *dicDay in arraySingleDay) {
+                if (![dicDay[@"times"] rangeOfString:@"20160107"].length > 0) {
+                    if (dicLow == nil) {
+                        dicLow = dicDay;
+                    }
+                    if (dicLow != nil && [dicDay[@"curvol"] integerValue] <= [dicLow[@"curvol"] integerValue] && [[dicDay objectForKey:@"lowp"] integerValue] != [[dicDay objectForKey:@"highp"] integerValue]) {
+                        dicLow = dicDay;
+                    }
+                }
+            }
+            if (([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue]) && [[dicLow objectForKey:@"lowp"] integerValue] != [[dicLow objectForKey:@"highp"] integerValue]) {
+                NSMutableDictionary *dicStock = [NSMutableDictionary dictionaryWithDictionary:dic];
+                [dicStock setObject:@(numberRaiseReason) forKey:@"numberRaiseReason"];
+                [arrayLow addObject:dicStock];
+            }
+        }
+    }
+    
+    NSArray *arraySorted = [arrayLow sortedArrayUsingComparator:
+                            ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                                NSComparisonResult result = [obj2[@"numberRaiseReason"] compare:obj1[@"numberRaiseReason"]];
+                                return result;
+                            }];
+    return arraySorted;
+}
+
+/**低位星*/
+- (NSArray *)lowStockesStar {
+    int day = 4;
+    NSArray *arrayLow = [[CaculationFunction share] lowStockes];
+    NSMutableArray *arrayLowStarResult = [NSMutableArray array];
+    for (NSDictionary *dic  in arrayLow) {
+        NSArray *stockDay = dic[@"timedata"];
+        NSDictionary *dicStockToday = stockDay[0];
+        if (labs([dicStockToday[@"highp"] integerValue] -  [dicStockToday[@"lowp"] integerValue]) > 3*labs([dicStockToday[@"openp"] integerValue] -  [dicStockToday[@"nowv"] integerValue])) {//是否是星,是十字星再判断是否是低位十字
+            for (int index = 1; index < stockDay.count && index < day; index ++) {
+                NSDictionary *dicDay = stockDay[index];
+                if ([dicDay[@"lowp"] integerValue] +[dicDay[@"highp"] integerValue] >=  [dicStockToday[@"lowp"] integerValue] +[dicStockToday[@"highp"] integerValue] ) {
+                    if (index == day - 1) {
+                        [arrayLowStarResult addObject:dic];
+                    }
+                } else {
+                    index = 100000;
+                }
+            }
+        }
+    }
+    return arrayLowStarResult;
+}
+
+/**昨日低量柱
+ */
+- (NSArray *)yesterdayLowStockes {
+    NSInteger days = 20;//比较多少天以内的数据，一般20日内就是一个月的最低点
+    NSMutableArray *arrayLow = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSMutableArray *arraySingleDay = [NSMutableArray arrayWithArray:dic[@"timedata"]];
+        [arraySingleDay removeObjectAtIndex:0];
         NSInteger numberRaiseReason = [self caculateNumberOFRaiseReason:arraySingleDay];
         arraySingleDay = [self subobjectsAtArray:arraySingleDay from:days];
         if (arraySingleDay.count > 0) {

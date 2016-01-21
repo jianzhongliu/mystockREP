@@ -8,8 +8,9 @@
 
 #import "SettingViewController.h"
 #import "FMViewControllerExcersize.h"
+#import "CaculationFunction.h"
 
-@interface SettingViewController ()
+@interface SettingViewController ()<UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
 
@@ -54,10 +55,22 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(right_click)];
     [self.view addSubview:self.webView];
     
+    UIButton *buttonDay = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    buttonDay.frame = CGRectMake(100, 100, 40, 40);
+    buttonDay.backgroundColor = [UIColor yellowColor];
+    [buttonDay addTarget:self action:@selector(selectDays) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:buttonDay];
+    
 }
+
 - (void)right_click {
     FMViewControllerExcersize *controller = [[FMViewControllerExcersize alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)selectDays {
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"提示" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"100",@"70",@"50",@"40",@"30",@"20",@"10",@"5", nil];
+    [action showInView:self.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -141,5 +154,52 @@
         NSLog(@"Error: %@", error);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex  {
+    switch (buttonIndex) {
+        case 0:
+        {
+            [CaculationFunction share].lowDay = 100;
+        }
+            break;
+        case 1:
+        {
+            [CaculationFunction share].lowDay = 70;
+        }
+            break;
+        case 2:
+        {
+            [CaculationFunction share].lowDay = 50;
+        }
+            break;
+        case 3:
+        {
+            [CaculationFunction share].lowDay = 40;
+        }
+            break;
+        case 4:
+        {
+            [CaculationFunction share].lowDay = 30;
+        }
+            break;
+        case 5:
+        {
+            [CaculationFunction share].lowDay = 20;
+        }
+            break;
+        case 6:
+        {
+            [CaculationFunction share].lowDay = 10;
+        }
+            break;
+        case 7:
+        {
+            [CaculationFunction share].lowDay = 5;
+        }
+            break;
+        default:
+            break;
+    }
 }
 @end

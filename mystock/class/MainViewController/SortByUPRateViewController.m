@@ -117,7 +117,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     FMViewController *sDetailVC = [[FMViewController alloc] init];
-//    sDetailVC.dicStock = [self.arrayLow[indexPath.row] objectForKey:@"sorceData"];
     sDetailVC.arrayStock = [self getArrayData:self.arrayLow];
     [self.navigationController pushViewController:sDetailVC animated:YES];
     

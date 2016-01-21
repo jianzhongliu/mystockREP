@@ -23,6 +23,7 @@
 		244059861B5B55DB0094BC1E /* local600.plist in Resources */ = {isa = PBXBuildFile; fileRef = 244059851B5B55DB0094BC1E /* local600.plist */; };
 		24432D3F1B5DE37500213291 /* FunctionMethodsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */; };
 		2445070F1BF498A500EBFC97 /* FMViewControllerExcersize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2445070E1BF498A500EBFC97 /* FMViewControllerExcersize.m */; };
+		244EF97A1C085F12004EBF79 /* YesterdayLowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244EF9791C085F12004EBF79 /* YesterdayLowViewController.m */; };
 		2467CA7C1B6A00EE0045904E /* NSArray+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA6E1B6A00EE0045904E /* NSArray+TYAFNetworking.m */; };
 		2467CA7D1B6A00EE0045904E /* NSDictionary+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA701B6A00EE0045904E /* NSDictionary+TYAFNetworking.m */; };
 		2467CA7E1B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA721B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m */; };
@@ -54,6 +55,7 @@
 		24D54E351B55261000AAE334 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24D54E321B55261000AAE334 /* Default@2x.png */; };
 		24F4E8181B69B93400BB245C /* DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 24F4E8171B69B93400BB245C /* DB.sqlite */; };
 		24F4E81E1B69CB0500BB245C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F4E81D1B69CB0500BB245C /* libz.tbd */; };
+		24F7E1C61C509CE3007BFB0D /* LowestStarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F7E1C51C509CE3007BFB0D /* LowestStarListViewController.m */; };
 		9406951619299DFA00BA2694 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406951519299DFA00BA2694 /* Foundation.framework */; };
 		9406951819299DFA00BA2694 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406951719299DFA00BA2694 /* CoreGraphics.framework */; };
 		9406951A19299DFA00BA2694 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406951919299DFA00BA2694 /* UIKit.framework */; };
@@ -148,6 +150,8 @@
 		24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionMethodsUtil.m; sourceTree = "<group>"; };
 		2445070D1BF498A500EBFC97 /* FMViewControllerExcersize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMViewControllerExcersize.h; sourceTree = "<group>"; };
 		2445070E1BF498A500EBFC97 /* FMViewControllerExcersize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMViewControllerExcersize.m; sourceTree = "<group>"; };
+		244EF9781C085F12004EBF79 /* YesterdayLowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YesterdayLowViewController.h; sourceTree = "<group>"; };
+		244EF9791C085F12004EBF79 /* YesterdayLowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayLowViewController.m; sourceTree = "<group>"; };
 		2467CA6D1B6A00EE0045904E /* NSArray+TYAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TYAFNetworking.h"; sourceTree = "<group>"; };
 		2467CA6E1B6A00EE0045904E /* NSArray+TYAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TYAFNetworking.m"; sourceTree = "<group>"; };
 		2467CA6F1B6A00EE0045904E /* NSDictionary+TYAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+TYAFNetworking.h"; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 		24D54E321B55261000AAE334 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		24F4E8171B69B93400BB245C /* DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DB.sqlite; sourceTree = "<group>"; };
 		24F4E81D1B69CB0500BB245C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = text; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		24F7E1C41C509CE3007BFB0D /* LowestStarListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LowestStarListViewController.h; sourceTree = "<group>"; };
+		24F7E1C51C509CE3007BFB0D /* LowestStarListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LowestStarListViewController.m; sourceTree = "<group>"; };
 		9406951219299DFA00BA2694 /* mystock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mystock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9406951519299DFA00BA2694 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9406951719299DFA00BA2694 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -382,6 +388,8 @@
 				249092F81B54D1A8004B4584 /* FMViewController.m */,
 				2445070D1BF498A500EBFC97 /* FMViewControllerExcersize.h */,
 				2445070E1BF498A500EBFC97 /* FMViewControllerExcersize.m */,
+				244EF9781C085F12004EBF79 /* YesterdayLowViewController.h */,
+				244EF9791C085F12004EBF79 /* YesterdayLowViewController.m */,
 			);
 			path = ChartView;
 			sourceTree = "<group>";
@@ -551,6 +559,8 @@
 				2422522F1B5AA7C700B09FBA /* DoubleListViewController.m */,
 				24BC31C11B6B56F80078FCE2 /* LowestListViewController.h */,
 				24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */,
+				24F7E1C41C509CE3007BFB0D /* LowestStarListViewController.h */,
+				24F7E1C51C509CE3007BFB0D /* LowestStarListViewController.m */,
 				242652111B6882E600355C59 /* PriceOrderListViewController.h */,
 				242652121B6882E600355C59 /* PriceOrderListViewController.m */,
 				241D3AA31BAFB53900D71EF9 /* StopStockViewController.h */,
@@ -787,9 +797,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Ryan;
 				TargetAttributes = {
-					9406951119299DFA00BA2694 = {
-						DevelopmentTeam = 4DW89V8URU;
-					};
 					9406952C19299DFA00BA2694 = {
 						TestTargetID = 9406951119299DFA00BA2694;
 					};
@@ -876,6 +883,7 @@
 				942474A21948101E00DA27CB /* StockBriefViewController.m in Sources */,
 				94D94CAD193B453900597D59 /* MSDynamicsDrawerStyler.m in Sources */,
 				2499B37E1BF32E3900B905EF /* STListViewController.m in Sources */,
+				24F7E1C61C509CE3007BFB0D /* LowestStarListViewController.m in Sources */,
 				94FA3672192A0DEB005C37A1 /* AFURLResponseSerialization.m in Sources */,
 				94FA3677192A0DEB005C37A1 /* UIButton+AFNetworking.m in Sources */,
 				94FA3675192A0DEB005C37A1 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -907,6 +915,7 @@
 				94FA367B192A0DEB005C37A1 /* UIWebView+AFNetworking.m in Sources */,
 				94DD72CE193AB9A100CFFF1B /* ValueForKey.m in Sources */,
 				24D54E091B54D1EC00AAE334 /* lineView.m in Sources */,
+				244EF97A1C085F12004EBF79 /* YesterdayLowViewController.m in Sources */,
 				94FE50E619498F6000CCE18A /* StockLineView.m in Sources */,
 				2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */,
 				242090DB1BC8F7F70025E68B /* UpTodayListViewController.m in Sources */,

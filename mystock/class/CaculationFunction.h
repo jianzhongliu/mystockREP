@@ -21,6 +21,7 @@
 
 @interface CaculationFunction : NSObject
 
+@property (nonatomic, assign) NSInteger lowDay;//低量柱计算天数，默认是20天
 @property (nonatomic, strong) NSMutableArray *arraySourceData;//元数据
 @property (nonatomic, strong) NSMutableArray *arrayDouble;//倍
 @property (nonatomic, strong) NSMutableArray *arrayLow;//地量
@@ -38,6 +39,11 @@
 - (NSArray *)getPriceOrder;
 /**地量绿*/
 - (NSArray *)lowStockes;
+/**低位星*/
+- (NSArray *)lowStockesStar;
+/**昨日低量柱
+ */
+- (NSArray *)yesterdayLowStockes;
 /**三日内一字板
  */
 - (NSArray *)stopStock;

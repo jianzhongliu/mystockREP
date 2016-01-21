@@ -6,18 +6,20 @@
 //  Copyright (c) 2014年 zhaomingxi. All rights reserved.
 //
 
-#import "FMViewControllerExcersize.h"
 #import "YesterdayLowViewController.h"
+#import "CaculationFunction.h"
 #import "lineView.h"
 #import "UIColor+helper.h"
 #import "DBManager.h"
 
-@interface FMViewControllerExcersize ()
+@interface YesterdayLowViewController ()
 {
     lineView *lineview;
     UIButton *btnDay;
     UIButton *btnWeek;
     UIButton *btnMonth;
+    
+    
 }
 
 @property (nonatomic, strong) UIButton *buttonLeft;
@@ -34,9 +36,11 @@
 @property (nonatomic, strong) NSMutableDictionary *dicSourceData;//选中的那个原始数据
 @property (nonatomic, assign) NSInteger indector;
 
+@property (nonatomic, assign) NSInteger indexPoint;
+
 @end
 
-@implementation FMViewControllerExcersize
+@implementation YesterdayLowViewController
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
     return YES;
@@ -51,12 +55,14 @@
 
 - (void)initData {
     self.arrayStock = [NSArray array];
-    self.arrayStock = [NSMutableArray arrayWithArray:[[DBManager share] fetchStockLocationWithKey:@"sourceData"]];
+    self.arrayStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] yesterdayLowStockes]];
     self.dicCurrentStock = [NSMutableDictionary dictionary];
     self.indector = 0;
     
     self.leftCount = 0;
     self.rightCount = 0;
+    
+    self.indexPoint = 0;
     
 }
 
@@ -79,7 +85,7 @@
     self.lableCount.frame = CGRectMake(10, self.view.frame.size.height - 60, 200, 25);
     [self.view addSubview:self.lableCount];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showYesterday)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
 
     // 日k按钮
     btnDay = [[UIButton alloc] initWithFrame:CGRectMake(20, 70, 50, 30)];
@@ -117,11 +123,6 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"#111111" withAlpha:1];
 
     [self doExersiseReloadView];
-}
-
-- (void)showYesterday {
-    YesterdayLowViewController *controller = [[YesterdayLowViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)showDoubleStock {
@@ -204,22 +205,22 @@
 
 //做练习
 - (void)didDoExcersice {
-    int stockIndex = (0 + (arc4random() % (self.arrayStock.count + 1)));
+    
 
-    if (stockIndex >= self.arrayStock.count) {
+    if (self.indexPoint >= self.arrayStock.count) {
         return;
     }
-    self.dicSourceData = self.arrayStock[stockIndex];
+    self.dicSourceData = self.arrayStock[self.indexPoint];
     [self.dicCurrentStock setValuesForKeysWithDictionary:self.dicSourceData];
-    int dayIndex = (0 + (arc4random() % ([self.dicCurrentStock[@"timedata"] count] + 1)));
+    int dayIndex = 1;
     self.indector = dayIndex;
     if (dayIndex >= [[self.dicCurrentStock objectForKey:@"timedata"] count] ) {
         return;
     }
-    if (NO == [self isLow]) {
-        [self didDoExcersice];
-        return;
-    }
+//    if (NO == [self isLow]) {
+//        [self didDoExcersice];
+//        return;
+//    }
     NSMutableArray *arraySoureData = [NSMutableArray array];
     [arraySoureData addObjectsFromArray:[self.dicCurrentStock objectForKey:@"timedata"]];
 
@@ -235,6 +236,7 @@
 
 //下一个数据
 - (void)didNext {
+    self.indexPoint ++;
     self.indector --;
     if (self.indector >= [self.dicSourceData[@"timedata"] count]) {
         return;
@@ -248,6 +250,7 @@
 }
 
 - (void)didLeft {
+    
     self.leftCount ++;
     self.lableCount.text = [NSString stringWithFormat:@"错：%ld         对：%ld", self.leftCount, self.rightCount];
     

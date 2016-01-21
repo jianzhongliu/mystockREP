@@ -21,6 +21,7 @@
 #import "DoubleLowDoubleListViewController.h"
 #import "SortByUPRateViewController.h"
 #import "STListViewController.h"
+#import "LowestStarListViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -81,7 +82,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 14;
+    return 15;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -158,6 +159,10 @@
             break;
         case 13:{
             cell.textLabel.text = @"ST";
+        }
+            break;
+        case 14:{
+            cell.textLabel.text = @"地量星";
         }
             break;
         default:
@@ -238,6 +243,11 @@
             break;
         case 13:{
             STListViewController *controller = [[STListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 14:{
+            LowestStarListViewController *controller = [[LowestStarListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

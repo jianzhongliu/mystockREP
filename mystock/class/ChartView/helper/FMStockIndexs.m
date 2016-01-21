@@ -101,6 +101,14 @@
  * @return 返回第N日的 MACD值
  */
 +(NSMutableDictionary*)getMACD:(NSMutableArray*)list andDays:(int)day DhortPeriod:(int)shortPeriod LongPeriod:(int)longPeriod MidPeriod:(int)midPeriod {
+//    NSMutableArray *arrayOrder = [NSMutableArray array];
+//    for (int index = 0; index < list.count; index ++ ) {
+//        [arrayOrder addObject:list[list.count - index - 1]];
+//    }
+//    [list removeAllObjects];
+//    [list addObjectsFromArray:arrayOrder];
+    
+    
     NSMutableDictionary *macdData = [[NSMutableDictionary alloc] init];
     NSMutableArray *diffList = [[NSMutableArray alloc] init];
     double shortEMA = 0.0;
