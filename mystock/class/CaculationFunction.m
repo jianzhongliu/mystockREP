@@ -15,7 +15,21 @@
 @implementation CaculationFunction
 + (void)load {
     [CaculationFunction share].lowDay = 20;
-    [[CaculationFunction share] lowStockesStar];
+    [[CaculationFunction share] lowColumnNextDayRate];
+//    NSArray *arrayNumber = [NSMutableArray arrayWithArray:[[DBManager share] fetchStockLocationWithKey:@"sourceData"]];
+//
+//    NSMutableArray *arrayNumberResult = [NSMutableArray array];
+//    for (int index = 0; index < arrayNumber.count; index ++) {
+//        NSArray *arrayResult = [[CaculationFunction share] yesterdayLowStockesNumberWithDay:index];
+//        if (arrayResult.count > 0) {
+//            NSDictionary *dicPerDayStock = arrayResult[0][@"timedata"][index];
+//            NSString *string = [NSString stringWithFormat:@"%@===%d", dicPerDayStock[@"times"], (int)arrayResult.count];
+//            [arrayNumberResult addObject:string];
+//        }
+//    }
+//    
+//    NSLog(@"%@", arrayNumberResult);
+    
 //    [[CaculationFunction share] Trate];
 //        [[CaculationFunction share] lowLiangRate];
 //    [[CaculationFunction share] getPriceOrder];
@@ -211,21 +225,29 @@
  */
 - (NSArray *)yesterdayLowStockes {
     NSInteger days = 20;//比较多少天以内的数据，一般20日内就是一个月的最低点
+    if ([CaculationFunction share].lowDay > 0) {
+        days = [CaculationFunction share].lowDay;
+    }
     NSMutableArray *arrayLow = [NSMutableArray array];
     for (int i = 0; i < self.arraySourceData.count; i++) {
         NSDictionary *dic = self.arraySourceData[i];
-        NSMutableArray *arraySingleDay = [NSMutableArray arrayWithArray:dic[@"timedata"]];
-        [arraySingleDay removeObjectAtIndex:0];
+        NSArray *arraySingleDay = dic[@"timedata"];
         NSInteger numberRaiseReason = [self caculateNumberOFRaiseReason:arraySingleDay];
         arraySingleDay = [self subobjectsAtArray:arraySingleDay from:days];
+        NSMutableArray *arrayMutableData = [NSMutableArray array];
+        [arrayMutableData addObjectsFromArray:arraySingleDay];
+        [arrayMutableData removeObjectAtIndex:0];
+        arraySingleDay = arrayMutableData;
         if (arraySingleDay.count > 0) {
             NSDictionary *dicLow ;
             for (NSDictionary *dicDay in arraySingleDay) {
-                if (dicLow == nil) {
-                    dicLow = dicDay;
-                }
-                if (dicLow != nil && [dicDay[@"curvol"] integerValue] <= [dicLow[@"curvol"] integerValue] && [[dicDay objectForKey:@"lowp"] integerValue] != [[dicDay objectForKey:@"highp"] integerValue]) {
-                    dicLow = dicDay;
+                if (![dicDay[@"times"] rangeOfString:@"20160107"].length > 0) {
+                    if (dicLow == nil) {
+                        dicLow = dicDay;
+                    }
+                    if (dicLow != nil && [dicDay[@"curvol"] integerValue] <= [dicLow[@"curvol"] integerValue] && [[dicDay objectForKey:@"lowp"] integerValue] != [[dicDay objectForKey:@"highp"] integerValue]) {
+                        dicLow = dicDay;
+                    }
                 }
             }
             if (([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue]) && [[dicLow objectForKey:@"lowp"] integerValue] != [[dicLow objectForKey:@"highp"] integerValue]) {
@@ -235,6 +257,59 @@
             }
         }
     }
+
+    
+    NSArray *arraySorted = [arrayLow sortedArrayUsingComparator:
+                            ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                                NSComparisonResult result = [obj2[@"numberRaiseReason"] compare:obj1[@"numberRaiseReason"]];
+                                return result;
+                            }];
+    return arraySorted;
+}
+
+/**地量数,打印数据
+ */
+- (NSArray *)yesterdayLowStockesNumberWithDay:(NSInteger) index {
+    NSInteger days = 20;//比较多少天以内的数据，一般20日内就是一个月的最低点
+    if ([CaculationFunction share].lowDay > 0) {
+        days = [CaculationFunction share].lowDay;
+    }
+    NSMutableArray *arrayLow = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleDay = dic[@"timedata"];
+        NSInteger numberRaiseReason = [self caculateNumberOFRaiseReason:arraySingleDay];
+        if (arraySingleDay.count < index) {
+            continue;
+        }
+        NSMutableArray *arrayMutableData = [NSMutableArray array];
+        [arrayMutableData addObjectsFromArray:arraySingleDay];
+        for (int temp = 0; temp < index; temp ++) {
+            [arrayMutableData removeObjectAtIndex:0];
+        }
+        arraySingleDay = arrayMutableData;
+        arraySingleDay = [self subobjectsAtArray:arraySingleDay from:days];
+
+        if (arraySingleDay.count > 0) {
+            NSDictionary *dicLow ;
+            for (NSDictionary *dicDay in arraySingleDay) {
+                if (![dicDay[@"times"] rangeOfString:@"20160107"].length > 0) {
+                    if (dicLow == nil) {
+                        dicLow = dicDay;
+                    }
+                    if (dicLow != nil && [dicDay[@"curvol"] integerValue] <= [dicLow[@"curvol"] integerValue] && [[dicDay objectForKey:@"lowp"] integerValue] != [[dicDay objectForKey:@"highp"] integerValue]) {
+                        dicLow = dicDay;
+                    }
+                }
+            }
+            if (([dicLow[@"curvol"] integerValue] == [[arraySingleDay[0] objectForKey:@"curvol"] integerValue]) && [[dicLow objectForKey:@"lowp"] integerValue] != [[dicLow objectForKey:@"highp"] integerValue]) {
+                NSMutableDictionary *dicStock = [NSMutableDictionary dictionaryWithDictionary:dic];
+                [dicStock setObject:@(numberRaiseReason) forKey:@"numberRaiseReason"];
+                [arrayLow addObject:dicStock];
+            }
+        }
+    }
+    
     
     NSArray *arraySorted = [arrayLow sortedArrayUsingComparator:
                             ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
@@ -448,6 +523,68 @@
     NSLog(@"高量柱结果：降：%d=====升:%d=====上涨率：%.2f=====涨幅：%.2f=======跌幅：%.2f", low, up, up/(up+low +0.000001f), uprate / (up + 0.000001), downRate/ (low+0.000000001));
 }
 
+- (NSArray *)clearStopDays:(NSArray *)array {
+    NSMutableArray *arraySourceData = [NSMutableArray arrayWithArray:array];
+    
+    for (NSDictionary *dicStockDayData in array) {
+        if ([dicStockDayData[@"times"] rangeOfString:@"0107"].length > 0) {
+            [arraySourceData removeObject:dicStockDayData];
+        }
+        if ([dicStockDayData[@"highp"] integerValue] == [dicStockDayData[@"lowp"] integerValue]) {
+            [arraySourceData removeObject:dicStockDayData];
+        }
+    }
+    return arraySourceData;
+}
+
+/**低量柱第二天数据
+ 低量柱结果：降：61=====升:298=====上涨率：0.83======涨幅:0.20 ===== 跌幅:0.04
+ */
+- (void)lowColumnNextDayRate {
+    int days = 10;//时差天数
+    int low = 0;//下降
+    int up = 0;//上涨
+    CGFloat uprate = 0.0f;
+    CGFloat downRate = 0.0f;
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleDay = dic[@"timedata"];
+       NSArray *arraytemp = [self clearStopDays:arraySingleDay];
+        arraySingleDay = arraytemp;
+        //过滤涨跌停异常情况
+        if (arraySingleDay.count > 0) {
+            
+            for (int index = 5; index < arraySingleDay.count; index ++) {
+                for (int currentDay = 0; currentDay < 21; currentDay ++) {//如果index的这一天小于前面20天的量，那么就假设这一天是低量柱
+                    if (currentDay == 20) {
+                        NSDictionary *dicNextDay = arraySingleDay[index - 1];//取样数据的后一天数据
+                        NSDictionary *dicSecondDay = arraySingleDay[index - 2];//取样数据的后一天数据
+                        NSDictionary *dicThirdDay = arraySingleDay[index - 3];//取样数据的后一天数据
+                        NSDictionary *dicForthDay = arraySingleDay[index - 4];//取样数据的后一天数据
+                        NSDictionary *dicFivthDay = arraySingleDay[index - 5];//取样数据的后一天数据
+                        if ([dicNextDay[@"nowv"] integerValue] >= [dicNextDay[@"preclose"] integerValue] || [dicSecondDay[@"nowv"] integerValue] >= [dicSecondDay[@"preclose"] integerValue] || [dicThirdDay[@"nowv"] integerValue] >= [dicThirdDay[@"preclose"] integerValue]||[dicForthDay[@"nowv"] integerValue] >= [dicForthDay[@"preclose"] integerValue]) {
+                            up ++;
+                        } else {
+                            low ++;
+                            NSLog(@"date:%@====nowv:%@====preclose:%@ ==code:%@",arraySingleDay[index][@"times"], arraySingleDay[index][@"nowv"], arraySingleDay[index][@"preclose"], dic[@"stockcode"]);
+                        }
+                    }
+                    
+                    
+                    
+                    if (index + currentDay >= arraySingleDay.count) {
+                        break;
+                    }
+                    if ([arraySingleDay[index][@"curvol"] integerValue] > [arraySingleDay[index + currentDay][@"curvol"] integerValue]) {//当天成交量大于 index + currentday就中断循环，进入下一天的判断
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    NSLog(@"低量柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
+}
+
 /**低量柱数据
  低量柱结果：降：61=====升:298=====上涨率：0.83======涨幅:0.20 ===== 跌幅:0.04
  */
@@ -463,8 +600,10 @@
         if (arraySingleDay.count > 0) {
             NSDictionary *dicLow = arraySingleDay[0];
             for (NSDictionary *dicDay in arraySingleDay) {
-                if ([dicDay[@"curvol"] integerValue] <= [dicLow[@"curvol"] integerValue]) {
-                    dicLow = dicDay;
+                if (![dicDay[@"times"] rangeOfString:@"20160107"].length > 0) {
+                    if ([dicDay[@"curvol"] integerValue] <= [dicLow[@"curvol"] integerValue]) {
+                        dicLow = dicDay;
+                    }
                 }
             }
             int index = [arraySingleDay indexOfObject:dicLow];

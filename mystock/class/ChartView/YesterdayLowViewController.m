@@ -137,7 +137,7 @@
 
     lineview.dicStock = self.dicCurrentStock;
     
-    [self setTitle:[NSString stringWithFormat:@"%@%@",lineview.dicStock[@"stockname"], lineview.dicStock[@"stockcode"]]];
+    [self setTitle:[NSString stringWithFormat:@"%@%@===%d",lineview.dicStock[@"stockname"], lineview.dicStock[@"stockcode"], (int)self.arrayStock.count]];
     
     CGRect frame = self.view.frame;
     frame.origin = CGPointMake(0, 120);

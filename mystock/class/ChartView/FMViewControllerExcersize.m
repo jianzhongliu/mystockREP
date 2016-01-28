@@ -57,7 +57,6 @@
     
     self.leftCount = 0;
     self.rightCount = 0;
-    
 }
 
 -(void)viewDidLoad{

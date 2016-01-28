@@ -44,6 +44,9 @@
 /**昨日低量柱
  */
 - (NSArray *)yesterdayLowStockes;
+/**地量数,打印数据
+ */
+- (NSArray *)yesterdayLowStockesNumberWithDay:(NSInteger) index;
 /**三日内一字板
  */
 - (NSArray *)stopStock;
