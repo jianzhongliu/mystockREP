@@ -15,7 +15,8 @@
 @implementation CaculationFunction
 + (void)load {
     [CaculationFunction share].lowDay = 20;
-    [[CaculationFunction share] lowColumnNextDayRate];
+    [[CaculationFunction share] dowblecolumn];
+    
 //    NSArray *arrayNumber = [NSMutableArray arrayWithArray:[[DBManager share] fetchStockLocationWithKey:@"sourceData"]];
 //
 //    NSMutableArray *arrayNumberResult = [NSMutableArray array];
@@ -562,7 +563,7 @@
                         NSDictionary *dicThirdDay = arraySingleDay[index - 3];//取样数据的后一天数据
                         NSDictionary *dicForthDay = arraySingleDay[index - 4];//取样数据的后一天数据
                         NSDictionary *dicFivthDay = arraySingleDay[index - 5];//取样数据的后一天数据
-                        if ([dicNextDay[@"nowv"] integerValue] >= [dicNextDay[@"preclose"] integerValue] || [dicSecondDay[@"nowv"] integerValue] >= [dicSecondDay[@"preclose"] integerValue] || [dicThirdDay[@"nowv"] integerValue] >= [dicThirdDay[@"preclose"] integerValue]||[dicForthDay[@"nowv"] integerValue] >= [dicForthDay[@"preclose"] integerValue]) {
+                        if ([dicNextDay[@"nowv"] integerValue] >= [dicNextDay[@"preclose"] integerValue] || [dicSecondDay[@"nowv"] integerValue] >= [dicSecondDay[@"preclose"] integerValue] || [dicThirdDay[@"nowv"] integerValue] >= [dicThirdDay[@"preclose"] integerValue]) {
                             up ++;
                         } else {
                             low ++;
@@ -688,7 +689,7 @@
 倍量柱10天之后涨幅结果：降：11402=====升:23401=====上涨率：0.67======涨幅:0.10 ===== 跌幅:0.06
  */
 - (void)dowblecolumn {
-    int days = 10;//时差天数
+    int days = 1;//时差天数
     int low = 0;//下降
     int up = 0;//上涨
     CGFloat uprate = 0.0f;
@@ -697,24 +698,17 @@
         NSDictionary *dic = self.arraySourceData[i];
         NSArray *arraySingleStock = dic[@"timedata"];
         if (arraySingleStock.count > 0) {
-            for (int s = 1 ; s<arraySingleStock.count ; s++) {
+            for (int s = 5 ; s<arraySingleStock.count ; s++) {
 
-                if (2*[[arraySingleStock[s] objectForKey:@"curvol"] integerValue] <= [[arraySingleStock[s -1] objectForKey:@"curvol"] integerValue] &&  [[arraySingleStock[s] objectForKey:@"highp"] integerValue] != [[arraySingleStock[s] objectForKey:@"lowp"] integerValue]) {
-                    //就是倍量柱了
-                    if (arraySingleStock.count > s  && s > days) {
-                        if ([arraySingleStock[s - days][@"nowv"] integerValue] > [arraySingleStock[s][@"nowv"] integerValue]) {
-                            int data = [arraySingleStock[s - days][@"nowv"] integerValue] - [arraySingleStock[s][@"nowv"] integerValue];
-                            uprate += data / ([arraySingleStock[s][@"nowv"] integerValue] + 0.000000000000001f);
-                            NSLog(@"time:%@======lowValue:%@ ===== ID%@ ======%.3f", arraySingleStock[s][@"times"], arraySingleStock[s][@"lowp"], dic[@"stockcode"], data / ([arraySingleStock[s][@"nowv"] integerValue] + 0.000000000000001f));
-                            up ++ ;
-                        } else {
-                            downRate += ([arraySingleStock[s][@"nowv"] integerValue] - [arraySingleStock[s - days][@"nowv"] integerValue]) /  [arraySingleStock[s][@"nowv"] floatValue];
-                            int data = [arraySingleStock[s - days][@"nowv"] integerValue] - [arraySingleStock[s][@"nowv"] integerValue];
-
-                            NSLog(@"time:%@======lowValue:%@ ===== ID%@ ======%.3f", arraySingleStock[s][@"times"], arraySingleStock[s][@"lowp"], dic[@"stockcode"], data / ([arraySingleStock[s][@"nowv"] integerValue] + 0.000000000000001f));
-
-                            low ++ ;
-                        }
+                if (2.1*[[arraySingleStock[s] objectForKey:@"curvol"] integerValue] <= [[arraySingleStock[s -1] objectForKey:@"curvol"] integerValue] &&  [[arraySingleStock[s] objectForKey:@"highp"] integerValue] != [[arraySingleStock[s] objectForKey:@"lowp"] integerValue]) {
+                    NSDictionary *dicSecond = arraySingleStock[s - 1];
+                    NSDictionary *dicThird = arraySingleStock[s - 2];
+                    NSDictionary *dicForth = arraySingleStock[s - 3];
+                    NSDictionary *dicFive = arraySingleStock[s - 4];
+                    if ([dicSecond[@"nowv"] integerValue] > [dicSecond[@"preclose"] integerValue]) {
+                        up ++ ;
+                    } else {
+                        low ++;
                     }
                 }
             }
