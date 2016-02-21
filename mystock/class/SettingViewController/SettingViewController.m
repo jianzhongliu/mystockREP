@@ -8,6 +8,7 @@
 
 #import "SettingViewController.h"
 #import "FMViewControllerExcersize.h"
+#import "TimeLineChartViewController.h"
 #import "CaculationFunction.h"
 
 @interface SettingViewController ()<UIActionSheetDelegate>
@@ -61,6 +62,17 @@
     [buttonDay addTarget:self action:@selector(selectDays) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:buttonDay];
     
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    [button setTitle:@"分时" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(showTimeStock) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake(100, 300, 80, 40);
+    [self.view addSubview:button];
+    
+}
+
+- (void)showTimeStock {
+    TimeLineChartViewController *controller = [[TimeLineChartViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)right_click {

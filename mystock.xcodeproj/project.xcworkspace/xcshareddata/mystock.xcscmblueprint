@@ -5,17 +5,24 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "D182419B3FB3B68E3545669F3961A72897053F01" : 0,
-    "F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F" : 0
+    "F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F" : 0,
+    "043BAC590564D8E0D11B1A01544BAD1BE20F9A65" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F1277BAD-778C-473D-B9ED-837A6EB03556",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "D182419B3FB3B68E3545669F3961A72897053F01" : "mystock\/",
-    "F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F" : "stockChart\/"
+    "F3BF9FC55F0A8565762F1472CA3B29E51D5FC16F" : "stockChart\/",
+    "043BAC590564D8E0D11B1A01544BAD1BE20F9A65" : "..\/Desktop\/YKLineChartView"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "mystock",
-  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "mystock.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/chenyk0317\/YKLineChartView.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "043BAC590564D8E0D11B1A01544BAD1BE20F9A65"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/polodede\/mystock.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

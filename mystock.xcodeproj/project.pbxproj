@@ -24,6 +24,14 @@
 		24432D3F1B5DE37500213291 /* FunctionMethodsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 24432D3E1B5DE37500213291 /* FunctionMethodsUtil.m */; };
 		2445070F1BF498A500EBFC97 /* FMViewControllerExcersize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2445070E1BF498A500EBFC97 /* FMViewControllerExcersize.m */; };
 		244EF97A1C085F12004EBF79 /* YesterdayLowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244EF9791C085F12004EBF79 /* YesterdayLowViewController.m */; };
+		2451E9B51C79775B0087D719 /* TimeLineChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2451E9B41C79775B0087D719 /* TimeLineChartViewController.m */; };
+		2451E9C41C7977640087D719 /* YKViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2451E9B81C7977640087D719 /* YKViewBase.m */; };
+		2451E9C51C7977640087D719 /* YKLineChartViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2451E9BA1C7977640087D719 /* YKLineChartViewBase.m */; };
+		2451E9C61C7977640087D719 /* YKLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2451E9BC1C7977640087D719 /* YKLineChartView.m */; };
+		2451E9C71C7977640087D719 /* YKTimeLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2451E9BE1C7977640087D719 /* YKTimeLineView.m */; };
+		2451E9C81C7977640087D719 /* YKLineDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2451E9C01C7977640087D719 /* YKLineDataSet.m */; };
+		2451E9C91C7977640087D719 /* YKLineEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2451E9C21C7977640087D719 /* YKLineEntity.m */; };
+		2451E9CB1C7978620087D719 /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2451E9CA1C7978620087D719 /* data.plist */; };
 		2467CA7C1B6A00EE0045904E /* NSArray+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA6E1B6A00EE0045904E /* NSArray+TYAFNetworking.m */; };
 		2467CA7D1B6A00EE0045904E /* NSDictionary+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA701B6A00EE0045904E /* NSDictionary+TYAFNetworking.m */; };
 		2467CA7E1B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2467CA721B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m */; };
@@ -152,6 +160,22 @@
 		2445070E1BF498A500EBFC97 /* FMViewControllerExcersize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMViewControllerExcersize.m; sourceTree = "<group>"; };
 		244EF9781C085F12004EBF79 /* YesterdayLowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YesterdayLowViewController.h; sourceTree = "<group>"; };
 		244EF9791C085F12004EBF79 /* YesterdayLowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayLowViewController.m; sourceTree = "<group>"; };
+		2451E9B31C79775B0087D719 /* TimeLineChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineChartViewController.h; sourceTree = "<group>"; };
+		2451E9B41C79775B0087D719 /* TimeLineChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineChartViewController.m; sourceTree = "<group>"; };
+		2451E9B61C7977640087D719 /* YKLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKLineChart.h; sourceTree = "<group>"; };
+		2451E9B71C7977640087D719 /* YKViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKViewBase.h; sourceTree = "<group>"; };
+		2451E9B81C7977640087D719 /* YKViewBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKViewBase.m; sourceTree = "<group>"; };
+		2451E9B91C7977640087D719 /* YKLineChartViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKLineChartViewBase.h; sourceTree = "<group>"; };
+		2451E9BA1C7977640087D719 /* YKLineChartViewBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKLineChartViewBase.m; sourceTree = "<group>"; };
+		2451E9BB1C7977640087D719 /* YKLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKLineChartView.h; sourceTree = "<group>"; };
+		2451E9BC1C7977640087D719 /* YKLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKLineChartView.m; sourceTree = "<group>"; };
+		2451E9BD1C7977640087D719 /* YKTimeLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKTimeLineView.h; sourceTree = "<group>"; };
+		2451E9BE1C7977640087D719 /* YKTimeLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKTimeLineView.m; sourceTree = "<group>"; };
+		2451E9BF1C7977640087D719 /* YKLineDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKLineDataSet.h; sourceTree = "<group>"; };
+		2451E9C01C7977640087D719 /* YKLineDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKLineDataSet.m; sourceTree = "<group>"; };
+		2451E9C11C7977640087D719 /* YKLineEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKLineEntity.h; sourceTree = "<group>"; };
+		2451E9C21C7977640087D719 /* YKLineEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKLineEntity.m; sourceTree = "<group>"; };
+		2451E9CA1C7978620087D719 /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 		2467CA6D1B6A00EE0045904E /* NSArray+TYAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TYAFNetworking.h"; sourceTree = "<group>"; };
 		2467CA6E1B6A00EE0045904E /* NSArray+TYAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TYAFNetworking.m"; sourceTree = "<group>"; };
 		2467CA6F1B6A00EE0045904E /* NSDictionary+TYAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+TYAFNetworking.h"; sourceTree = "<group>"; };
@@ -339,6 +363,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2451E9C31C7977640087D719 /* YKLineChartView */ = {
+			isa = PBXGroup;
+			children = (
+				2451E9B61C7977640087D719 /* YKLineChart.h */,
+				2451E9B71C7977640087D719 /* YKViewBase.h */,
+				2451E9B81C7977640087D719 /* YKViewBase.m */,
+				2451E9B91C7977640087D719 /* YKLineChartViewBase.h */,
+				2451E9BA1C7977640087D719 /* YKLineChartViewBase.m */,
+				2451E9BB1C7977640087D719 /* YKLineChartView.h */,
+				2451E9BC1C7977640087D719 /* YKLineChartView.m */,
+				2451E9BD1C7977640087D719 /* YKTimeLineView.h */,
+				2451E9BE1C7977640087D719 /* YKTimeLineView.m */,
+				2451E9BF1C7977640087D719 /* YKLineDataSet.h */,
+				2451E9C01C7977640087D719 /* YKLineDataSet.m */,
+				2451E9C11C7977640087D719 /* YKLineEntity.h */,
+				2451E9C21C7977640087D719 /* YKLineEntity.m */,
+			);
+			name = YKLineChartView;
+			path = /Users/liujianzhong/Desktop/YKLineChartView/YKLineChartViewExample/YKLineChartView/../../YKLineChartView;
+			sourceTree = "<absolute>";
+		};
 		2467CA6C1B6A00EE0045904E /* TYNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +435,8 @@
 				2445070E1BF498A500EBFC97 /* FMViewControllerExcersize.m */,
 				244EF9781C085F12004EBF79 /* YesterdayLowViewController.h */,
 				244EF9791C085F12004EBF79 /* YesterdayLowViewController.m */,
+				2451E9B31C79775B0087D719 /* TimeLineChartViewController.h */,
+				2451E9B41C79775B0087D719 /* TimeLineChartViewController.m */,
 			);
 			path = ChartView;
 			sourceTree = "<group>";
@@ -456,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				24D54E301B55261000AAE334 /* Default-568h@2x.png */,
+				2451E9CA1C7978620087D719 /* data.plist */,
 				24D54E311B55261000AAE334 /* Default.png */,
 				24D54E321B55261000AAE334 /* Default@2x.png */,
 				940695441929A26800BA2694 /* class */,
@@ -510,6 +558,7 @@
 		940695441929A26800BA2694 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				2451E9C31C7977640087D719 /* YKLineChartView */,
 				24F4E8191B69C99800BB245C /* JSONKit */,
 				24781F041B707ECE008DCBB1 /* CommentRequest */,
 				249092F61B54D19A004B4584 /* ChartView */,
@@ -830,6 +879,7 @@
 				240B1F071B68F572000E48DD /* locationStock.sqlite in Resources */,
 				244059861B5B55DB0094BC1E /* local600.plist in Resources */,
 				24F4E8181B69B93400BB245C /* DB.sqlite in Resources */,
+				2451E9CB1C7978620087D719 /* data.plist in Resources */,
 				243923291B67981500A25CCC /* location.sqlite in Resources */,
 				9406952019299DFA00BA2694 /* InfoPlist.strings in Resources */,
 				2422522A1B5AA3FA00B09FBA /* localstocktjz2.plist in Resources */,
@@ -860,6 +910,8 @@
 				241D3AA51BAFB53900D71EF9 /* StopStockViewController.m in Sources */,
 				94FA3670192A0DEB005C37A1 /* AFURLConnectionOperation.m in Sources */,
 				24BC31C31B6B56F80078FCE2 /* LowestListViewController.m in Sources */,
+				2451E9B51C79775B0087D719 /* TimeLineChartViewController.m in Sources */,
+				2451E9C41C7977640087D719 /* YKViewBase.m in Sources */,
 				942C0CAC19541D1D00108A75 /* SuggestTableViewCell.m in Sources */,
 				24781F071B707EF2008DCBB1 /* RquestTotalStock.m in Sources */,
 				24D54E2F1B5525DE00AAE334 /* UIColor+helper.m in Sources */,
@@ -869,17 +921,20 @@
 				2467CA851B6A084C0045904E /* CaculationFunction.m in Sources */,
 				24202D121B6B8F910048E4F1 /* StopRaseStockViewCell.m in Sources */,
 				2467CA7C1B6A00EE0045904E /* NSArray+TYAFNetworking.m in Sources */,
+				2451E9C51C7977640087D719 /* YKLineChartViewBase.m in Sources */,
 				242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */,
 				94FA3679192A0DEB005C37A1 /* UIProgressView+AFNetworking.m in Sources */,
 				24BC31CE1B6B6B6B0078FCE2 /* JingzhunLineViewController.m in Sources */,
 				94AFA456193A10E60046F002 /* PersistenceHelper.m in Sources */,
 				9406954F1929B6FD00BA2694 /* LeftViewController.m in Sources */,
+				2451E9C61C7977640087D719 /* YKLineChartView.m in Sources */,
 				24BC31CB1B6B6B6B0078FCE2 /* SortStockValueViewController.m in Sources */,
 				94FA3676192A0DEB005C37A1 /* UIAlertView+AFNetworking.m in Sources */,
 				9406952619299DFA00BA2694 /* AppDelegate.m in Sources */,
 				2474F19D1BD29422007CA5B5 /* DoubleLowDoubleListViewController.m in Sources */,
 				24D0CAAB1BDD12AC005826B0 /* SortByUPRateViewController.m in Sources */,
 				2467CA811B6A00EE0045904E /* TYSignatureGenerator.m in Sources */,
+				2451E9C81C7977640087D719 /* YKLineDataSet.m in Sources */,
 				942474A21948101E00DA27CB /* StockBriefViewController.m in Sources */,
 				94D94CAD193B453900597D59 /* MSDynamicsDrawerStyler.m in Sources */,
 				2499B37E1BF32E3900B905EF /* STListViewController.m in Sources */,
@@ -898,6 +953,7 @@
 				94AFA463193A21510046F002 /* FMDatabase.m in Sources */,
 				94FA366B192A0DEB005C37A1 /* AFHTTPRequestOperation.m in Sources */,
 				94FA3673192A0DEB005C37A1 /* AFURLSessionManager.m in Sources */,
+				2451E9C71C7977640087D719 /* YKTimeLineView.m in Sources */,
 				94DFD45E193C904F00DBD6EC /* SearchTableViewCell.m in Sources */,
 				2470A3A61BFF803D0099BD1F /* DaysChartModel.m in Sources */,
 				9406952219299DFA00BA2694 /* main.m in Sources */,
@@ -920,6 +976,7 @@
 				2422522D1B5AA55100B09FBA /* SuggestStockViewController.m in Sources */,
 				242090DB1BC8F7F70025E68B /* UpTodayListViewController.m in Sources */,
 				242652131B6882E600355C59 /* PriceOrderListViewController.m in Sources */,
+				2451E9C91C7977640087D719 /* YKLineEntity.m in Sources */,
 				9430A0BB193F164E00569444 /* SearchViewController.m in Sources */,
 				2467CA7F1B6A00EE0045904E /* TYAPIProxy.m in Sources */,
 				2470A3A71BFF803D0099BD1F /* FMStockIndexs.m in Sources */,

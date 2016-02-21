@@ -15,7 +15,7 @@
 @implementation CaculationFunction
 + (void)load {
     [CaculationFunction share].lowDay = 20;
-    [[CaculationFunction share] dowblecolumn];
+    [[CaculationFunction share] raiseOrDownRate];
     
 //    NSArray *arrayNumber = [NSMutableArray arrayWithArray:[[DBManager share] fetchStockLocationWithKey:@"sourceData"]];
 //
@@ -700,12 +700,12 @@
         if (arraySingleStock.count > 0) {
             for (int s = 5 ; s<arraySingleStock.count ; s++) {
 
-                if (2.1*[[arraySingleStock[s] objectForKey:@"curvol"] integerValue] <= [[arraySingleStock[s -1] objectForKey:@"curvol"] integerValue] &&  [[arraySingleStock[s] objectForKey:@"highp"] integerValue] != [[arraySingleStock[s] objectForKey:@"lowp"] integerValue]) {
-                    NSDictionary *dicSecond = arraySingleStock[s - 1];
-                    NSDictionary *dicThird = arraySingleStock[s - 2];
-                    NSDictionary *dicForth = arraySingleStock[s - 3];
-                    NSDictionary *dicFive = arraySingleStock[s - 4];
-                    if ([dicSecond[@"nowv"] integerValue] > [dicSecond[@"preclose"] integerValue]) {
+                if ([[arraySingleStock[s] objectForKey:@"curvol"] integerValue] > 2 * [[arraySingleStock[s -1] objectForKey:@"curvol"] integerValue] &&  [[arraySingleStock[s] objectForKey:@"highp"] integerValue] != [[arraySingleStock[s] objectForKey:@"lowp"] integerValue]) {
+                    NSDictionary *dicSecond = arraySingleStock[s - 2];
+                    NSDictionary *dicThird = arraySingleStock[s - 3];
+                    NSDictionary *dicForth = arraySingleStock[s - 4];
+                    NSDictionary *dicFive = arraySingleStock[s - 5];
+                    if ([dicSecond[@"nowv"] integerValue] > [dicSecond[@"preclose"] integerValue] || [dicThird[@"nowv"] integerValue] > [dicThird[@"preclose"] integerValue]) {
                         up ++ ;
                     } else {
                         low ++;
@@ -716,6 +716,70 @@
     }
     NSLog(@"倍量柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
 }
+
+/**任意连续两天下跌后上涨的概率*/
+- (void)dowblecolumnThreed {
+    int days = 1;//时差天数
+    int low = 0;//下降
+    int up = 0;//上涨
+    CGFloat uprate = 0.0f;
+    CGFloat downRate = 0.0f;
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleStock = dic[@"timedata"];
+        if (arraySingleStock.count > 0) {
+            for (int s = 6 ; s<arraySingleStock.count ; s++) {
+                    NSDictionary *dicToday = arraySingleStock[s];
+                    NSDictionary *dicSecond = arraySingleStock[s - 1];
+                    NSDictionary *dicThird = arraySingleStock[s - 2];
+                    NSDictionary *dicForth = arraySingleStock[s - 3];
+                    NSDictionary *dicFive = arraySingleStock[s - 4];
+                    NSDictionary *dicSix = arraySingleStock[s - 5];
+                if ([dicToday[@"nowv"] integerValue] < [dicToday[@"preclose"] integerValue] && [dicSecond[@"nowv"] integerValue] < [dicSecond[@"preclose"] integerValue]) {
+                    if ([dicThird[@"nowv"] integerValue] > [dicThird[@"preclose"] integerValue]) {
+                        up ++ ;
+                        NSInteger data = [dicThird[@"nowv"] integerValue] - [dicThird[@"preclose"] integerValue] ;
+//                        NSLog(@"time:%@======lowValue:%@ ===== ID%@ =====上涨%.3f", dicThird[@"times"], dicThird[@"lowp"], dic[@"stockcode"], data / ([dicThird[@"preclose"] integerValue] + 0.000000000000001f));
+                    } else {
+                        low ++;
+                        NSInteger data = [dicSix[@"nowv"] integerValue] - [dicSix[@"preclose"] integerValue] ;
+                        NSLog(@"time:%@======lowValue:%@ ===== ID%@ =====上涨%.3f", dicSix[@"times"], dicSix[@"lowp"], dic[@"stockcode"], data / ([dicSix[@"preclose"] integerValue] + 0.000000000000001f));
+                    }
+                }
+            }
+        }
+    }
+    NSLog(@"倍量柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
+}
+
+/**波峰波谷天数和涨跌率*/
+- (void)raiseOrDownRate {
+    int days = 1;//时差天数
+    int low = 0;//下降
+    int up = 0;//上涨
+    CGFloat uprate = 0.0f;
+    CGFloat downRate = 0.0f;
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleStock = dic[@"timedata"];
+        NSMutableDictionary *dicTop;
+        NSMutableDictionary *dicBottom;
+        if (arraySingleStock.count > 0) {
+            for (NSInteger s = arraySingleStock.count ; s > 0; s--) {
+                if ([arraySingleStock[s][@"highp"] integerValue] < [arraySingleStock[s - 1][@"highp"] integerValue]) {
+                    NSInteger day = [dicTop[@"day"] integerValue];
+                    if (dicTop[@"day"] == nil) {
+                        day = 1;
+                    }
+                    dicTop = [NSMutableDictionary dictionaryWithDictionary:arraySingleStock[s]];
+                    [dicTop setValue:[NSNumber numberWithInteger:day] forKey:@"day"];
+                }
+            }
+        }
+    }
+    NSLog(@"倍量柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
+}
+
 /**缩倍量柱数据
  取600个交易日的数据，也就是三年多的数据做基本数据分析结果如下：
  倍量柱60天之后涨幅结果：降：1422=====升:2266=====上涨率：0.61======涨幅:0.30 ===== 跌幅:0.17
