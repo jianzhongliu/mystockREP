@@ -42,7 +42,7 @@
         [timeArray addObject:e];
     }
     self.view.backgroundColor = [UIColor whiteColor];
-    self.timeLineView.frame = CGRectMake(50, 64, SCREEN_WIDTH-50, 400);
+    self.timeLineView.frame = CGRectMake(10, 64, SCREEN_WIDTH-50, 400);
     [self.view addSubview:self.timeLineView];
     [self.timeLineView setupChartOffsetWithLeft:50 top:10 right:10 bottom:10];
     self.timeLineView.gridBackgroundColor = [UIColor whiteColor];

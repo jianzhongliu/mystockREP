@@ -66,7 +66,7 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"下降率";
+    titleLabel.text = @"上涨率";
     self.navigationItem.titleView = titleLabel;
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
@@ -118,6 +118,7 @@
     
     FMViewController *sDetailVC = [[FMViewController alloc] init];
     sDetailVC.arrayStock = [self getArrayData:self.arrayLow];
+    sDetailVC.index = indexPath.row;
     [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }

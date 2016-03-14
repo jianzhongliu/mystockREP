@@ -22,6 +22,7 @@
 #import "SortByUPRateViewController.h"
 #import "STListViewController.h"
 #import "LowestStarListViewController.h"
+#import "DownDayListViewController.h"
 
 @interface SuggestStockViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -82,7 +83,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 15;
+    return 16;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -110,11 +111,11 @@
         }
             break;
         case 1:{
-            cell.textLabel.text = @"guhaimingdeng";
+            cell.textLabel.text = @"发现百日低量柱";
         }
             break;
         case 2:{
-            cell.textLabel.text = @"发现百日低量柱";
+            cell.textLabel.text = @"guhaimingdeng";
         }
             break;
         case 3:{
@@ -165,6 +166,10 @@
             cell.textLabel.text = @"地量星";
         }
             break;
+        case 15:{
+            cell.textLabel.text = @"下跌天数排序";
+        }
+            break;
         default:
             break;
     }
@@ -182,12 +187,12 @@
         }
             break;
         case 1:{
-            StopRaseStockListViewController *controller = [[StopRaseStockListViewController alloc] init];
+            LowestListViewController *controller = [[LowestListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 2:{
-            LowestListViewController *controller = [[LowestListViewController alloc] init];
+            StopRaseStockListViewController *controller = [[StopRaseStockListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
@@ -248,6 +253,11 @@
             break;
         case 14:{
             LowestStarListViewController *controller = [[LowestStarListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 15:{
+            DownDayListViewController *controller = [[DownDayListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

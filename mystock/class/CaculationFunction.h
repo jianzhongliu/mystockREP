@@ -39,6 +39,8 @@
 - (NSArray *)getPriceOrder;
 /**地量绿*/
 - (NSArray *)lowStockes;
+/**下跌天数排行*/
+- (NSArray *)downStockesDownDays;
 /**低位星*/
 - (NSArray *)lowStockesStar;
 /**昨日低量柱
