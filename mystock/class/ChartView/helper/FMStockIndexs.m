@@ -134,6 +134,9 @@
             for (int i=day; i<midPeriod; i++) {
                 int startIndex = i-1;
                 if(startIndex<0)startIndex = 0;
+                if (startIndex +2 > list.count) {
+                    return nil;
+                }
                 NSMutableArray *sublist = [NSMutableArray arrayWithArray:[list subarrayWithRange:NSMakeRange(startIndex, 2)]];
                 shortEMA = [self getEXPMA:sublist Number:shortPeriod];
                 longEMA = [self getEXPMA:sublist Number:longPeriod];

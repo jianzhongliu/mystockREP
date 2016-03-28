@@ -375,9 +375,9 @@
     [lineArray addObject:volline];
     
     // MACD
-    NSArray *macdArray = [self changeMACDPointWithData:getdata.data]; // 换算成实际成交量坐标数组
+//    NSArray *macdArray = [self changeMACDPointWithData:getdata.data]; // 换算成实际成交量坐标数组
     KLineView *macdLine = [[KLineView alloc] initWithFrame:CGRectMake(0, 0, viewMacd.frame.size.width, viewMacd.frame.size.height)];
-    macdLine.points = macdArray;
+//    macdLine.points = macdArray;
     macdLine.lineWidth = self.kLineWidth;
     macdLine.isK = YES;
     macdLine.isVol = NO;

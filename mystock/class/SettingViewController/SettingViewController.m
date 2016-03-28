@@ -68,6 +68,15 @@
     button.frame = CGRectMake(100, 300, 80, 40);
     [self.view addSubview:button];
     
+    UIButton *buttonDouble = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    [buttonDouble setTitle:@"倍量练习" forState:UIControlStateNormal];
+    [buttonDouble addTarget:self action:@selector(setDoubleKline) forControlEvents:UIControlEventTouchUpInside];
+    buttonDouble.frame = CGRectMake(200, 300, 80, 40);
+    [self.view addSubview:buttonDouble];
+}
+
+- (void)setDoubleKline {
+     [CaculationFunction share].isDowble = YES;
 }
 
 - (void)showTimeStock {

@@ -8,6 +8,7 @@
 
 #import "FMViewControllerExcersize.h"
 #import "YesterdayLowViewController.h"
+#import "CaculationFunction.h"
 #import "lineView.h"
 #import "UIColor+helper.h"
 #import "DBManager.h"
@@ -203,7 +204,7 @@
 
 //做练习
 - (void)didDoExcersice {
-    int stockIndex = (0 + (arc4random() % (self.arrayStock.count + 1)));
+    int stockIndex = (0 + (arc4random() % (self.arrayStock.count + 1)));//随机选择一只股票
 
     if (stockIndex >= self.arrayStock.count) {
         return;
@@ -215,10 +216,19 @@
     if (dayIndex >= [[self.dicCurrentStock objectForKey:@"timedata"] count] ) {
         return;
     }
-    if (NO == [self isLow]) {
-        [self didDoExcersice];
-        return;
+    if ([CaculationFunction share].isDowble == YES) {
+        if (NO == [self isDouble]) {
+            [self didDoExcersice];
+            return;
+        }
+    } else {
+        if (NO == [self isLow]) {
+            [self didDoExcersice];
+            return;
+        }
     }
+    
+
     NSMutableArray *arraySoureData = [NSMutableArray array];
     [arraySoureData addObjectsFromArray:[self.dicCurrentStock objectForKey:@"timedata"]];
 
@@ -239,7 +249,13 @@
         return;
     }
     NSMutableArray *originData = [NSMutableArray arrayWithArray:self.dicCurrentStock[@"timedata"]];
+    CGFloat downRate = ([[self.dicSourceData[@"timedata"] objectAtIndex:self.indector][@"preclose"] floatValue] - [[self.dicSourceData[@"timedata"] objectAtIndex:self.indector][@"lowp"] floatValue])/ ([[self.dicSourceData[@"timedata"] objectAtIndex:self.indector][@"preclose"] floatValue] + 0.00000001);
     
+    if ( downRate > 0.03) {
+        NSString *downRateString = [NSString stringWithFormat:@"下跌过%.5f", downRate];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:downRateString delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil];
+        [alert show];
+    }
     [originData insertObject:[self.dicSourceData[@"timedata"] objectAtIndex:self.indector] atIndex:0];
 
     [self.dicCurrentStock setObject:originData forKey:@"timedata"];
@@ -347,7 +363,7 @@
     if ([self.dicSourceData[@"timedata"] count] < self.indector + 20) {
         return NO;
     }
-  NSDictionary *dic = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector];
+    NSDictionary *dic = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector];
     for (NSInteger i = self.indector; i<self.indector + 20; i ++) {
         NSDictionary *dicBehindData = [self.dicSourceData[@"timedata"] objectAtIndex:i];
         if ([dic[@"curvol"] integerValue] > [dicBehindData[@"curvol"] integerValue]) {
@@ -357,5 +373,16 @@
     return YES;
 }
 
+- (BOOL)isDouble {
+    if (self.indector < 1) {
+        return NO;
+    }
+    NSDictionary *dic = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector + 1];
+    NSDictionary *dicCurrent = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector];
+    if (2*[dic[@"curvol"] integerValue] < [dicCurrent[@"curvol"] integerValue]) {
+        return YES;
+    }
+    return NO;
+}
 
 @end

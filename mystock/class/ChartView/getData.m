@@ -206,16 +206,16 @@ static NSMutableArray *array;
         NSMutableArray *arrayMACDList = [NSMutableArray array];
        [arrayMACDList addObjectsFromArray:[self changeLinesToMACDModelWithArray:lines]];
 //        if (self.arrayDicData.count > 26) {
-            NSDictionary *dicMacd = [FMStockIndexs getMACD:arrayMACDList andDays:newArray.count-idx DhortPeriod:12 LongPeriod:26 MidPeriod:9];
-        NSLog(@"%@",dicMacd);
+//            NSDictionary *dicMacd = [FMStockIndexs getMACD:arrayMACDList andDays:newArray.count-idx DhortPeriod:12 LongPeriod:26 MidPeriod:9];
+//        NSLog(@"%@",dicMacd);
             //MACD指标是由两线一柱组合起来形成，快速线为DIF，慢速线为DEA，柱状图为MACD
-            [dicItem setObject:dicMacd[@"DEA"] forKey:@"DEA"];
-            [dicItem setObject:dicMacd[@"M"] forKey:@"M"];
-            [dicItem setObject:dicMacd[@"DIF"] forKey:@"DIF"];
-        
-            [item addObject:dicMacd[@"DIF"]];
-            [item addObject:dicMacd[@"DEA"]];
-            [item addObject:dicMacd[@"M"]];
+//            [dicItem setObject:dicMacd[@"DEA"] forKey:@"DEA"];
+//            [dicItem setObject:dicMacd[@"M"] forKey:@"M"];
+//            [dicItem setObject:dicMacd[@"DIF"] forKey:@"DIF"];
+//        
+//            [item addObject:dicMacd[@"DIF"]];
+//            [item addObject:dicMacd[@"DEA"]];
+//            [item addObject:dicMacd[@"M"]];
         
 //        }
         [self.arrayDicData addObject:dicItem];

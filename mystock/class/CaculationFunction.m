@@ -32,12 +32,12 @@
     
 //    [[CaculationFunction share] Trate];
 //        [[CaculationFunction share] lowLiangRate];
-//    [[CaculationFunction share] getPriceOrder];
+//    [[CaculationFunction share] suoliangzhangtin];
 //    [[CaculationFunction share] lowColumnRate];
 //    [[CaculationFunction share] hightColumnRate];
 //    NSLog(@"%@", [[CaculationFunction share] todayDouble]) ;
 //    NSLog(@"%@", [[CaculationFunction share] lowStockes]) ;
-//    [[CaculationFunction share] dowblecolumn];
+//    [[CaculationFunction share] tiaokong];
 //    [[CaculationFunction share] goldenColumn];
 //    [[CaculationFunction share] falseDown];
 //    [[CaculationFunction share] daysUpOfNow];//当前价格位置
@@ -569,53 +569,6 @@
     return arraySourceData;
 }
 
-/**低量柱第二天数据
- 低量柱结果：降：61=====升:298=====上涨率：0.83======涨幅:0.20 ===== 跌幅:0.04
- */
-- (void)lowColumnNextDayRate {
-    int days = 10;//时差天数
-    int low = 0;//下降
-    int up = 0;//上涨
-    CGFloat uprate = 0.0f;
-    CGFloat downRate = 0.0f;
-    for (int i = 0; i < self.arraySourceData.count; i++) {
-        NSDictionary *dic = self.arraySourceData[i];
-        NSArray *arraySingleDay = dic[@"timedata"];
-       NSArray *arraytemp = [self clearStopDays:arraySingleDay];
-        arraySingleDay = arraytemp;
-        //过滤涨跌停异常情况
-        if (arraySingleDay.count > 0) {
-            
-            for (int index = 5; index < arraySingleDay.count; index ++) {
-                for (int currentDay = 0; currentDay < 21; currentDay ++) {//如果index的这一天小于前面20天的量，那么就假设这一天是低量柱
-                    if (currentDay == 20) {
-                        NSDictionary *dicNextDay = arraySingleDay[index - 1];//取样数据的后一天数据
-                        NSDictionary *dicSecondDay = arraySingleDay[index - 2];//取样数据的后一天数据
-                        NSDictionary *dicThirdDay = arraySingleDay[index - 3];//取样数据的后一天数据
-                        NSDictionary *dicForthDay = arraySingleDay[index - 4];//取样数据的后一天数据
-                        NSDictionary *dicFivthDay = arraySingleDay[index - 5];//取样数据的后一天数据
-                        if ([dicNextDay[@"nowv"] integerValue] >= [dicNextDay[@"preclose"] integerValue] || [dicSecondDay[@"nowv"] integerValue] >= [dicSecondDay[@"preclose"] integerValue] || [dicThirdDay[@"nowv"] integerValue] >= [dicThirdDay[@"preclose"] integerValue]) {
-                            up ++;
-                        } else {
-                            low ++;
-                            NSLog(@"date:%@====nowv:%@====preclose:%@ ==code:%@",arraySingleDay[index][@"times"], arraySingleDay[index][@"nowv"], arraySingleDay[index][@"preclose"], dic[@"stockcode"]);
-                        }
-                    }
-                    
-                    
-                    
-                    if (index + currentDay >= arraySingleDay.count) {
-                        break;
-                    }
-                    if ([arraySingleDay[index][@"curvol"] integerValue] > [arraySingleDay[index + currentDay][@"curvol"] integerValue]) {//当天成交量大于 index + currentday就中断循环，进入下一天的判断
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    NSLog(@"低量柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
-}
 
 /**低量柱数据
  低量柱结果：降：61=====升:298=====上涨率：0.83======涨幅:0.20 ===== 跌幅:0.04
@@ -726,13 +679,14 @@
         NSArray *arraySingleDay = dic[@"timedata"];
         if (arraySingleDay.count > 0) {
             for (int index = 4; index < arraySingleDay.count - 2; index ++ ) {
-                if ([arraySingleDay[index +2][@"preclose"] floatValue] > [arraySingleDay[index +2][@"nowv"] floatValue] && ([arraySingleDay[index +1][@"preclose"] floatValue] - [arraySingleDay[index +1][@"nowv"] floatValue]) / [arraySingleDay[index +1][@"preclose"] floatValue] > 0.097 && ([arraySingleDay[index][@"nowv"] floatValue] - [arraySingleDay[index][@"preclose"] floatValue]) / [arraySingleDay[index][@"preclose"] floatValue] > 0.097) {
+                if ([arraySingleDay[index][@"preclose"] floatValue] > [arraySingleDay[index][@"nowv"] floatValue] && ([arraySingleDay[index][@"openp"] floatValue] - [arraySingleDay[index][@"nowv"] floatValue]) / [arraySingleDay[index][@"preclose"] floatValue] > 0.05 && ([arraySingleDay[index - 1][@"nowv"] floatValue] - [arraySingleDay[index-1][@"preclose"] floatValue])/[arraySingleDay[index - 1][@"nowv"] floatValue] > 0.01) {
                     
-                    if ([arraySingleDay[index - 1][@"nowv"] integerValue] > [arraySingleDay[index-1][@"preclose"] integerValue]) {
-                        NSLog(@"time:%@======lowValue:%@ ===== ID%@ ===", arraySingleDay[index-1][@"times"], arraySingleDay[index-1][@"lowp"], dic[@"stockcode"]);
+                    if ([arraySingleDay[index - 2][@"nowv"] integerValue] > [arraySingleDay[index-2][@"preclose"] integerValue]) {
                         raise ++;
                     } else {
                         down ++;
+                        NSLog(@"time:%@======lowValue:%@ ===== ID%@ ===", arraySingleDay[index-1][@"times"], arraySingleDay[index-1][@"lowp"], dic[@"stockcode"]);
+
                     }
                 }
                 
@@ -740,42 +694,6 @@
         }
     }
     NSLog(@"结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", down, raise, raise/(raise+down +0.000001f), uprate/(raise + 0.0000000001f), downRate / (down + 0.00000001));
-}
-
-/**倍量柱数据
-取600个交易日的数据，也就是三年多的数据做基本数据分析结果如下：
-倍量柱60天之后涨幅结果：降：1422=====升:2266=====上涨率：0.61======涨幅:0.30 ===== 跌幅:0.17
-倍量柱3天之后涨幅结果： 降：1424=====升:3033=====上涨率：0.68======涨幅:0.10 ===== 跌幅:0.06
-倍量柱5天之后涨幅结果：降：1495=====升:2954=====上涨率：0.66======涨幅:0.12 ===== 跌幅:0.08
-倍量柱10天之后涨幅结果：降：11402=====升:23401=====上涨率：0.67======涨幅:0.10 ===== 跌幅:0.06
- */
-- (void)dowblecolumn {
-    int days = 1;//时差天数
-    int low = 0;//下降
-    int up = 0;//上涨
-    CGFloat uprate = 0.0f;
-    CGFloat downRate = 0.0f;
-    for (int i = 0; i < self.arraySourceData.count; i++) {
-        NSDictionary *dic = self.arraySourceData[i];
-        NSArray *arraySingleStock = dic[@"timedata"];
-        if (arraySingleStock.count > 0) {
-            for (int s = 5 ; s<arraySingleStock.count ; s++) {
-
-                if ([[arraySingleStock[s] objectForKey:@"curvol"] integerValue] > 2 * [[arraySingleStock[s -1] objectForKey:@"curvol"] integerValue] &&  [[arraySingleStock[s] objectForKey:@"highp"] integerValue] != [[arraySingleStock[s] objectForKey:@"lowp"] integerValue]) {
-                    NSDictionary *dicSecond = arraySingleStock[s - 2];
-                    NSDictionary *dicThird = arraySingleStock[s - 3];
-                    NSDictionary *dicForth = arraySingleStock[s - 4];
-                    NSDictionary *dicFive = arraySingleStock[s - 5];
-                    if ([dicSecond[@"nowv"] integerValue] > [dicSecond[@"preclose"] integerValue] || [dicThird[@"nowv"] integerValue] > [dicThird[@"preclose"] integerValue]) {
-                        up ++ ;
-                    } else {
-                        low ++;
-                    }
-                }
-            }
-        }
-    }
-    NSLog(@"倍量柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
 }
 
 /**任意连续两天下跌后上涨的概率*/
@@ -1196,6 +1114,139 @@
     return NO;
 }
 
+#pragma mark - 确定模式概率运算
+/**倍量柱数据
+ */
+- (void)dowblecolumn {
+    int days = 1;//时差天数
+    int low = 0;//下降
+    int up = 0;//上涨
+    CGFloat uprate = 0.0f;
+    CGFloat downRate = 0.0f;
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleStock = dic[@"timedata"];
+        if (arraySingleStock.count > 0) {
+            for (int s = 5 ; s<arraySingleStock.count ; s++) {
+                
+                if ([[arraySingleStock[s] objectForKey:@"curvol"] integerValue] > 2 * [[arraySingleStock[s -1] objectForKey:@"curvol"] integerValue] &&  [[arraySingleStock[s] objectForKey:@"highp"] integerValue] != [[arraySingleStock[s] objectForKey:@"lowp"] integerValue]) {
+                    NSDictionary *dicSecond = arraySingleStock[s - 2];
+                    NSDictionary *dicThird = arraySingleStock[s - 3];
+                    NSDictionary *dicForth = arraySingleStock[s - 4];
+                    NSDictionary *dicFive = arraySingleStock[s - 5];
+                    if ([[arraySingleStock[s] objectForKey:@"preclose"] integerValue] > [[arraySingleStock[s] objectForKey:@"nowv"] integerValue]){
+                        if ([dicSecond[@"nowv"] integerValue] > [dicSecond[@"preclose"] integerValue] || [dicThird[@"nowv"] integerValue] > [dicThird[@"preclose"] integerValue]||[dicForth[@"nowv"] integerValue] > [dicForth[@"preclose"] integerValue]||[dicFive[@"nowv"] integerValue] > [dicFive[@"preclose"] integerValue]) {
+                            up ++ ;
+                        } else {
+                            low ++;
+                        }
+                        
+                    }
+                    
+                }
+            }
+        }
+    }
+    NSLog(@"倍量柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
+}
+
+/**低量柱第二天数据
+ 低量柱结果：降：61=====升:298=====上涨率：0.83======涨幅:0.20 ===== 跌幅:0.04
+ */
+- (void)lowColumnNextDayRate {
+    int days = 10;//时差天数
+    int low = 0;//下降
+    int up = 0;//上涨
+    CGFloat uprate = 0.0f;
+    CGFloat downRate = 0.0f;
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleDay = dic[@"timedata"];
+        NSArray *arraytemp = [self clearStopDays:arraySingleDay];
+        arraySingleDay = arraytemp;
+        //过滤涨跌停异常情况
+        if (arraySingleDay.count > 0) {
+            
+            for (int index = 5; index < arraySingleDay.count; index ++) {
+                for (int currentDay = 0; currentDay < 21; currentDay ++) {//如果index的这一天小于前面20天的量，那么就假设这一天是低量柱
+                    if (currentDay == 20) {
+                        NSDictionary *dicNextDay = arraySingleDay[index - 1];//取样数据的后一天数据
+                        NSDictionary *dicSecondDay = arraySingleDay[index - 2];//取样数据的后一天数据
+                        NSDictionary *dicThirdDay = arraySingleDay[index - 3];//取样数据的后一天数据
+                        NSDictionary *dicForthDay = arraySingleDay[index - 4];//取样数据的后一天数据
+                        NSDictionary *dicFivthDay = arraySingleDay[index - 5];//取样数据的后一天数据
+                            if ([dicNextDay[@"nowv"] floatValue] > [dicNextDay[@"preclose"] floatValue]) {
+                                up ++;
+                            } else {
+                                low ++;
+                                NSLog(@"date:%@====nowv:%@====preclose:%@ ==code:%@",arraySingleDay[index][@"times"], arraySingleDay[index][@"nowv"], arraySingleDay[index][@"preclose"], dic[@"stockcode"]);
+                            }
+                    }
+                    
+                    
+                    
+                    if (index + currentDay >= arraySingleDay.count) {
+                        break;
+                    }
+                    if ([arraySingleDay[index][@"curvol"] integerValue] > [arraySingleDay[index + currentDay][@"curvol"] integerValue]) {//当天成交量大于 index + currentday就中断循环，进入下一天的判断
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    NSLog(@"低量柱结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
+}
+
+/**连续下跌后初阳出现后的上涨概率
+ */
+- (void)downThreeDayAndRaiseToday {
+    int days = 10;//时差天数
+    int low = 0;//下降
+    int up = 0;//上涨
+    CGFloat uprate = 0.0f;
+    CGFloat downRate = 0.0f;
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleDay = dic[@"timedata"];
+        NSArray *arraytemp = [self clearStopDays:arraySingleDay];        //过滤涨跌停异常情况
+        arraySingleDay = arraytemp;
+        if (arraySingleDay.count > 0) {
+            for (int index = 6; index < arraySingleDay.count - 5; index ++) {
+//                for (int currentDay = 0; currentDay < 21; currentDay ++) {//如果index的这一天小于前面20天的量，那么就假设这一天是低量柱
+//                    if (currentDay == 20) {
+                        NSDictionary *dicToday = arraySingleDay[index];
+                        NSDictionary *dicBehindNextDay = arraySingleDay[index + 1];//取样数据的后一天数据
+                        NSDictionary *dicBehindSecondDay = arraySingleDay[index + 2];//取样数据的后一天数据
+                        NSDictionary *dicBehindThirdDay = arraySingleDay[index + 3];//取样数据的后一天数据
+                        NSDictionary *dicBehindForthDay = arraySingleDay[index + 4];//取样数据的后一天数据
+                        NSDictionary *dicBehindFivthDay = arraySingleDay[index + 5];//取样数据的后一天数据
+                        
+                        NSDictionary *dicNextDay = arraySingleDay[index - 1];//取样数据的后一天数据
+                        NSDictionary *dicSecondDay = arraySingleDay[index - 2];//取样数据的后一天数据
+                        NSDictionary *dicThirdDay = arraySingleDay[index - 3];//取样数据的后一天数据
+                        NSDictionary *dicForthDay = arraySingleDay[index - 4];//取样数据的后一天数据
+                        NSDictionary *dicFivthDay = arraySingleDay[index - 5];//取样数据的后一天数据
+                        if ([dicBehindNextDay[@"preclose"] integerValue] >  [dicBehindNextDay[@"nowv"] integerValue]&&
+                            [dicBehindSecondDay[@"preclose"] integerValue] >  [dicBehindSecondDay[@"nowv"] integerValue]&&
+                            [dicBehindThirdDay[@"preclose"] integerValue] >  [dicBehindThirdDay[@"nowv"] integerValue]&&
+                            [dicBehindForthDay[@"preclose"] integerValue] >  [dicBehindForthDay[@"nowv"] integerValue]&&
+                            [dicBehindFivthDay[@"preclose"] integerValue] >  [dicBehindFivthDay[@"nowv"] integerValue]&&
+                            [dicToday[@"nowv"] floatValue] > [dicToday[@"preclose"] floatValue]) {
+                            if ([dicNextDay[@"nowv"] floatValue] > [dicNextDay[@"preclose"] floatValue]) {
+                                up ++;
+                            } else {
+                                low ++;
+                                NSLog(@"date:%@====nowv:%@====preclose:%@ ==code:%@",arraySingleDay[index][@"times"], arraySingleDay[index][@"nowv"], arraySingleDay[index][@"preclose"], dic[@"stockcode"]);
+                            }
+                        }
+                    }
+        }
+    }
+    NSLog(@"结果：降：%d=====升:%d=====上涨率：%.2f======涨幅:%.2f ===== 跌幅:%.2f", low, up, up/(up+low +0.000001f), uprate/(up + 0.0000000001f), downRate / (low + 0.00000001));
+}
+
+#pragma mark - 涨停基因判断
 /**最近5天是否有倍量柱*/
 - (BOOL)isDoubleThesDayWithDic:(NSDictionary *) dic {
     NSArray *arrayDataList = dic[@"timedata"];
@@ -1293,7 +1344,15 @@
     if ([self isDoubleLowColume:array]) {
         number ++;
     }
-    
+    if ([self isRaiseToday:array]) {
+        number ++;
+    }
+    if ([self isDownYestoday:array]) {
+        number ++;
+    }
+    if ([self isOpenLowerThanYestoday:array]) {
+        number++;
+    }
     return number;
 }
 
@@ -1413,6 +1472,44 @@
         if (nowv > preclose && nowv < openp) {
             return YES;
         }
+    }
+    return NO;
+}
+
+/**
+ 今天阳线
+很多下跌趋势翻转的信号就是收小阳，也有些是跳空十字星
+ */
+- (BOOL)isRaiseToday:(NSArray *) array {
+    NSDictionary *dicToday = array[0];
+    if ([dicToday[@"preclose"] integerValue] < [dicToday[@"nowv"] integerValue] ) {
+        return YES;
+    }
+    return NO;
+}
+
+/**
+ 昨天巨阴，今天收阳
+ 昨日下跌超过3%，今日地量，明日上涨概率>77%
+ */
+- (BOOL)isDownYestoday:(NSArray *) array {
+    NSDictionary *dicYestoday = array[1];
+    NSDictionary *dicToday = array[0];
+    if (([dicYestoday[@"openp"] floatValue] - [dicYestoday[@"nowv"] floatValue])/ [dicYestoday[@"openp"] floatValue] > 0.02 && [dicToday[@"preclose"] integerValue] < [dicToday[@"nowv"] integerValue]) {
+        return YES;
+    }
+    return NO;
+}
+
+/**
+ 今天跳空低开高走收阳
+ 降：614=====升:1567=====上涨率：0.72======涨幅:0.00 ===== 跌幅:0.00
+ */
+- (BOOL)isOpenLowerThanYestoday:(NSArray *) array {
+    NSDictionary *dicYestoday = array[1];
+    NSDictionary *dicToday = array[0];
+    if ([dicToday[@"openp"] integerValue] < [dicYestoday[@"lowv"] integerValue] && [dicToday[@"nowv"] integerValue] > [dicToday[@"preclose"] integerValue]) {
+        return YES;
     }
     return NO;
 }
