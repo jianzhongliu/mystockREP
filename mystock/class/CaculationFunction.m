@@ -517,6 +517,23 @@
     return arrayResult;
 }
 
+/**
+今日低开高走
+ */
+- (NSArray *)lowStartHeighStop {
+    
+    NSMutableArray *arrayResult = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arraySingleDay = dic[@"timedata"];
+        NSDictionary *dicToday = arraySingleDay[0];
+        if ([dicToday[@"openp"] integerValue] < [dicToday[@"preclose"] integerValue] && [dicToday[@"nowv"] integerValue] > [dicToday[@"openp"] integerValue]) {
+            [arrayResult addObject:dic];
+        }
+    }
+    return arrayResult;
+}
+
 #pragma mark - 数据概率计算
 
 /**高量柱数据

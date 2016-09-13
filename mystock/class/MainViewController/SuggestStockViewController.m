@@ -14,6 +14,7 @@
 #import "SortStockValueViewController.h"
 #import "JingzhunLineViewController.h"
 #import "MoneyListViewController.h"
+#import "DownToRaiseListViewController.h"
 #import "ZiJingViewController.h"
 #import "StopStockViewController.h"
 #import "UpTodayListViewController.h"
@@ -83,7 +84,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 16;
+    return 17;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -168,6 +169,10 @@
             break;
         case 15:{
             cell.textLabel.text = @"下跌天数排序";
+        }
+            break;
+        case 16:{
+            cell.textLabel.text = @"低开收红 77%";
         }
             break;
         default:
@@ -258,6 +263,11 @@
             break;
         case 15:{
             DownDayListViewController *controller = [[DownDayListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+            break;
+        case 16:{
+            DownToRaiseListViewController *controller = [[DownToRaiseListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

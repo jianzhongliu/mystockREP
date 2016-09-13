@@ -48,6 +48,7 @@
 		24781F071B707EF2008DCBB1 /* RquestTotalStock.m in Sources */ = {isa = PBXBuildFile; fileRef = 24781F061B707EF2008DCBB1 /* RquestTotalStock.m */; };
 		249092F91B54D1A8004B4584 /* FMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249092F81B54D1A8004B4584 /* FMViewController.m */; };
 		2499B37E1BF32E3900B905EF /* STListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2499B37D1BF32E3900B905EF /* STListViewController.m */; };
+		24BA2C181D87CDBC00F83CFB /* DownToRaiseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA2C171D87CDBC00F83CFB /* DownToRaiseListViewController.m */; };
 		24BC31C31B6B56F80078FCE2 /* LowestListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */; };
 		24BC31C51B6B61470078FCE2 /* local002.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24BC31C41B6B61470078FCE2 /* local002.plist */; };
 		24BC31C81B6B6B6B0078FCE2 /* SortByDownRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */; };
@@ -212,6 +213,8 @@
 		249092F81B54D1A8004B4584 /* FMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMViewController.m; sourceTree = "<group>"; };
 		2499B37C1BF32E3900B905EF /* STListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STListViewController.h; sourceTree = "<group>"; };
 		2499B37D1BF32E3900B905EF /* STListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STListViewController.m; sourceTree = "<group>"; };
+		24BA2C161D87CDBC00F83CFB /* DownToRaiseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownToRaiseListViewController.h; sourceTree = "<group>"; };
+		24BA2C171D87CDBC00F83CFB /* DownToRaiseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownToRaiseListViewController.m; sourceTree = "<group>"; };
 		24BC31C11B6B56F80078FCE2 /* LowestListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LowestListViewController.h; sourceTree = "<group>"; };
 		24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LowestListViewController.m; sourceTree = "<group>"; };
 		24BC31C41B6B61470078FCE2 /* local002.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = local002.plist; sourceTree = "<group>"; };
@@ -648,6 +651,8 @@
 				942C0CAB19541D1D00108A75 /* SuggestTableViewCell.m */,
 				2499B37C1BF32E3900B905EF /* STListViewController.h */,
 				2499B37D1BF32E3900B905EF /* STListViewController.m */,
+				24BA2C161D87CDBC00F83CFB /* DownToRaiseListViewController.h */,
+				24BA2C171D87CDBC00F83CFB /* DownToRaiseListViewController.m */,
 				2474F19B1BD29422007CA5B5 /* DoubleLowDoubleListViewController.h */,
 				2474F19C1BD29422007CA5B5 /* DoubleLowDoubleListViewController.m */,
 				242090D91BC8F7F70025E68B /* UpTodayListViewController.h */,
@@ -988,6 +993,7 @@
 				94D94CAE193B453900597D59 /* MSDynamicsDrawerViewController.m in Sources */,
 				94FA367B192A0DEB005C37A1 /* UIWebView+AFNetworking.m in Sources */,
 				94DD72CE193AB9A100CFFF1B /* ValueForKey.m in Sources */,
+				24BA2C181D87CDBC00F83CFB /* DownToRaiseListViewController.m in Sources */,
 				24D54E091B54D1EC00AAE334 /* lineView.m in Sources */,
 				244EF97A1C085F12004EBF79 /* YesterdayLowViewController.m in Sources */,
 				2421AF041C821B3800B0C95C /* YKViewBase.m in Sources */,
