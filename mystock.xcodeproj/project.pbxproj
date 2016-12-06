@@ -866,7 +866,7 @@
 				ORGANIZATIONNAME = Ryan;
 				TargetAttributes = {
 					9406951119299DFA00BA2694 = {
-						DevelopmentTeam = 4DW89V8URU;
+						DevelopmentTeam = 292HWMFJ6Q;
 					};
 					9406952C19299DFA00BA2694 = {
 						TestTargetID = 9406951119299DFA00BA2694;
@@ -1135,6 +1135,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 292HWMFJ6Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1156,6 +1157,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 292HWMFJ6Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

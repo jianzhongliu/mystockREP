@@ -1370,6 +1370,9 @@
     if ([self isOpenLowerThanYestoday:array]) {
         number++;
     }
+    if ([self isHaveDownStopDay:array]) {
+        number += 20;
+    }
     return number;
 }
 
@@ -1410,7 +1413,26 @@
         NSDictionary *dic = array[i];
         CGFloat nowv = [dic[@"nowv"] floatValue];
         CGFloat preclose = [dic[@"preclose"] floatValue];
-        if (nowv > preclose && nowv > 1.90f*preclose) {
+        if (nowv > preclose && nowv > 1.090f*preclose) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+/**
+ 最近十天是否有过大阴
+ */
+- (BOOL)isHaveDownStopDay:(NSArray *) array {
+    NSInteger days = 10;
+    if (array.count <= 10) {
+        days = array.count;
+    }
+    for (int i = 0; i<days; i ++) {
+        NSDictionary *dic = array[i];
+        CGFloat nowv = [dic[@"nowv"] floatValue];
+        CGFloat preclose = [dic[@"preclose"] floatValue];
+        if (nowv < preclose && nowv < preclose/1.050f) {
             return YES;
         }
     }
