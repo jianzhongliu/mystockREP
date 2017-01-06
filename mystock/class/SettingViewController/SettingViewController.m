@@ -68,15 +68,52 @@
     button.frame = CGRectMake(100, 300, 80, 40);
     [self.view addSubview:button];
     
-    UIButton *buttonDouble = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    
+    UIButton *buttonUpStop = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonUpStop setTitle:@"涨停练习" forState:UIControlStateNormal];
+    [buttonUpStop setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [buttonUpStop addTarget:self action:@selector(setUpStop) forControlEvents:UIControlEventTouchUpInside];
+    buttonUpStop.backgroundColor = [UIColor blueColor];
+    buttonUpStop.titleLabel.font = [UIFont systemFontOfSize:12];
+    buttonUpStop.frame = CGRectMake(10, 300, 80, 40);
+    [self.view addSubview:buttonUpStop];
+    
+    UIButton *buttonDownStop = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonDownStop setTitle:@"跌停练习" forState:UIControlStateNormal];
+    [buttonDownStop setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [buttonDownStop addTarget:self action:@selector(setDownStop) forControlEvents:UIControlEventTouchUpInside];
+    buttonDownStop.titleLabel.font = [UIFont systemFontOfSize:12];
+    buttonDownStop.backgroundColor = [UIColor blueColor];
+    buttonDownStop.frame = CGRectMake(100, 300, 80, 40);
+    [self.view addSubview:buttonDownStop];
+    
+    UIButton *buttonDouble = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonDouble setTitle:@"倍量练习" forState:UIControlStateNormal];
+    [buttonDouble setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [buttonDouble addTarget:self action:@selector(setDoubleKline) forControlEvents:UIControlEventTouchUpInside];
-    buttonDouble.frame = CGRectMake(200, 300, 80, 40);
+    buttonDouble.titleLabel.font = [UIFont systemFontOfSize:12];
+    buttonDouble.backgroundColor = [UIColor blueColor];
+    buttonDouble.frame = CGRectMake(190, 300, 80, 40);
     [self.view addSubview:buttonDouble];
+    
+}
+
+- (void)setDownStop {
+    [CaculationFunction share].isDownStop = YES;
+    [CaculationFunction share].isDowble = NO;
+    [CaculationFunction share].isUpStop = NO;
+}
+
+- (void)setUpStop {
+    [CaculationFunction share].isUpStop = YES;
+    [CaculationFunction share].isDownStop = NO;
+    [CaculationFunction share].isDowble = NO;
 }
 
 - (void)setDoubleKline {
      [CaculationFunction share].isDowble = YES;
+    [CaculationFunction share].isUpStop = NO;
+    [CaculationFunction share].isDownStop = NO;
 }
 
 - (void)showTimeStock {

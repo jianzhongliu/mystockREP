@@ -337,7 +337,7 @@
         leftTag.text = [[NSString alloc] initWithFormat:@"%.2f",padValue*i+getdata.minValue];
         leftTag.textColor = [UIColor colorWithHexString:@"#cccccc" withAlpha:1];
         leftTag.font = self.font;
-        leftTag.textAlignment = UITextAlignmentRight;
+        leftTag.textAlignment = NSTextAlignmentRight;
         leftTag.backgroundColor = [UIColor clearColor];
         //[leftTag sizeToFit];
         [mainboxView addSubview:leftTag];

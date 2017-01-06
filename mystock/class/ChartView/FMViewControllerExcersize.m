@@ -221,6 +221,16 @@
             [self didDoExcersice];
             return;
         }
+    } else if ([CaculationFunction share].isUpStop == YES) {
+        if (NO == [self isUpStop]) {
+            [self didDoExcersice];
+            return;
+        }
+    } else if ([CaculationFunction share].isDownStop == YES) {
+        if (NO == [self isDownStop]) {
+            [self didDoExcersice];
+            return;
+        }
     } else {
         if (NO == [self isLow]) {
             [self didDoExcersice];
@@ -374,12 +384,36 @@
 }
 
 - (BOOL)isDouble {
-    if (self.indector < 1) {
+    if (self.indector < 1 || self.indector+1>=[self.dicSourceData[@"timedata"] count]) {
         return NO;
     }
     NSDictionary *dic = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector + 1];
     NSDictionary *dicCurrent = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector];
     if (2*[dic[@"curvol"] integerValue] < [dicCurrent[@"curvol"] integerValue]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)isDownStop {
+    if (self.indector < 1 || self.indector+1>=[self.dicSourceData[@"timedata"] count]) {
+        return NO;
+    }
+    NSDictionary *dic = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector + 1];
+    NSDictionary *dicCurrent = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector];
+    if ([dicCurrent[@"preclose"] doubleValue] > [dicCurrent[@"nowv"] doubleValue] && ([dicCurrent[@"preclose"] doubleValue] - [dicCurrent[@"nowv"] doubleValue])/[dicCurrent[@"preclose"] doubleValue] > 0.09) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)isUpStop{
+    if (self.indector < 1 || self.indector+1>=[self.dicSourceData[@"timedata"] count]) {
+        return NO;
+    }
+    NSDictionary *dic = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector + 1];
+    NSDictionary *dicCurrent = [self.dicSourceData[@"timedata"] objectAtIndex:self.indector];
+    if ([dicCurrent[@"nowv"] doubleValue] > [dicCurrent[@"preclose"] doubleValue] && ([dicCurrent[@"nowv"] doubleValue] - [dicCurrent[@"preclose"] doubleValue])/[dicCurrent[@"preclose"] doubleValue] > 0.09) {
         return YES;
     }
     return NO;
