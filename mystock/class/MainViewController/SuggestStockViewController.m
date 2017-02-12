@@ -11,8 +11,8 @@
 #import "StopRaseStockListViewController.h"
 #import "LowestListViewController.h"
 #import "SortByDownRateViewController.h"
-#import "SortStockValueViewController.h"
-#import "JingzhunLineViewController.h"
+#import "TodayRaiseRateListViewController.h"
+#import "TodayDownRateListViewController.h"
 #import "MoneyListViewController.h"
 #import "DownToRaiseListViewController.h"
 #import "ZiJingViewController.h"
@@ -124,11 +124,11 @@
         }
             break;
         case 4:{
-            cell.textLabel.text = @"差多值";
+            cell.textLabel.text = @"涨幅排序";
         }
             break;
         case 5:{
-            cell.textLabel.text = @"精准线";
+            cell.textLabel.text = @"跌幅排序";
         }
             break;
         case 6:{
@@ -207,12 +207,12 @@
         }
             break;
         case 4:{
-            SortStockValueViewController *controller = [[SortStockValueViewController alloc] init];
+            TodayRaiseRateListViewController *controller = [[TodayRaiseRateListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 5:{
-            JingzhunLineViewController *controller = [[JingzhunLineViewController alloc] init];
+            TodayDownRateListViewController *controller = [[TodayDownRateListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

@@ -139,6 +139,59 @@
     return array2;
 }
 
+/**今日涨幅排序*/
+- (NSArray *)getTodayRaiseRate {
+    NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arrayOneStock = dic[@"timedata"];
+        if (arrayOneStock.count > 0) {
+            NSInteger openPrice = [[arrayOneStock[0] objectForKey:@"preclose"] integerValue];
+            NSInteger todayClosePrice = [[arrayOneStock[0] objectForKey:@"nowv"] integerValue] ;
+            if (todayClosePrice > openPrice) {
+                NSDictionary *dicTemp = @{@"sorceData":dic,@"innercode":dic[@"innercode"], @"storck":dic[@"stockcode"],@"todayClosePrice":@(todayClosePrice), @"openPrice":@(openPrice), @"rate":@((todayClosePrice-openPrice)/(openPrice + 0.000001f))};
+                [arrayValueEveryDay addObject:dicTemp];
+            }
+        }
+    }
+    NSArray *array2 = [arrayValueEveryDay sortedArrayUsingComparator:
+                       ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                           NSComparisonResult result = [obj2[@"rate"] compare:obj1[@"rate"]];
+                           
+                           return result;
+                       }];
+    return array2;
+}
+
+/**今日跌幅排序*/
+- (NSArray *)getTodayDownRate {
+    NSMutableArray *arrayValueEveryDay = [NSMutableArray array];
+    for (int i = 0; i < self.arraySourceData.count; i++) {
+        NSDictionary *dic = self.arraySourceData[i];
+        NSArray *arrayOneStock = dic[@"timedata"];
+        if (arrayOneStock.count > 0) {
+            NSInteger preclose = [[arrayOneStock[0] objectForKey:@"preclose"] integerValue];
+            NSInteger todayClosePrice = [[arrayOneStock[0] objectForKey:@"nowv"] integerValue] ;
+            if (todayClosePrice <= preclose) {
+                NSDictionary *dicTemp = @{@"sorceData":dic,@"innercode":dic[@"innercode"], @"storck":dic[@"stockcode"],@"todayClosePrice":@(todayClosePrice), @"openPrice":@(preclose), @"rate":@((preclose - todayClosePrice)/(preclose + 0.000001f))};
+                [arrayValueEveryDay addObject:dicTemp];
+            }
+            else {
+                NSLog(@"//");
+            }
+        } else {
+            NSLog(@"//");
+        }
+    }
+    NSArray *array2 = [arrayValueEveryDay sortedArrayUsingComparator:
+                       ^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+                           NSComparisonResult result = [obj2[@"rate"] compare:obj1[@"rate"]];
+                           
+                           return result;
+                       }];
+    return array2;
+}
+
 /**价格排序*/
 - (NSArray *)getPriceOrder {
     NSArray *array2 = [self.arraySourceData sortedArrayUsingComparator:
@@ -1523,6 +1576,9 @@
 很多下跌趋势翻转的信号就是收小阳，也有些是跳空十字星
  */
 - (BOOL)isRaiseToday:(NSArray *) array {
+    if (array.count < 1) {
+        return NO;
+    }
     NSDictionary *dicToday = array[0];
     if ([dicToday[@"preclose"] integerValue] < [dicToday[@"nowv"] integerValue] ) {
         return YES;
@@ -1535,6 +1591,9 @@
  昨日下跌超过3%，今日地量，明日上涨概率>77%
  */
 - (BOOL)isDownYestoday:(NSArray *) array {
+    if (array.count < 2) {
+        return NO;
+    }
     NSDictionary *dicYestoday = array[1];
     NSDictionary *dicToday = array[0];
     if (([dicYestoday[@"openp"] floatValue] - [dicYestoday[@"nowv"] floatValue])/ [dicYestoday[@"openp"] floatValue] > 0.02 && [dicToday[@"preclose"] integerValue] < [dicToday[@"nowv"] integerValue]) {
@@ -1548,6 +1607,9 @@
  降：614=====升:1567=====上涨率：0.72======涨幅:0.00 ===== 跌幅:0.00
  */
 - (BOOL)isOpenLowerThanYestoday:(NSArray *) array {
+    if (array.count < 2) {
+        return NO;
+    }
     NSDictionary *dicYestoday = array[1];
     NSDictionary *dicToday = array[0];
     if ([dicToday[@"openp"] integerValue] < [dicYestoday[@"lowv"] integerValue] && [dicToday[@"nowv"] integerValue] > [dicToday[@"preclose"] integerValue]) {

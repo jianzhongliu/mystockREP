@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SortStockValueViewController : UIViewController
+@interface TodayDownRateListViewController : UIViewController
 
 @end

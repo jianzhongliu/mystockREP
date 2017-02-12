@@ -69,13 +69,13 @@
             return;
         }
         [blockSelf.arrayLines addObject:@{@"response":response.content,@"identify":identify}];
-//        [blockSelf.arrayResult addObject:response.content];
+        [blockSelf.arrayResult addObject:response.content];
         
-        if ([[response.content objectForKey:@"timedata"] count] > 0 && [[[[response.content objectForKey:@"timedata"] objectAtIndex:0] objectForKey:@"times"] containsString:[self getcurrentTime]]) {
-            [blockSelf.arrayResult addObject:response.content];
-        } else  {
-            NSLog(@"767381290%@",response.content);
-        }
+//        if ([[response.content objectForKey:@"timedata"] count] > 0 && [[[[response.content objectForKey:@"timedata"] objectAtIndex:0] objectForKey:@"times"] containsString:[self getcurrentTime]]) {
+//            [blockSelf.arrayResult addObject:response.content];
+//        } else  {
+//            NSLog(@"767381290%@",response.content);
+//        }
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"currentRequestData" object:nil];
         
@@ -126,9 +126,7 @@
 - (void)localisationData {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"结束了" message:@"全部请求完成" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alert show];
-//    [commond setUserDefaults:self.arrayLines forKey:@"lines"];
     [[DBManager share] insertIntoDBWith:self.arrayLines Key:@"lines"];
-//    [commond setUserDefaults:self.arrayResult forKey:@"sourceData"];
     [[DBManager share] insertIntoDBWith:self.arrayResult Key:@"sourceData"];
 
     [self.arrayLines removeAllObjects];

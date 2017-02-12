@@ -39,6 +39,10 @@
 - (NSArray *)getDownMore;
 /**涨幅排序*/
 - (NSArray *)getUPMore;
+/**今日涨幅排序*/
+- (NSArray *)getTodayRaiseRate;
+/**今日跌幅排序*/
+- (NSArray *)getTodayDownRate;
 /**价格排序*/
 - (NSArray *)getPriceOrder;
 /**地量绿*/

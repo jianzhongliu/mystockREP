@@ -7,7 +7,7 @@
 //
 
 #import "DBManager.h"
-#import "NSArray+TYAFNetworking.h"
+#import "NSDictionary+TYAFNetworking.h"
 #import "commond.h"
 
 @implementation DBManager
@@ -75,13 +75,32 @@
     [self openDB];
     NSString *sql = @"CREATE TABLE IF NOT EXISTS stock(content varchar, key varchar);";
     [self.db executeUpdate:sql];
-    for (NSArray *array in lines) {
-        NSString *stringLine = [array TY_jsonString];
-        NSString *sql = @"INSERT INTO stock(content,key) VALUES(?,?)";
-        if (![self.db executeUpdate:sql, stringLine, key]) {
-            NSLog(@"数据处理失败");
-        }
+    
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    for (NSDictionary *dicStock in lines) {
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_group_async(group, queue, ^{
+            NSString *stringLine = [dicStock TY_jsonString];
+            NSString *sql = @"INSERT INTO stock(content,key) VALUES(?,?)";
+            if (![self.db executeUpdate:sql, stringLine, key]) {
+                NSLog(@"数据处理失败");
+            }
+            dispatch_semaphore_signal(semaphore);
+        });
     }
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+
+//    for (NSDictionary *dicStock in lines) {
+//        [self openDB];
+//        NSString *stringLine = [dicStock TY_jsonString];
+//        NSString *sql = @"INSERT INTO stock(content,key) VALUES(?,?)";
+//        if (![self.db executeUpdate:sql, stringLine, key]) {
+//            NSLog(@"数据处理失败");
+//        }
+//        [self closeDB];
+//    }
     [self closeDB];
 }
 

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JingzhunLineViewController : UIViewController
+@interface TodayRaiseRateListViewController : UIViewController
 
 @end

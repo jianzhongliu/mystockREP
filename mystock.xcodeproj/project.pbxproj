@@ -52,8 +52,8 @@
 		24BC31C31B6B56F80078FCE2 /* LowestListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31C21B6B56F80078FCE2 /* LowestListViewController.m */; };
 		24BC31C51B6B61470078FCE2 /* local002.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24BC31C41B6B61470078FCE2 /* local002.plist */; };
 		24BC31C81B6B6B6B0078FCE2 /* SortByDownRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */; };
-		24BC31CB1B6B6B6B0078FCE2 /* SortStockValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31CA1B6B6B6B0078FCE2 /* SortStockValueViewController.m */; };
-		24BC31CE1B6B6B6B0078FCE2 /* JingzhunLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */; };
+		24BC31CB1B6B6B6B0078FCE2 /* TodayRaiseRateListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31CA1B6B6B6B0078FCE2 /* TodayRaiseRateListViewController.m */; };
+		24BC31CE1B6B6B6B0078FCE2 /* TodayDownRateListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BC31CD1B6B6B6B0078FCE2 /* TodayDownRateListViewController.m */; };
 		24D0CAAB1BDD12AC005826B0 /* SortByUPRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0CAAA1BDD12AC005826B0 /* SortByUPRateViewController.m */; };
 		24D104CC1C96DD60009F0406 /* RquestTotalStockTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D104CB1C96DD60009F0406 /* RquestTotalStockTime.m */; };
 		24D54E081B54D1EC00AAE334 /* KLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D54E031B54D1EC00AAE334 /* KLineView.m */; };
@@ -220,10 +220,10 @@
 		24BC31C41B6B61470078FCE2 /* local002.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = local002.plist; sourceTree = "<group>"; };
 		24BC31C61B6B6B6B0078FCE2 /* SortByDownRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByDownRateViewController.h; sourceTree = "<group>"; };
 		24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByDownRateViewController.m; sourceTree = "<group>"; };
-		24BC31C91B6B6B6B0078FCE2 /* SortStockValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortStockValueViewController.h; sourceTree = "<group>"; };
-		24BC31CA1B6B6B6B0078FCE2 /* SortStockValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortStockValueViewController.m; sourceTree = "<group>"; };
-		24BC31CC1B6B6B6B0078FCE2 /* JingzhunLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JingzhunLineViewController.h; sourceTree = "<group>"; };
-		24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JingzhunLineViewController.m; sourceTree = "<group>"; };
+		24BC31C91B6B6B6B0078FCE2 /* TodayRaiseRateListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayRaiseRateListViewController.h; sourceTree = "<group>"; };
+		24BC31CA1B6B6B6B0078FCE2 /* TodayRaiseRateListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayRaiseRateListViewController.m; sourceTree = "<group>"; };
+		24BC31CC1B6B6B6B0078FCE2 /* TodayDownRateListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayDownRateListViewController.h; sourceTree = "<group>"; };
+		24BC31CD1B6B6B6B0078FCE2 /* TodayDownRateListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayDownRateListViewController.m; sourceTree = "<group>"; };
 		24D0CAA91BDD12AC005826B0 /* SortByUPRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByUPRateViewController.h; sourceTree = "<group>"; };
 		24D0CAAA1BDD12AC005826B0 /* SortByUPRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByUPRateViewController.m; sourceTree = "<group>"; };
 		24D104CA1C96DD60009F0406 /* RquestTotalStockTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RquestTotalStockTime.h; sourceTree = "<group>"; };
@@ -635,12 +635,12 @@
 				243755651B67661300085967 /* ZiJingViewController.m */,
 				2404F3981B872C0C00EAB5C3 /* MoneyListViewController.h */,
 				2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */,
-				24BC31CC1B6B6B6B0078FCE2 /* JingzhunLineViewController.h */,
-				24BC31CD1B6B6B6B0078FCE2 /* JingzhunLineViewController.m */,
+				24BC31CC1B6B6B6B0078FCE2 /* TodayDownRateListViewController.h */,
+				24BC31CD1B6B6B6B0078FCE2 /* TodayDownRateListViewController.m */,
+				24BC31C91B6B6B6B0078FCE2 /* TodayRaiseRateListViewController.h */,
+				24BC31CA1B6B6B6B0078FCE2 /* TodayRaiseRateListViewController.m */,
 				2471E5531C883F3000CFCF9D /* DownDayListViewController.h */,
 				2471E5541C883F3000CFCF9D /* DownDayListViewController.m */,
-				24BC31C91B6B6B6B0078FCE2 /* SortStockValueViewController.h */,
-				24BC31CA1B6B6B6B0078FCE2 /* SortStockValueViewController.m */,
 				24BC31C61B6B6B6B0078FCE2 /* SortByDownRateViewController.h */,
 				24BC31C71B6B6B6B0078FCE2 /* SortByDownRateViewController.m */,
 				24D0CAA91BDD12AC005826B0 /* SortByUPRateViewController.h */,
@@ -944,10 +944,10 @@
 				2467CA7C1B6A00EE0045904E /* NSArray+TYAFNetworking.m in Sources */,
 				242252301B5AA7C700B09FBA /* DoubleListViewController.m in Sources */,
 				94FA3679192A0DEB005C37A1 /* UIProgressView+AFNetworking.m in Sources */,
-				24BC31CE1B6B6B6B0078FCE2 /* JingzhunLineViewController.m in Sources */,
+				24BC31CE1B6B6B6B0078FCE2 /* TodayDownRateListViewController.m in Sources */,
 				94AFA456193A10E60046F002 /* PersistenceHelper.m in Sources */,
 				9406954F1929B6FD00BA2694 /* LeftViewController.m in Sources */,
-				24BC31CB1B6B6B6B0078FCE2 /* SortStockValueViewController.m in Sources */,
+				24BC31CB1B6B6B6B0078FCE2 /* TodayRaiseRateListViewController.m in Sources */,
 				94FA3676192A0DEB005C37A1 /* UIAlertView+AFNetworking.m in Sources */,
 				9406952619299DFA00BA2694 /* AppDelegate.m in Sources */,
 				2474F19D1BD29422007CA5B5 /* DoubleLowDoubleListViewController.m in Sources */,

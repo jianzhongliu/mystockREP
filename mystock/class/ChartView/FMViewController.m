@@ -101,7 +101,7 @@
     } else {
         lineview.dicStock = self.arrayStock[self.index];
     }
-    [self setTitle:[NSString stringWithFormat:@"%@%@",lineview.dicStock[@"stockname"], lineview.dicStock[@"stockcode"]]];
+    [self setTitle:[NSString stringWithFormat:@"%@%@_%ld",lineview.dicStock[@"stockname"], lineview.dicStock[@"stockcode"],self.index]];
 
     CGRect frame = self.view.frame;
     frame.origin = CGPointMake(0, 120);

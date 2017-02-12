@@ -6,26 +6,24 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "SortStockValueViewController.h"
-#import "RquestTotalStock.h"
+#import "TodayRaiseRateListViewController.h"
 #import "CaculationFunction.h"
+#import "RquestTotalStock.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
 
-@interface SortStockValueViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface TodayRaiseRateListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
-@property (nonatomic, strong) NSMutableArray *arrayShen;//深市A股
-@property (nonatomic, strong) NSMutableArray *arrayDouble;//倍量柱
-@property (nonatomic, strong) UISearchBar *searchBar;
+
+@property (nonatomic, strong) NSMutableArray *arrayLow;//地量柱
 
 @property (nonatomic, assign) NSInteger index;
 
 @end
 
-@implementation SortStockValueViewController
+@implementation TodayRaiseRateListViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -39,13 +37,6 @@
     return _tableView;
 }
 
-- (UISearchBar *)searchBar {
-    if (_searchBar == nil) {
-        _searchBar = [[UISearchBar alloc] init];
-        _searchBar.delegate = self;
-    }
-    return _searchBar;
-}
 
 #pragma mark - lifeCycleMethods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -62,9 +53,9 @@
 
 - (void)initData {
     self.index = 0;
-    self.arrayShang = [NSMutableArray array];
-    self.arrayShen = [NSMutableArray array];
-    self.arrayDouble = [NSMutableArray array];
+    //    [colorModel getStockCodeInfo];
+    self.arrayLow = [NSMutableArray arrayWithArray:[[CaculationFunction share] getTodayRaiseRate]];
+    
 }
 
 - (void)initUI {
@@ -75,40 +66,18 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"价格排序";
+    titleLabel.text = [NSString stringWithFormat:@"今日上涨排序%ld",self.arrayLow.count];
     self.navigationItem.titleView = titleLabel;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
-
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
-    self.searchBar.frame = CGRectMake(0, 0, 320, 45);
-    self.tableView.tableHeaderView = self.searchBar;
-}
-
-- (void)requestDataWithIndex:(NSInteger) index {
-    if (index > self.arrayDouble.count) {
-        return;
-    }
-    NSMutableArray *arrayDoubleStock = [NSMutableArray array];
-    [arrayDoubleStock addObjectsFromArray:self.arrayShang];
-    [arrayDoubleStock addObjectsFromArray:self.arrayShen];
-    NSDictionary *code = [self.arrayShang objectAtIndex:index];
-    getData *data = [[getData alloc] init];
-    __weak typeof(self) blockSelf = self;
-    data.blockCallBack = ^{
-        [blockSelf requestDataWithIndex:blockSelf.index ++];
-        [MBProgressHUD hideHUDForView:blockSelf.view animated:YES];
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:blockSelf.view animated:YES];
-        hud.labelText = [NSString stringWithFormat:@"当前：%d",self.index ];
-        [hud hide:YES afterDelay:0.2];
-    };
-    NSString *url = [NSString stringWithFormat:@"http://hq.niuguwang.com/aquote/quotedata/KLine.ashx?ex=1&code=%@&type=5&count=300&packtype=0&version=2.0.5", code[@"innercode"]];
-    data = [data initWithUrl:url stock:self.arrayDouble[index]];
+    
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
@@ -117,7 +86,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.arrayDouble.count;
+    return self.arrayLow.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -138,7 +107,7 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = [NSString stringWithFormat:@"%@",self.arrayDouble[indexPath.row]];
+    NSString *stringTitle = [NSString stringWithFormat:@"%ld_%@ // %@ ///%@",indexPath.row, [[self.arrayLow[indexPath.row] objectForKey:@"sorceData"] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"storck"], [self.arrayLow[indexPath.row] objectForKey:@"rate"]];
     
     cell.textLabel.text = stringTitle;
     return cell;
@@ -147,20 +116,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    FMViewController *sDetailVC = [[FMViewController alloc] init];
-//    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
-//    [self.navigationController pushViewController:sDetailVC animated:YES];
-    
+    FMViewController *sDetailVC = [[FMViewController alloc] init];
+    //    sDetailVC.dicStock = [self.arrayLow[indexPath.row] objectForKey:@"sorceData"];
+    sDetailVC.arrayStock = [self getArrayData:self.arrayLow];
+    sDetailVC.index = indexPath.row;
+    [self.navigationController pushViewController:sDetailVC animated:YES];
 }
 
-- (void)scrollViewDidScroll:(nonnull UIScrollView *)scrollView {
-    [self.view endEditing:YES];
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] averageValue:searchBar.text]];
-    [self.arrayDouble removeAllObjects];
-    [self.arrayDouble addObjectsFromArray:arrayLocalStock];
-    [self.tableView reloadData];
+- (NSArray *)getArrayData:(NSArray *) array {
+    NSMutableArray *arrayResult = [NSMutableArray array];
+    for (NSDictionary *dic  in array) {
+        [arrayResult addObject:[dic objectForKey:@"sorceData"]];
+    }
+    return arrayResult;
 }
 @end

@@ -6,25 +6,24 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "JingzhunLineViewController.h"
-#import "RquestTotalStock.h"
+#import "TodayDownRateListViewController.h"
 #import "CaculationFunction.h"
+#import "RquestTotalStock.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
 
-@interface JingzhunLineViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TodayDownRateListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
-@property (nonatomic, strong) NSMutableArray *arrayShen;//深市A股
-@property (nonatomic, strong) NSMutableArray *arrayDouble;//倍量柱
+
+@property (nonatomic, strong) NSMutableArray *arrayLow;//地量柱
 
 @property (nonatomic, assign) NSInteger index;
 
 @end
 
-@implementation JingzhunLineViewController
+@implementation TodayDownRateListViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -54,13 +53,8 @@
 
 - (void)initData {
     self.index = 0;
-    self.arrayShang = [NSMutableArray array];
-    self.arrayShen = [NSMutableArray array];
-//    [colorModel getStockCodeInfo];
-//    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
-//    [self.arrayShen addObjectsFromArray:[colorModel getSA]];
-    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] jingzhunxian]];
-    self.arrayDouble = [NSMutableArray arrayWithArray:arrayLocalStock];
+    //    [colorModel getStockCodeInfo];
+    self.arrayLow = [NSMutableArray arrayWithArray:[[CaculationFunction share] getTodayDownRate]];
     
 }
 
@@ -72,8 +66,10 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"精准数据";
+    titleLabel.text = [NSString stringWithFormat:@"今日下跌排序%ld",self.arrayLow.count];
     self.navigationItem.titleView = titleLabel;
+    
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
     
 }
 
@@ -90,7 +86,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.arrayDouble.count;
+    return self.arrayLow.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -111,9 +107,8 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSString *stringTitle = [NSString stringWithFormat:@"%@   %@", [self.arrayDouble[indexPath.row] objectForKey:@"stockname"],[self.arrayDouble[indexPath.row] objectForKey:@"detail"]];
-    cell.textLabel.font = [UIFont systemFontOfSize:12];
-    cell.textLabel.textColor = [UIColor lightGrayColor];
+    NSString *stringTitle = [NSString stringWithFormat:@"%ld_%@ // %@ ///%@",indexPath.row, [[self.arrayLow[indexPath.row] objectForKey:@"sorceData"] objectForKey:@"stockname"], [self.arrayLow[indexPath.row] objectForKey:@"storck"], [self.arrayLow[indexPath.row] objectForKey:@"rate"]];
+    
     cell.textLabel.text = stringTitle;
     return cell;
 }
@@ -122,10 +117,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     FMViewController *sDetailVC = [[FMViewController alloc] init];
-    //    sDetailVC.dicStock = self.arrayLow[indexPath.row];
-    sDetailVC.arrayStock = self.arrayDouble;
+    //    sDetailVC.dicStock = [self.arrayLow[indexPath.row] objectForKey:@"sorceData"];
+    sDetailVC.arrayStock = [self getArrayData:self.arrayLow];
+    sDetailVC.index = indexPath.row;
     [self.navigationController pushViewController:sDetailVC animated:YES];
-    
 }
 
+- (NSArray *)getArrayData:(NSArray *) array {
+    NSMutableArray *arrayResult = [NSMutableArray array];
+    for (NSDictionary *dic  in array) {
+        [arrayResult addObject:[dic objectForKey:@"sorceData"]];
+    }
+    return arrayResult;
+}
 @end
