@@ -30,6 +30,7 @@
 
 @property (nonatomic, strong) UIButton *buttonExercises;
 @property (nonatomic, strong) UIButton *buttonNext;
+@property (nonatomic, strong) UIButton *buttonTimer;
 
 @property (nonatomic, strong) NSMutableDictionary *dicCurrentStock;
 @property (nonatomic, strong) NSMutableDictionary *dicSourceData;//选中的那个原始数据
@@ -52,7 +53,7 @@
 
 - (void)initData {
     self.arrayStock = [NSArray array];
-    self.arrayStock = [NSMutableArray arrayWithArray:[[DBManager share] fetchStockLocationWithKey:@"sourceData"]];
+    self.arrayStock = [[CaculationFunction share] arraySourceData];
     self.dicCurrentStock = [NSMutableDictionary dictionary];
     self.indector = 0;
     
@@ -205,8 +206,9 @@
 //做练习
 - (void)didDoExcersice {
     int stockIndex = (0 + (arc4random() % (self.arrayStock.count + 1)));//随机选择一只股票
-
+    NSLog(@"001当前随机数%d", stockIndex);
     if (stockIndex >= self.arrayStock.count) {
+        [self didDoExcersice];
         return;
     }
     self.dicSourceData = self.arrayStock[stockIndex];
@@ -216,6 +218,7 @@
     if (dayIndex >= [[self.dicCurrentStock objectForKey:@"timedata"] count] ) {
         return;
     }
+    NSLog(@"002当前随机数%d",dayIndex);
     if ([CaculationFunction share].isDowble == YES) {
         if (NO == [self isDouble]) {
             [self didDoExcersice];
@@ -231,13 +234,17 @@
             [self didDoExcersice];
             return;
         }
-    } else {
+    } else if ([CaculationFunction share].isLow == YES) {
         if (NO == [self isLow]) {
             [self didDoExcersice];
             return;
         }
+    } else if([CaculationFunction share].isNomal == YES){
+        self.indector = [[self.dicCurrentStock objectForKey:@"timedata"] count] - (0 + (arc4random() % (100)));
+        if (self.indector < 0) {
+            self.indector = 0;
+        }
     }
-    
 
     NSMutableArray *arraySoureData = [NSMutableArray array];
     [arraySoureData addObjectsFromArray:[self.dicCurrentStock objectForKey:@"timedata"]];
@@ -315,6 +322,22 @@
         _buttonNext.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     }
     return _buttonNext;
+    
+}
+
+- (UIButton *)buttonTimer {
+    if (_buttonTimer == nil) {
+        _buttonTimer = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        [_buttonTimer setImage:[UIImage imageNamed:@"icon"] forState:UIControlStateNormal];
+        [_buttonTimer setImage:[UIImage imageNamed:@"icon"] forState:UIControlStateHighlighted];
+        [_buttonTimer addTarget:self action:@selector(didNext) forControlEvents:UIControlEventTouchUpInside];
+        _buttonTimer.selected = NO;
+        _buttonTimer.backgroundColor = [UIColor redColor];
+        [_buttonTimer setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _buttonTimer.titleLabel.font = [UIFont systemFontOfSize:13];
+        _buttonTimer.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    }
+    return _buttonTimer;
     
 }
 

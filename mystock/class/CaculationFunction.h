@@ -22,9 +22,13 @@
 @interface CaculationFunction : NSObject
 
 @property (nonatomic, assign) NSInteger lowDay;//低量柱计算天数，默认是20天
+@property (nonatomic, assign) NSInteger lowRate;//下跌点位
+
 @property (nonatomic, assign) BOOL isDowble;//是否是倍量
 @property (nonatomic, assign) BOOL isUpStop;//是否是涨停
 @property (nonatomic, assign) BOOL isDownStop;//是否是跌停
+@property (nonatomic, assign) BOOL isNomal;//50天后
+@property (nonatomic, assign) BOOL isLow;//地量
 
 @property (nonatomic, strong) NSMutableArray *arraySourceData;//元数据
 @property (nonatomic, strong) NSMutableArray *arrayDouble;//倍

@@ -96,24 +96,44 @@
     buttonDouble.frame = CGRectMake(190, 300, 80, 40);
     [self.view addSubview:buttonDouble];
     
+    UIButton *buttonNomal = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonNomal setTitle:@"50天后" forState:UIControlStateNormal];
+    [buttonNomal setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [buttonNomal addTarget:self action:@selector(setNomalKline) forControlEvents:UIControlEventTouchUpInside];
+    buttonNomal.titleLabel.font = [UIFont systemFontOfSize:12];
+    buttonNomal.backgroundColor = [UIColor blueColor];
+    buttonNomal.frame = CGRectMake(190, 400, 80, 40);
+    [self.view addSubview:buttonNomal];
+    [CaculationFunction share].isLow = YES;
 }
 
 - (void)setDownStop {
     [CaculationFunction share].isDownStop = YES;
     [CaculationFunction share].isDowble = NO;
     [CaculationFunction share].isUpStop = NO;
+    [CaculationFunction share].isLow = NO;
 }
 
 - (void)setUpStop {
     [CaculationFunction share].isUpStop = YES;
     [CaculationFunction share].isDownStop = NO;
     [CaculationFunction share].isDowble = NO;
+    [CaculationFunction share].isLow = NO;
 }
 
 - (void)setDoubleKline {
      [CaculationFunction share].isDowble = YES;
     [CaculationFunction share].isUpStop = NO;
     [CaculationFunction share].isDownStop = NO;
+    [CaculationFunction share].isLow = NO;
+}
+
+- (void)setNomalKline {
+    [CaculationFunction share].isDowble = NO;
+    [CaculationFunction share].isUpStop = NO;
+    [CaculationFunction share].isDownStop = NO;
+    [CaculationFunction share].isNomal = YES;
+    [CaculationFunction share].isLow = NO;
 }
 
 - (void)showTimeStock {
@@ -127,7 +147,7 @@
 }
 
 - (void)selectDays {
-    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"提示" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"100",@"70",@"50",@"40",@"30",@"20",@"10",@"5", nil];
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"提示" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"100-9",@"70-8",@"50-7",@"40-6",@"30-5",@"20-4",@"10-3",@"5-2", nil];
     [action showInView:self.view];
 }
 
@@ -219,41 +239,56 @@
         case 0:
         {
             [CaculationFunction share].lowDay = 100;
+            [CaculationFunction share].lowRate = 9;
         }
             break;
         case 1:
         {
             [CaculationFunction share].lowDay = 70;
+            [CaculationFunction share].lowRate = 8;
+
         }
             break;
         case 2:
         {
             [CaculationFunction share].lowDay = 50;
+            [CaculationFunction share].lowRate = 7;
+
         }
             break;
         case 3:
         {
             [CaculationFunction share].lowDay = 40;
+            [CaculationFunction share].lowRate = 6;
+
         }
             break;
         case 4:
         {
             [CaculationFunction share].lowDay = 30;
+            [CaculationFunction share].lowRate = 5;
+
         }
             break;
         case 5:
         {
             [CaculationFunction share].lowDay = 20;
+            [CaculationFunction share].lowRate = 4;
+
         }
             break;
         case 6:
         {
             [CaculationFunction share].lowDay = 10;
+            [CaculationFunction share].lowRate = 3;
+
         }
             break;
         case 7:
         {
             [CaculationFunction share].lowDay = 5;
+            [CaculationFunction share].lowRate = 2;
+
         }
             break;
         default:

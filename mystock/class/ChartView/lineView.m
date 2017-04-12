@@ -211,11 +211,15 @@
     self.labelLow.frame = CGRectMake(10 +100, labelY+40, 80, 25);
     self.labelLow.text = @"最低:==";
     
+    self.labelRate.frame = CGRectMake(10+100, labelY+70, 80, 25);
+    self.labelRate.text = @"下跌：==";
+    
     [mainboxView addSubview:self.labelOpen];
     [mainboxView addSubview:self.labelClose];
     [mainboxView addSubview:self.labelLastClose];
     [mainboxView addSubview:self.labelTop];
     [mainboxView addSubview:self.labelLow];
+    [mainboxView addSubview:self.labelRate];
     
     // 显示成交量最大值
     if (volMaxValueLab==nil) {
@@ -309,6 +313,19 @@
     
     if (_finishUpdateBlock && isPinch) {
         _finishUpdateBlock(self);
+    }
+    if ([self.dicStock[@"timedata"] count] < 1) {
+        return;
+    }
+    self.labelOpen.text = [NSString stringWithFormat:@"今开：%.2f", fabsf([self.dicStock[@"timedata"][0][@"openp"] floatValue]/100)];
+    self.labelTop.text = [NSString stringWithFormat:@"最高：%.2f", fabsf([self.dicStock[@"timedata"][0][@"highp"] floatValue]/100)];
+    self.labelLow.text = [NSString stringWithFormat:@"最低：%.2f", fabsf([self.dicStock[@"timedata"][0][@"lowp"] floatValue]/100)];
+    self.labelClose.text = [NSString stringWithFormat:@"今收：%.2f", fabsf([self.dicStock[@"timedata"][0][@"nowv"] floatValue]/100)];
+    self.labelLastClose.text = [NSString stringWithFormat:@"作收：%.2f",fabsf([self.dicStock[@"timedata"][0][@"preclose"] floatValue]/100)];
+    if (fabsf([self.dicStock[@"timedata"][0][@"preclose"] floatValue]) > fabsf([self.dicStock[@"timedata"][0][@"nowv"] floatValue])) {
+        self.labelRate.text = [NSString stringWithFormat:@"下跌：%.2f%@", (fabsf([self.dicStock[@"timedata"][0][@"preclose"] floatValue]) - fabsf([self.dicStock[@"timedata"][0][@"nowv"] floatValue]))/fabsf([self.dicStock[@"timedata"][0][@"preclose"] floatValue])*100,@"%"];
+    } else {
+        self.labelRate.text = [NSString stringWithFormat:@"上涨：%.2f%@", (fabsf([self.dicStock[@"timedata"][0][@"nowv"] floatValue]) - fabsf([self.dicStock[@"timedata"][0][@"preclose"] floatValue]))/fabsf([self.dicStock[@"timedata"][0][@"preclose"] floatValue])*100,@"%"];
     }
     isUpdateFinish = YES;
     // 结束线程
@@ -788,6 +805,17 @@
         _labelLow.font = [UIFont systemFontOfSize:13];
     }
     return _labelLow;
+}
+
+- (UILabel *)labelRate {
+    if (_labelRate == nil) {
+        _labelRate = [[UILabel alloc] init];
+        _labelRate.numberOfLines = 0;
+        _labelRate.lineBreakMode = NSLineBreakByCharWrapping;
+        _labelRate.textColor = [UIColor whiteColor];
+        _labelRate.font = [UIFont systemFontOfSize:13];
+    }
+    return _labelRate;
 }
 
 - (UILabel *)labelTop {

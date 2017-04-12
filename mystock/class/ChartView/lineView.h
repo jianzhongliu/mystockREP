@@ -35,6 +35,8 @@ typedef void(^updateBlock)(id);
 @property (nonatomic, strong) UILabel *labelLastClose;
 @property (nonatomic, strong) UILabel *labelTop;
 @property (nonatomic, strong) UILabel *labelLow;
+@property (nonatomic, strong) UILabel *labelRate;
+
 
 -(void)start;
 -(void)update;

@@ -14,7 +14,7 @@
 
 @implementation CaculationFunction
 + (void)load {
-    [CaculationFunction share].lowDay = 20;
+//    [CaculationFunction share].lowDay = 20;
     
 //    NSArray *arrayNumber = [NSMutableArray arrayWithArray:[[DBManager share] fetchStockLocationWithKey:@"sourceData"]];
 //
@@ -54,6 +54,8 @@
     dispatch_once(&onceToken, ^{
         if (caculat == nil) {
             caculat = [[CaculationFunction alloc] init];
+            caculat.lowDay = 20;
+            caculat.lowRate = 9;
         }
     });
     return caculat;
@@ -84,8 +86,8 @@
     for (int i = 0; i < self.arraySourceData.count; i++) {
         NSDictionary *dic = self.arraySourceData[i];
         NSArray *arrayOneStock = dic[@"timedata"];
-        if (arrayOneStock.count > 10) {
-            arrayOneStock = [arrayOneStock subarrayWithRange:NSMakeRange(0, 10)];
+        if (arrayOneStock.count > 20) {
+            arrayOneStock = [arrayOneStock subarrayWithRange:NSMakeRange(0, 20)];
         }
         if (arrayOneStock.count > 0) {
             NSInteger lowPrice = [[arrayOneStock[0] objectForKey:@"lowp"] integerValue];

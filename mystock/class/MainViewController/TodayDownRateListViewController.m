@@ -69,10 +69,18 @@
     titleLabel.text = [NSString stringWithFormat:@"今日下跌排序%ld",self.arrayLow.count];
     self.navigationItem.titleView = titleLabel;
     
-    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
     
 }
-
+- (void)showDoubleStock {
+    NSMutableArray *arraySort = [NSMutableArray array];
+    for (id obj in self.arrayLow) {
+        [arraySort addObject:obj];
+    }
+    [self.arrayLow removeAllObjects];
+    [self.arrayLow addObjectsFromArray:arraySort];
+    [self.tableView reloadData];
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.frame = self.view.bounds;

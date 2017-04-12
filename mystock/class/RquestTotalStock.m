@@ -69,10 +69,10 @@
             return;
         }
         [blockSelf.arrayLines addObject:@{@"response":response.content,@"identify":identify}];
-        [blockSelf.arrayResult addObject:response.content];
+//        [blockSelf.arrayResult addObject:response.content];
         
 //        if ([[response.content objectForKey:@"timedata"] count] > 0 && [[[[response.content objectForKey:@"timedata"] objectAtIndex:0] objectForKey:@"times"] containsString:[self getcurrentTime]]) {
-//            [blockSelf.arrayResult addObject:response.content];
+            [blockSelf.arrayResult addObject:response.content];
 //        } else  {
 //            NSLog(@"767381290%@",response.content);
 //        }
