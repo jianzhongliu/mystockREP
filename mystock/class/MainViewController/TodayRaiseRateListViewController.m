@@ -75,8 +75,8 @@
 
 - (void)showDoubleStock {
     NSMutableArray *arraySort = [NSMutableArray array];
-    for (id obj in self.arrayLow) {
-        [arraySort addObject:obj];
+    for (NSInteger index=self.arrayLow.count - 1; index >= 0;index--) {
+        [arraySort addObject:self.arrayLow[index]];
     }
     [self.arrayLow removeAllObjects];
     [self.arrayLow addObjectsFromArray:arraySort];

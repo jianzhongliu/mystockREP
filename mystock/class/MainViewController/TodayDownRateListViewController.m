@@ -72,15 +72,17 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
     
 }
+
 - (void)showDoubleStock {
     NSMutableArray *arraySort = [NSMutableArray array];
-    for (id obj in self.arrayLow) {
-        [arraySort addObject:obj];
+    for (NSInteger index=self.arrayLow.count - 1; index >= 0;index--) {
+        [arraySort addObject:self.arrayLow[index]];
     }
     [self.arrayLow removeAllObjects];
     [self.arrayLow addObjectsFromArray:arraySort];
     [self.tableView reloadData];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.frame = self.view.bounds;
