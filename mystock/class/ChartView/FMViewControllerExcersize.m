@@ -12,6 +12,7 @@
 #import "lineView.h"
 #import "UIColor+helper.h"
 #import "DBManager.h"
+#import "commond.h"
 
 @interface FMViewControllerExcersize ()
 {
@@ -114,6 +115,8 @@
     [btnSmall addTarget:self action:@selector(kSmallLine) forControlEvents:UIControlEventTouchUpInside];
     [self setButtonAttr:btnSmall];
     [self.view addSubview:btnSmall];
+    
+
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"#111111" withAlpha:1];
 

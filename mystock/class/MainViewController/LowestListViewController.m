@@ -69,7 +69,6 @@
     titleLabel.text = [NSString stringWithFormat:@"地量柱%d",(int)self.arrayLow.count];
     self.navigationItem.titleView = titleLabel;
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
 
 }
 

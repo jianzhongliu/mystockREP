@@ -9,6 +9,7 @@
 #import "FMViewController.h"
 #import "lineView.h"
 #import "UIColor+helper.h"
+#import "commond.h"
 
 @interface FMViewController ()
 {
@@ -78,9 +79,26 @@
     [self setButtonAttr:btnSmall];
     [self.view addSubview:btnSmall];
     
+    UIButton *btnSave = [[UIButton alloc] initWithFrame:CGRectMake(80, self.view.frame.size.height - 60, 40, 40)];
+    [btnSave setTitle:@"保存" forState:UIControlStateNormal];
+    [btnSave addTarget:self action:@selector(saveStock) forControlEvents:UIControlEventTouchUpInside];
+    [self setButtonAttr:btnSave];
+    [self.view addSubview:btnSave];
+    
     self.view.backgroundColor = [UIColor colorWithHexString:@"#111111" withAlpha:1];
 
     [self reloadView];
+}
+
+- (void)saveStock {
+    NSArray *arrayLocal = [commond getUserDefaults:@"localStock"];
+    NSMutableArray *arrayNew = [NSMutableArray array];
+    [arrayNew addObjectsFromArray:arrayLocal];
+    if ([arrayNew containsObject:lineview.dicStock[@"stockcode"]]) {
+        return;
+    }
+    [arrayNew addObject:lineview.dicStock[@"stockcode"]==nil?@"":lineview.dicStock[@"stockcode"]];
+    [commond setUserDefaults:arrayNew forKey:@"localStock"];
 }
 
 - (void)showDoubleStock {

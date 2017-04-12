@@ -56,12 +56,24 @@
     self.index = 0;
     self.arrayShang = [NSMutableArray array];
     self.arrayShen = [NSMutableArray array];
-//    [colorModel getStockCodeInfo];
-//    [self.arrayShang addObjectsFromArray:[colorModel getStockCodeInfo600]];
-//    [self.arrayShen addObjectsFromArray:[colorModel getSA]];
-    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] getMoneyListOrderByNumber]];
-    self.arrayDouble = [NSMutableArray arrayWithArray:arrayLocalStock];
+    self.arrayDouble = [NSMutableArray array];
     
+    NSMutableArray *arrayLocalStock = [NSMutableArray arrayWithArray:[[CaculationFunction share] arraySourceData]];
+    NSArray *arrayLocal =  [commond getUserDefaults:@"localStock"];
+    for (NSString *localStockCode in arrayLocal) {
+        for (NSDictionary *dic in arrayLocalStock) {
+            if ([localStockCode isKindOfClass:[NSString class]] && [localStockCode isEqualToString:dic[@"stockcode"]]) {
+                [self.arrayDouble addObject:dic];
+            }
+        }
+    }
+    [self.tableView reloadData];
+}
+
+- (void)deleteLocalStock {
+    [commond setUserDefaults:@[] forKey:@"localStock"];
+    [self.arrayDouble removeAllObjects];
+    [self.tableView reloadData];
 }
 
 - (void)initUI {
@@ -72,9 +84,9 @@
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.text = @"资金流比例";
+    titleLabel.text = @"猜测";
     self.navigationItem.titleView = titleLabel;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showDoubleStock)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(deleteLocalStock)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -82,11 +94,6 @@
     self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
     
-}
-
-- (void) showDoubleStock{
-    [[RquestTotalStock share] startLoadingMoney];//请求资金对比
-
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
@@ -116,21 +123,19 @@
         
         cell.textLabel.textColor = [UIColor whiteColor];
     }
-    NSArray *arrayTemp = self.arrayDouble[indexPath.row];
-    CGFloat rate = ([arrayTemp[1] floatValue] + [arrayTemp[2] floatValue])/([arrayTemp[1] floatValue] + [arrayTemp[2] floatValue] + [arrayTemp[5] floatValue] + [arrayTemp[6] floatValue]);
-    NSString *stringTitle = [NSString stringWithFormat:@"%@   %@===rate:%.3f", arrayTemp[0], arrayTemp[12], rate];
-    cell.textLabel.font = [UIFont systemFontOfSize:12];
-    cell.textLabel.textColor = [UIColor lightGrayColor];
+    NSString *stringTitle = [NSString stringWithFormat:@"%@ // %@", [self.arrayDouble[indexPath.row] objectForKey:@"stockname"], [self.arrayDouble[indexPath.row] objectForKey:@"stockcode"] ];
+    
     cell.textLabel.text = stringTitle;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-//    FMViewController *sDetailVC = [[FMViewController alloc] init];
-//    sDetailVC.dicStock = self.arrayDouble[indexPath.row];
-//    [self.navigationController pushViewController:sDetailVC animated:YES];
+    FMViewController *sDetailVC = [[FMViewController alloc] init];
+    //    sDetailVC.dicStock = self.arrayLow[indexPath.row];
+    sDetailVC.arrayStock = self.arrayDouble;
+    sDetailVC.index = indexPath.row;
+    [self.navigationController pushViewController:sDetailVC animated:YES];
     
 }
 

@@ -132,7 +132,7 @@
         }
             break;
         case 6:{
-            cell.textLabel.text = @"装散对比";
+            cell.textLabel.text = @"猜测";
         }
             break;
         case 7:{
