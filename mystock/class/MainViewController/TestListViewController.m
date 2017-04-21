@@ -6,14 +6,14 @@
 //  Copyright (c) 2015年 Ryan. All rights reserved.
 //
 
-#import "MoneyListViewController.h"
+#import "TestListViewController.h"
 #import "RquestTotalStock.h"
 #import "CaculationFunction.h"
 #import "colorModel.h"
 #import "getData.h"
 #import "commond.h"
 
-@interface MoneyListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TestListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrayShang;//沪市A股
@@ -21,10 +21,11 @@
 @property (nonatomic, strong) NSMutableArray *arrayDouble;//倍量柱
 
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) UILabel *labelTotal;
 
 @end
 
-@implementation MoneyListViewController
+@implementation TestListViewController
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -38,6 +39,19 @@
     return _tableView;
 }
 
+
+- (UILabel *)labelTotal {
+    if (_labelTotal == nil) {
+        _labelTotal = [[UILabel alloc] init];
+        _labelTotal.numberOfLines = 0;
+        _labelTotal.lineBreakMode = NSLineBreakByCharWrapping;
+        _labelTotal.textAlignment = NSTextAlignmentLeft;
+        _labelTotal.font = [UIFont systemFontOfSize:14];
+        _labelTotal.text = @"";
+        _labelTotal.textColor = [UIColor whiteColor];
+    }
+    return _labelTotal;
+}
 
 #pragma mark - lifeCycleMethods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -87,14 +101,33 @@
     titleLabel.text = @"猜测";
     self.navigationItem.titleView = titleLabel;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(deleteLocalStock)];
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.labelTotal];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.frame = self.view.bounds;
-    [self.view addSubview:self.tableView];
-    
+    self.tableView.frame = CGRectMake(0,40,self.view.bounds.size.width,self.view.bounds.size.height-40);
+    self.labelTotal.frame = CGRectMake(0,64,self.tableView.frame.size.width,40);
+    [self caculateRate];
 }
+
+- (void)caculateRate {
+    NSInteger raise = 0;
+    NSInteger down = 0;
+    for (NSDictionary *dicStock in self.arrayDouble) {
+        NSArray *arrayStock = dicStock[@"timedata"];
+        if (arrayStock.count > 2) {
+            if ([arrayStock[0][@"nowv"] doubleValue] > [arrayStock[0][@"preclose"] doubleValue]) {
+                raise ++;
+            } else {
+                down ++;
+            }
+        }
+    }
+    self.labelTotal.text = [NSString stringWithFormat:@"总数：%ld   上:%ld   下：%ld  成功率：%.3f%@",(raise+down),raise,down,(raise/(raise+down +0.000001))*100,@"%"];
+}
+
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

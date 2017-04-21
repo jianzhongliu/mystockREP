@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2404F3911B82F1FE00EAB5C3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2404F3901B82F1FE00EAB5C3 /* DBManager.m */; };
-		2404F39A1B872C0C00EAB5C3 /* MoneyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */; };
+		2404F39A1B872C0C00EAB5C3 /* TestListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2404F3991B872C0C00EAB5C3 /* TestListViewController.m */; };
 		240B1F071B68F572000E48DD /* locationStock.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 240B1F061B68F572000E48DD /* locationStock.sqlite */; };
 		241D3AA51BAFB53900D71EF9 /* StopStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241D3AA41BAFB53900D71EF9 /* StopStockViewController.m */; };
 		24202D0F1B6B8EF90048E4F1 /* StopRaseStockListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24202D0E1B6B8EF90048E4F1 /* StopRaseStockListViewController.m */; };
@@ -136,8 +136,8 @@
 /* Begin PBXFileReference section */
 		2404F38F1B82F1FE00EAB5C3 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		2404F3901B82F1FE00EAB5C3 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
-		2404F3981B872C0C00EAB5C3 /* MoneyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyListViewController.h; sourceTree = "<group>"; };
-		2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyListViewController.m; sourceTree = "<group>"; };
+		2404F3981B872C0C00EAB5C3 /* TestListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestListViewController.h; sourceTree = "<group>"; };
+		2404F3991B872C0C00EAB5C3 /* TestListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestListViewController.m; sourceTree = "<group>"; };
 		240B1F061B68F572000E48DD /* locationStock.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = locationStock.sqlite; sourceTree = "<group>"; };
 		241D3AA31BAFB53900D71EF9 /* StopStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopStockViewController.h; sourceTree = "<group>"; };
 		241D3AA41BAFB53900D71EF9 /* StopStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopStockViewController.m; sourceTree = "<group>"; };
@@ -633,8 +633,8 @@
 				241D3AA41BAFB53900D71EF9 /* StopStockViewController.m */,
 				243755641B67661300085967 /* ZiJingViewController.h */,
 				243755651B67661300085967 /* ZiJingViewController.m */,
-				2404F3981B872C0C00EAB5C3 /* MoneyListViewController.h */,
-				2404F3991B872C0C00EAB5C3 /* MoneyListViewController.m */,
+				2404F3981B872C0C00EAB5C3 /* TestListViewController.h */,
+				2404F3991B872C0C00EAB5C3 /* TestListViewController.m */,
 				24BC31CC1B6B6B6B0078FCE2 /* TodayDownRateListViewController.h */,
 				24BC31CD1B6B6B6B0078FCE2 /* TodayDownRateListViewController.m */,
 				24BC31C91B6B6B6B0078FCE2 /* TodayRaiseRateListViewController.h */,
@@ -969,7 +969,7 @@
 				94FA366F192A0DEB005C37A1 /* AFSecurityPolicy.m in Sources */,
 				2467CA7E1B6A00EE0045904E /* NSURLRequest+TYAFNetworking.m in Sources */,
 				94DD72D2193AE29C00CFFF1B /* MBProgressHUD.m in Sources */,
-				2404F39A1B872C0C00EAB5C3 /* MoneyListViewController.m in Sources */,
+				2404F39A1B872C0C00EAB5C3 /* TestListViewController.m in Sources */,
 				2421AF001C821B3800B0C95C /* YKLineChartViewBase.m in Sources */,
 				94AFA463193A21510046F002 /* FMDatabase.m in Sources */,
 				94FA366B192A0DEB005C37A1 /* AFHTTPRequestOperation.m in Sources */,

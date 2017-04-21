@@ -86,8 +86,8 @@
     for (int i = 0; i < self.arraySourceData.count; i++) {
         NSDictionary *dic = self.arraySourceData[i];
         NSArray *arrayOneStock = dic[@"timedata"];
-        if (arrayOneStock.count > 20) {
-            arrayOneStock = [arrayOneStock subarrayWithRange:NSMakeRange(0, 20)];
+        if (arrayOneStock.count > 30) {
+            arrayOneStock = [arrayOneStock subarrayWithRange:NSMakeRange(0, 30)];
         }
         if (arrayOneStock.count > 0) {
             NSInteger lowPrice = [[arrayOneStock[0] objectForKey:@"lowp"] integerValue];

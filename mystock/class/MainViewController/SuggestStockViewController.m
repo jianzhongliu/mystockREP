@@ -13,7 +13,7 @@
 #import "SortByDownRateViewController.h"
 #import "TodayRaiseRateListViewController.h"
 #import "TodayDownRateListViewController.h"
-#import "MoneyListViewController.h"
+#import "TestListViewController.h"
 #import "DownToRaiseListViewController.h"
 #import "ZiJingViewController.h"
 #import "StopStockViewController.h"
@@ -217,7 +217,7 @@
         }
             break;
         case 6:{
-            MoneyListViewController *controller = [[MoneyListViewController alloc] init];
+            TestListViewController *controller = [[TestListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MoneyListViewController : UIViewController
+@interface TestListViewController : UIViewController
 
 @end
